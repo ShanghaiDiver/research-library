@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Thesis — Apple Inc (AAPL)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root{
+    --paper:#FBFAF7; --ink:#1C1B17; --soft:#55534B; --faint:#86847B;
+    --line:#E6E2D7; --teal:#0F6E56; --tealsoft:#5DCAA5; --blue:#185FA5;
+    --red:#A32D2D; --amber:#9A6410; --chip:#F1EEE5;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-size:18px;line-height:1.65;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:48px 28px 80px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--faint)}
+  h1{font-family:"Fraunces",serif;font-weight:600;font-size:46px;line-height:1.02;
+    margin:.2em 0 .1em;letter-spacing:-.01em}
+  h2{font-family:"Fraunces",serif;font-weight:600;font-size:24px;margin:0;letter-spacing:-.01em}
+  h3{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:13px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--teal);margin:0 0 6px}
+  p{margin:0 0 16px}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  .lede{font-size:21px;line-height:1.5;color:var(--ink);margin:18px 0 0}
+  .masthead{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:8px}
+  .tickerrow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .verdict-pill{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:500;
+    letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--amber);
+    padding:5px 12px;border-radius:3px;display:inline-block}
+  .heroval{display:flex;gap:0;flex-wrap:wrap;margin:26px 0 6px;border:1px solid var(--line);
+    border-radius:8px;overflow:hidden;background:#fff}
+  .heroval > div{flex:1 1 0;min-width:150px;padding:16px 18px;border-right:1px solid var(--line)}
+  .heroval > div:last-child{border-right:none}
+  .heroval .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  .heroval .v{font-family:"Fraunces",serif;font-size:30px;font-weight:600;line-height:1}
+  .heroval .v.warn{color:var(--red)}
+  .heroval .v.good{color:var(--teal)}
+  .heroval .sub{font-size:13px;color:var(--soft);margin-top:4px;font-family:"IBM Plex Mono",monospace}
+  section{margin-top:46px;padding-top:8px}
+  .secnum{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);
+    letter-spacing:.1em}
+  .sechead{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);
+    padding-bottom:10px;margin-bottom:18px}
+  table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;
+    font-size:13.5px;margin:8px 0 18px}
+  th,td{text-align:right;padding:7px 8px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{color:var(--faint);font-weight:500;border-bottom:1.5px solid var(--ink);
+    font-size:12px;letter-spacing:.04em}
+  tbody tr:last-child td{border-bottom:1.5px solid var(--ink)}
+  .chartbox{background:#fff;border:1px solid var(--line);border-radius:8px;
+    padding:18px 18px 14px;margin:6px 0 20px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;
+    font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft)}
+  .legend span{display:flex;align-items:center;gap:5px}
+  .sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+  .callout{border-left:3px solid var(--teal);background:#fff;border-radius:0 8px 8px 0;
+    padding:16px 20px;margin:6px 0 18px}
+  .callout.risk{border-left-color:var(--red)}
+  .callout.flag{border-left-color:var(--amber)}
+  .callout h3{color:inherit}
+  .verdict-box{border:2px solid var(--ink);border-radius:10px;padding:24px 26px;margin-top:10px;
+    background:#fff}
+  .verdict-box .vline{font-family:"Fraunces",serif;font-size:22px;font-weight:600;
+    line-height:1.25;margin-bottom:10px}
+  ul{margin:0 0 16px;padding-left:20px}
+  li{margin-bottom:7px}
+  .cal{font-family:"IBM Plex Mono",monospace;font-size:14px}
+  .cal div{display:flex;gap:14px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .cal .when{color:var(--teal);min-width:120px}
+  .foot{margin-top:54px;padding-top:16px;border-top:1px solid var(--line);
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.6}
+  a{color:var(--blue)}
+  @media(max-width:560px){h1{font-size:34px}.wrap{padding:32px 18px 60px}body{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="eyebrow">Investment thesis · test proxy</div>
+    <h1>Apple Inc</h1>
+    <div class="tickerrow">
+      <span class="mono" style="font-size:15px;color:var(--soft)">NASDAQ: AAPL · $298.01 · 18 Jun 2026</span>
+      <span class="verdict-pill">Verdict: Watch</span>
+    </div>
+    <p class="lede">A superb business at a demanding price. You pay $298 for shares a cash-flow valuation puts nearer $210. The gap is artificial intelligence the company has promised but not yet shipped, priced today as though it already had.</p>
+  </div>
+
+  <div class="heroval">
+    <div><div class="k">Price</div><div class="v">$298</div><div class="sub">36× earnings</div></div>
+    <div><div class="k">Intrinsic (DCF)</div><div class="v good">~$210</div><div class="sub">prob-weighted</div></div>
+    <div><div class="k">Avg analyst target</div><div class="v">$314</div><div class="sub">+5% · 48 analysts</div></div>
+    <div><div class="k">Margin of safety</div><div class="v warn">None</div><div class="sub">~30% above value</div></div>
+  </div>
+
+  <section>
+    <div class="sechead"><span class="secnum">01</span><h2>The business</h2></div>
+    <p>Apple is the most valuable company on the planet, and it got there selling roughly the same four things it sold a decade ago, only at higher prices and with a fast-growing toll booth attached. The hardware, iPhone above all, then Mac, iPad, Watch and AirPods, is the foundation. The Services layer sold into that installed base, the App Store, iCloud, payments, advertising, search licensing and subscriptions, is the profit engine bolted on top.</p>
+    <p>The moat is the installed base and the switching costs around it: hardware, software and services interlock, the brand carries genuine pricing power, and leaving is a chore most people never undertake. Two dependencies are worth naming. A large, very high-margin slice of Services is the fee Google pays to remain the default search engine on Apple devices, and that sits squarely in the path of antitrust remedies. And the company everyone says will be defined by the next decade of AI has chosen to outsource the frontier of it, leaning on a Google partnership to power the Siri overhaul rather than building the models itself.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">02</span><h2>Operating drivers</h2></div>
+    <p>Beneath the financials sit a handful of real drivers. Apple is still, fundamentally, an iPhone company: the phone is half of all revenue and grew only 4 percent in FY25. Services is the part that matters for the future, a quarter of revenue compounding in the mid-teens at roughly double the gross margin of hardware, which is why it punches well above its revenue share in profit. Everything else is a supporting act.</p>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="sw" style="background:#185FA5"></span>iPhone (the dependence)</span>
+        <span><span class="sw" style="background:#0F6E56"></span>Services (the engine)</span>
+        <span><span class="sw" style="background:#888780"></span>Mac / iPad / Wearables</span>
+      </div>
+      <div style="position:relative;width:100%;height:230px">
+        <canvas id="mix" role="img" aria-label="Apple FY2025 revenue by category. iPhone 209.6 billion dollars, Services 109.2, Wearables 35.7, Mac 33.7, iPad 28.0.">FY25 revenue: iPhone $209.6bn, Services $109.2bn, Wearables $35.7bn, Mac $33.7bn, iPad $28.0bn.</canvas>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>FY2025 category</th><th>Revenue ($bn)</th><th>Share</th><th>YoY</th></tr></thead>
+      <tbody>
+        <tr><td>iPhone</td><td>209.6</td><td>50%</td><td>+4.2%</td></tr>
+        <tr><td>Services</td><td>109.2</td><td>26%</td><td>+13.5%</td></tr>
+        <tr><td>Wearables, Home & Accessories</td><td>35.7</td><td>9%</td><td>−3.6%</td></tr>
+        <tr><td>Mac</td><td>33.7</td><td>8%</td><td>+12.4%</td></tr>
+        <tr><td>iPad</td><td>28.0</td><td>7%</td><td>+5.0%</td></tr>
+      </tbody>
+    </table>
+    <p>Geographically the concentration is in the Americas (43 percent of sales) and Europe (27 percent). Greater China, long the swing factor, is 15.5 percent and shrinking, down again in FY25 on weaker iPhone sales and propped up partly by government subsidies. Japan (7 percent) and the rest of Asia Pacific (8 percent) are growing double digits but are too small to offset a China stumble.</p>
+    <div class="callout flag"><h3>A KPI caveat worth knowing</h3><p style="margin:0">Apple stopped reporting unit volumes in 2018, so there are no iPhone units or average selling prices to track; you see revenue by category and geography, the products-versus-services margin split, and an installed base Apple now describes only qualitatively. That base hit another all-time high in FY25 across every category and region (last quantified in the region of 2.35bn active devices). The disclosure is thinner than an analyst would like, and that itself is a fact about the stock.</p></div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">03</span><h2>Financial quality</h2></div>
+    <p>The economics are exceptional and consistent: return on invested capital in the 30 to 40 percent band every single year, return on capital employed around 70 percent, and a gross margin that has ground up roughly five points in five years on the richer Services mix.</p>
+    <table>
+      <thead><tr><th>Fiscal year (Sep)</th><th>FY21</th><th>FY22</th><th>FY23</th><th>FY24</th><th>FY25</th><th>TTM</th></tr></thead>
+      <tbody>
+        <tr><td>Revenue ($bn)</td><td>365.8</td><td>394.3</td><td>383.3</td><td>391.0</td><td>416.2</td><td>451.4</td></tr>
+        <tr><td>Revenue growth</td><td>33.3%</td><td>7.8%</td><td>−2.8%</td><td>2.0%</td><td>6.4%</td><td>12.8%</td></tr>
+        <tr><td>Gross margin</td><td>41.8%</td><td>43.3%</td><td>44.1%</td><td>46.2%</td><td>46.9%</td><td>47.9%</td></tr>
+        <tr><td>Net income ($bn)</td><td>94.7</td><td>99.8</td><td>97.0</td><td>93.7</td><td>112.0</td><td>122.6</td></tr>
+        <tr><td>Free cash flow ($bn)</td><td>93.0</td><td>111.4</td><td>99.6</td><td>108.8</td><td>98.8</td><td>129.2</td></tr>
+        <tr><td>Less: share-based comp</td><td>7.9</td><td>9.0</td><td>10.8</td><td>11.7</td><td>12.9</td><td>13.5</td></tr>
+        <tr><td>Owner earnings ($bn)</td><td>85.0</td><td>102.4</td><td>88.8</td><td>97.1</td><td>85.9</td><td>115.7</td></tr>
+        <tr><td>ROIC</td><td>35.6%</td><td>33.7%</td><td>32.6%</td><td>30.6%</td><td>35.8%</td><td>39.6%</td></tr>
+      </tbody>
+    </table>
+    <p>Two honest adjustments to the headline. First, growth is the soft spot: revenue shrank in FY23, crawled in FY24, and the recent re-acceleration to 16 to 17 percent is partly flattered by an unusually low tax rate, so do not annualise it. Second, free cash flow overstates what reaches owners, because share-based compensation, now $12.9bn a year and rising, is added back as non-cash yet dilutes you for real. Owner earnings, free cash flow less SBC, are nearer $86bn to $116bn than the headline $99bn to $129bn, and that lower figure is the right input for valuation.</p>
+    <p>The balance sheet is a fortress: total debt around $98.7bn against a net cash position, so net debt to EBITDA is effectively nil. Capex of only about $13bn against that cash generation funds a token dividend and an enormous buyback.</p>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="sw" style="background:#378ADD"></span>Net income ($bn)</span>
+        <span><span class="sw" style="background:#0F6E56"></span>Free cash flow ($bn)</span>
+        <span>FY26e = consensus (lighter)</span>
+      </div>
+      <div style="position:relative;width:100%;height:280px">
+        <canvas id="traj" role="img" aria-label="Apple net income and free cash flow FY21 to FY26 estimate.">Net income FY21-FY26e: 94.7, 99.8, 97.0, 93.7, 112.0, 128.8. FCF: 93.0, 111.4, 99.6, 108.8, 98.8, 140.1.</canvas>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">04</span><h2>The look ahead</h2></div>
+    <p>Consensus expects the recent acceleration to carry through the current year before normalising. The bull narrative is coherent: an AI-driven iPhone upgrade cycle if Siri finally ships, Services compounding at high margin, and gross margin pushing past 48 percent. The capex-light model means most of that profit converts to cash, unlike peers spending $125bn to $190bn a year on AI infrastructure.</p>
+    <table>
+      <thead><tr><th>Fiscal year</th><th>FY25 actual</th><th>FY26e</th><th>FY27e</th></tr></thead>
+      <tbody>
+        <tr><td>Revenue ($bn)</td><td>416.2</td><td>478.3 (+14.9%)</td><td>518.5 (+8.4%)</td></tr>
+        <tr><td>EPS (adj)</td><td>7.46</td><td>8.75 (+17.3%)</td><td>9.59 (+9.6%)</td></tr>
+        <tr><td>Free cash flow ($bn)</td><td>~79–99</td><td>~140</td><td>n/a</td></tr>
+      </tbody>
+    </table>
+    <p>The catch: consensus already bakes in much of the good news, with growth fading from ~15 percent to ~8 percent within two years. The forward case is a strong year then deceleration, not a new structural growth phase.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">05</span><h2>Management, succession and capital allocation</h2></div>
+    <p>The biggest governance event in years is in train. On 20 April 2026 Apple announced that Tim Cook will move to executive chairman on 1 September 2026, with John Ternus, the 50-year-old head of hardware engineering and a 25-year Apple veteran, becoming the eighth CEO. The succession reads as orderly and long-planned (Art Levinson stays on as lead independent director), and Ternus carries deep product credibility, his fingerprints are on the iPhone, iPad, AirPods and the Mac's move to Apple silicon. The irony is hard to miss: a hardware engineer inherits the chair precisely when the company's most-questioned weakness is software and AI. That is either reassuring product focus or the wrong skillset for the moment, and it is a genuine open question, not a settled one.</p>
+    <p>On capital allocation, the record is enormous and double-edged. Apple has spent roughly $470bn on buybacks over five years, shrinking the share count from 16.7bn to under 15bn, and returned about $112bn in FY25 alone (buybacks plus dividend), more than it generated in free cash flow, which is why the net cash pile has drifted down. Those buybacks were struck mostly well below today's price and have been the main engine of per-share earnings growth. But repurchasing stock at 36 times earnings and a sub-3 percent free cash flow yield is a far lower-return use of cash than it was at 18 to 20 times, and a disciplined allocator would at least question whether buying back at this multiple still creates value. Governance is otherwise shareholder-friendly: Apple holds no employment contracts and guarantees no severance or equity acceleration for executives. Cook's FY25 pay was about $74m.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">06</span><h2>Valuation, in context</h2></div>
+    <p>Against its own history Apple is dear: a trailing P/E near 36 sits at the top of its five-year range, with EV/EBITDA near 27 and P/FCF near 34 likewise at their ceilings. Against peers it is the most expensive of the mega-caps while not the fastest grower.</p>
+    <table>
+      <thead><tr><th>Company</th><th>Trailing P/E</th><th>Recent rev growth</th><th>2026 capex</th></tr></thead>
+      <tbody>
+        <tr><td>Apple</td><td>~36</td><td>+16–17%</td><td>~$13bn, AI outsourced</td></tr>
+        <tr><td>Alphabet</td><td>~30</td><td>+22%</td><td>$180–190bn</td></tr>
+        <tr><td>Amazon</td><td>~30</td><td>high single</td><td>very heavy</td></tr>
+        <tr><td>Microsoft</td><td>~23</td><td>~18%</td><td>very heavy</td></tr>
+        <tr><td>Meta</td><td>~21</td><td>+33%</td><td>$125–145bn</td></tr>
+      </tbody>
+    </table>
+    <p class="mono" style="font-size:13px;color:var(--faint)">Peer multiples are directional, from sources with slightly different dates. The full template pulls each peer's ratios the same way Apple's were pulled.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">07</span><h2>Intrinsic value: a discounted cash flow</h2></div>
+    <p>The DCF uses a normalised starting free cash flow, two-stage growth fading over ten years to a 3 percent terminal rate, a discount rate centred on 9 percent, and net cash added across 14.69bn shares.</p>
+    <table>
+      <thead><tr><th>5-yr FCF growth</th><th>6%</th><th>8%</th><th>10%</th><th>12%</th></tr></thead>
+      <tbody>
+        <tr><td>Fair value, $130bn base (WACC 9%)</td><td>$172</td><td>$190</td><td>$216</td><td>$247</td></tr>
+        <tr><td>Fair value, owner-earnings base ~$116bn</td><td>$153</td><td>$170</td><td>$193</td><td>$220</td></tr>
+      </tbody>
+    </table>
+    <p>On headline free cash flow even a sustained 12 percent tops out near $247; on the owner-earnings base, which strips out share comp, the same grid runs roughly $150 to $220. Dropping the discount rate to 8 percent lifts these; raising it to 10 percent cuts them. Run backwards, today's $298 demands about 14 to 15 percent free cash flow growth for five years at a 9 percent rate. Against consensus growth fading from 15 to 8 percent, that is the optimistic edge of plausible priced as the base case.</p>
+
+    <h3 style="margin-top:24px">Scenario-weighted value</h3>
+    <p>Three scenarios, roughly weighted, give a more honest anchor than one base case. The weights are illustrative and yours to set.</p>
+    <table>
+      <thead><tr><th>Scenario</th><th>Fair value</th><th>Weight</th><th>What it assumes</th></tr></thead>
+      <tbody>
+        <tr><td>Bear</td><td>$155</td><td>30%</td><td>AI underwhelms, China shock, multiple compresses</td></tr>
+        <tr><td>Base</td><td>$205</td><td>45%</td><td>Consensus, growth decelerates to high single digits</td></tr>
+        <tr><td>Bull</td><td>$295</td><td>25%</td><td>AI supercycle, Services compounds, premium holds</td></tr>
+        <tr><td>Expected value</td><td>~$210</td><td>100%</td><td>≈ 30% below the $298 price</td></tr>
+      </tbody>
+    </table>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="sw" style="background:#888780"></span>Market 52-wk</span>
+        <span><span class="sw" style="background:#0F6E56"></span>DCF intrinsic</span>
+        <span><span class="sw" style="background:#378ADD"></span>Analyst targets</span>
+      </div>
+      <div style="position:relative;width:100%;height:250px">
+        <canvas id="ff" role="img" aria-label="Valuation ranges for Apple against the current price of 298 dollars. Analyst targets 215 to 400, average 314. DCF central 153 to 247. DCF range 147 to 301. 52-week range 197 to 317.">Price $298, avg target $314. DCF central $153-247, DCF range $147-301, 52-week $197-317.</canvas>
+      </div>
+    </div>
+    <div class="callout flag"><h3>On trusting this</h3><p style="margin:0">A DCF is assumption-driven. The free cash flow base is genuinely ambiguous (owner earnings ~$116bn, headline FCF ~$130bn, FY26 consensus ~$140bn) and the discount rate is a judgement. The same model flips from clearly overvalued at 9 percent to roughly fair at 8 percent with sustained double-digit growth. On a mega-cap, treat it as a sanity check, not a precision instrument.</p></div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">08</span><h2>The case, both ways</h2></div>
+    <p><strong>Bull, at its strongest.</strong> Best-in-class and still-improving margins, an installed-base moat with real pricing power, a genuine recent re-acceleration, a Services mix that keeps lifting profitability, a fortress balance sheet, and a capex-light model that converts to enormous cash and steady per-share shrinkage. If Siri ships and drives the upgrade cycle, the premium is defensible.</p>
+    <p><strong>Bear, at its strongest.</strong> Valuation leaves no margin for error at 36×. The Siri overhaul has slipped repeatedly, landing as a beta at WWDC with no firm ship date. Greater China is ~15.5 percent of revenue and already shrinking, exposed to tariffs, Taiwan and rare-earth leverage. iPhone is still half the company and grew only 4 percent. Regulation threatens both the App Store and the lucrative Google search payment.</p>
+    <div class="callout"><h3>Variant perception</h3><p style="margin:0">The market is paying ~36× for AI optionality. The question that actually matters is whether Apple's outsource-the-models strategy is a fatal lag or a shrewd, capital-light play, and whether a hardware engineer is the right CEO to settle it. Believe Apple monetises AI through the installed base without the $150bn capex bill peers carry, and the premium is cheap. Believe it is structurally behind, and you are overpaying for a melting option. The framework cannot resolve that for you; it makes sure you have decided which side you are on before you pay 36×.</p></div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">09</span><h2>Currency, for a sterling holder</h2></div>
+    <p>Apple reports and trades in US dollars. Your return in sterling is the dollar return adjusted for the GBP/USD move over your holding period, and over one to three years that move can rival or exceed the equity return itself. A stronger pound erodes your dollar gains; a weaker one flatters them. This holding carries an unhedged dollar exposure that should be sized alongside the rest of the portfolio's currency mix and watched as a live variable. The live GBP/USD can be added on request.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">10</span><h2>What to watch</h2></div>
+    <div class="cal">
+      <div><span class="when">~30 Jul 2026</span><span>Fiscal Q3 2026 earnings (date provisional). Watch iPhone, Services growth, China, margin guidance.</span></div>
+      <div><span class="when">Summer 2026</span><span>Siri AI rollout expected to ship. The single biggest swing factor for the premium.</span></div>
+      <div><span class="when">1 Sep 2026</span><span>CEO transition: Ternus takes over, Cook to executive chairman.</span></div>
+      <div><span class="when">Sep 2026</span><span>iPhone launch event; reported foldable, the first under the new CEO.</span></div>
+      <div><span class="when">Ongoing</span><span>Antitrust path of the Google search-default payment; App Store and FTC scrutiny.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">11</span><h2>What would change the call</h2></div>
+    <ul>
+      <li><strong>Upgrade towards Buy</strong> if the multiple de-rates into the high-20s P/E, roughly $230–250, removing the overpayment; or if the Siri rollout demonstrably ships and shows in upgrade rates and Services monetisation.</li>
+      <li><strong>Downgrade towards Reduce</strong> on a China revenue shock; curtailment of the Google search payment or App Store remedies; or component-cost margin erosion not offset by Services mix.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">12</span><h2>Verdict</h2></div>
+    <div class="verdict-box">
+      <div class="vline">Quality: exceptional. Price: demanding. Intrinsic value: ~$150–250, weighted ~$210. Action: Watch, do not initiate at $298.</div>
+      <p style="margin:0">Three independent angles point the same way on price. Apple trades at the top of its own valuation range; it is the dearest of the mega-caps while growing slower than several; and a cash-flow valuation, especially once share comp is treated as the real cost it is, says you are paying $298 for something worth closer to $210 unless the bull case sustains for five years. The discipline is to set a buy level in the high-20s P/E (~$230–250), where the overpayment disappears and the AI rollout becomes upside you are not paying full freight for, and to scale in on weakness rather than chase. Not a "do not buy ever", and certainly not a "buy here". A patient, well-defined watch.</p>
+    </div>
+  </section>
+
+  <div class="foot">
+    Test proxy to validate the assessment framework. Not personal financial advice; the verdict illustrates the framework's output, not a recommendation to act.<br>
+    Sources: prices and snapshot, Google Finance (18 Jun 2026 close). Statements, ratios and cash flow, stockanalysis.com / Fiscal.ai from SEC filings (to 1 May 2026). Forward estimates, S&P Global Market Intelligence / TipRanks (18 Jun 2026). Segment and geographic revenue, Apple FY2025 Form 10-K and quarterly 8-K press releases. CEO succession, Apple 8-K and newsroom release (20 Apr 2026). Share-based compensation and capital returns, Apple cash flow statement. Peer multiples and bear case, current reporting to 22 Jun 2026.
+  </div>
+
+</div>
+
+<script>
+new Chart(document.getElementById('mix'),{type:'bar',
+  data:{labels:['iPhone','Services','Wearables','Mac','iPad'],
+    datasets:[{data:[209.6,109.2,35.7,33.7,28.0],
+      backgroundColor:['#185FA5','#0F6E56','#888780','#888780','#888780'],
+      borderRadius:3,barThickness:24}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{x:{ticks:{callback:v=>'$'+v+'B',font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}},
+      y:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}}}}});
+
+new Chart(document.getElementById('traj'),{type:'bar',
+  data:{labels:['FY21','FY22','FY23','FY24','FY25','FY26e'],
+    datasets:[
+      {label:'Net income',data:[94.7,99.8,97.0,93.7,112.0,128.8],
+        backgroundColor:['#378ADD','#378ADD','#378ADD','#378ADD','#378ADD','#85B7EB']},
+      {label:'Free cash flow',data:[93.0,111.4,99.6,108.8,98.8,140.1],
+        backgroundColor:['#0F6E56','#0F6E56','#0F6E56','#0F6E56','#0F6E56','#5DCAA5']}
+    ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{x:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}},
+      y:{ticks:{callback:v=>'$'+v+'B',font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}}}}});
+
+const priceLines={id:'priceLines',afterDraw(c){
+  const{ctx,chartArea:{top,bottom},scales:{x}}=c;
+  const d=(val,col,dash,lab)=>{const px=x.getPixelForValue(val);ctx.save();
+    ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.setLineDash(dash);
+    ctx.beginPath();ctx.moveTo(px,top);ctx.lineTo(px,bottom);ctx.stroke();
+    ctx.setLineDash([]);ctx.fillStyle=col;ctx.font='11px "IBM Plex Mono"';ctx.textAlign='center';
+    ctx.fillText(lab,px,top-4);ctx.restore();};
+  d(298,'#A32D2D',[],'Price $298');d(314,'#185FA5',[5,4],'Target $314');}};
+new Chart(document.getElementById('ff'),{type:'bar',
+  data:{labels:['Analyst targets','DCF central','DCF range (8–10%)','Market 52-wk'],
+    datasets:[{data:[[215,400],[153,247],[147,301],[197,317]],
+      backgroundColor:['#378ADD','#0F6E56','#5DCAA5','#888780'],borderRadius:3,barThickness:24}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    layout:{padding:{top:18}},plugins:{legend:{display:false}},
+    scales:{x:{min:140,max:410,ticks:{callback:v=>'$'+v,font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}},
+      y:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}}}},
+  plugins:[priceLines]});
+</script>
+</body>
+</html>

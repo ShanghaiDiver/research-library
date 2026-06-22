@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFAF7;--ink:#1C1B17;--soft:#55534B;--faint:#86847B;
+    --line:#E6E2D7;--teal:#0F6E56;--blue:#185FA5;--red:#A32D2D;--amber:#9A6410;
+    --chip:#F1EEE5;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-size:17px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:44px 26px 80px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--faint)}
+  h1{font-family:"Fraunces",serif;font-weight:600;font-size:40px;margin:.15em 0 .1em;letter-spacing:-.01em}
+  .summary{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--soft);margin-bottom:26px}
+  .summary b{color:var(--ink)}
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+  input[type=search]{font-family:"IBM Plex Mono",monospace;font-size:13px;padding:9px 12px;
+    border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);min-width:220px;flex:1 1 220px}
+  .seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
+  .seg button{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.04em;
+    padding:9px 13px;border:none;background:none;color:var(--soft);cursor:pointer;border-right:1px solid var(--line)}
+  .seg button:last-child{border-right:none}
+  .seg button.on{background:var(--ink);color:#fff}
+  select{font-family:"IBM Plex Mono",monospace;font-size:12px;padding:9px 10px;
+    border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}
+  table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:13px}
+  th,td{text-align:right;padding:12px 10px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  th:nth-child(2),td:nth-child(2){text-align:left}
+  thead th{color:var(--faint);font-weight:500;border-bottom:1.5px solid var(--ink);font-size:11.5px;
+    letter-spacing:.05em;cursor:default;text-transform:uppercase}
+  tbody tr{cursor:pointer}
+  tbody tr:hover{background:#fff}
+  .co{font-family:"Newsreader",serif;font-size:16px}
+  .tk{color:var(--faint);font-size:12px}
+  .pill{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;letter-spacing:.04em;
+    text-transform:uppercase;color:#fff;padding:3px 9px;border-radius:3px;display:inline-block}
+  .pill.buy{background:var(--teal)}.pill.watch{background:var(--amber)}.pill.avoid{background:var(--red)}
+  .gap.neg{color:var(--red)}.gap.pos{color:var(--teal)}
+  .open{color:var(--blue);text-decoration:none}
+  .empty{padding:40px 0;text-align:center;color:var(--faint);font-family:"IBM Plex Mono",monospace;font-size:13px}
+  .foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.7}
+  @media(max-width:620px){
+    h1{font-size:30px}.wrap{padding:30px 16px 60px}
+    th:nth-child(4),td:nth-child(4),th:nth-child(6),td:nth-child(6){display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Investment research</div>
+  <h1>Company library</h1>
+  <div class="summary" id="summary"></div>
+
+  <div class="controls">
+    <input type="search" id="q" placeholder="Search name, ticker or sector…">
+    <div class="seg" id="filter">
+      <button data-v="all" class="on">All</button>
+      <button data-v="Buy">Buy</button>
+      <button data-v="Watch">Watch</button>
+      <button data-v="Avoid">Avoid</button>
+    </div>
+    <select id="sort">
+      <option value="updated">Sort: last updated</option>
+      <option value="name">Sort: name</option>
+      <option value="gap">Sort: value gap</option>
+      <option value="verdict">Sort: verdict</option>
+    </select>
+  </div>
+
+  <table>
+    <thead><tr>
+      <th>Company</th><th>Sector</th><th>Verdict</th><th>Price</th><th>Fair value</th><th>Value gap</th><th>Updated</th><th></th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <div class="empty" id="empty" style="display:none">No companies match.</div>
+
+  <div class="foot">
+    Keep this file in the same folder as the company notes, or the links won't open. Each thesis is its own HTML file; this page is the index over them.<br>
+    To add a company, add one record to the <span style="color:var(--soft)">companies</span> list in this file's script (name, ticker, sector, verdict, price, fair value, conviction, updated date, and the note's filename). Verdict is Buy, Watch or Avoid. Value gap is fair value against price, negative means the market price sits above your estimate of value.
+  </div>
+</div>
+
+<script>
+// ── The library. Add one record per company thesis. ──────────────────────────
+const companies = [
+  {
+    name:"Apple Inc", ticker:"AAPL", exchange:"NASDAQ",
+    sector:"Consumer tech / hardware",
+    verdict:"Watch",
+    currency:"$", price:298, fairValue:210,
+    conviction:"Exceptional business, overpriced",
+    updated:"2026-06-22",
+    file:"AAPL_investment_thesis.html"
+  }
+];
+// ─────────────────────────────────────────────────────────────────────────────
+
+let activeFilter="all";
+const rowsEl=document.getElementById('rows');
+const emptyEl=document.getElementById('empty');
+const qEl=document.getElementById('q');
+const sortEl=document.getElementById('sort');
+
+function gap(c){return Math.round((c.fairValue-c.price)/c.price*100);}
+function fmtDate(s){const d=new Date(s);return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+
+function render(){
+  const q=qEl.value.trim().toLowerCase();
+  let list=companies.filter(c=>{
+    const matchF=activeFilter==='all'||c.verdict===activeFilter;
+    const matchQ=!q||[c.name,c.ticker,c.sector].join(' ').toLowerCase().includes(q);
+    return matchF&&matchQ;
+  });
+  const s=sortEl.value;
+  const vorder={Buy:0,Watch:1,Avoid:2};
+  list.sort((a,b)=>{
+    if(s==='name')return a.name.localeCompare(b.name);
+    if(s==='gap')return gap(a)-gap(b);
+    if(s==='verdict')return vorder[a.verdict]-vorder[b.verdict];
+    return new Date(b.updated)-new Date(a.updated); // updated, newest first
+  });
+
+  rowsEl.innerHTML=list.map(c=>{
+    const g=gap(c);
+    const gcls=g<0?'neg':'pos';
+    const gtxt=(g>0?'+':'')+g+'%';
+    return `<tr onclick="window.open('${c.file}','_blank')">
+      <td><div class="co">${c.name}</div><div class="tk">${c.ticker} · ${c.exchange}</div></td>
+      <td>${c.sector}</td>
+      <td><span class="pill ${c.verdict.toLowerCase()}">${c.verdict}</span></td>
+      <td>${c.currency}${c.price}</td>
+      <td>${c.currency}${c.fairValue}</td>
+      <td class="gap ${gcls}">${gtxt}</td>
+      <td>${fmtDate(c.updated)}</td>
+      <td><a class="open" href="${c.file}" target="_blank" onclick="event.stopPropagation()">open →</a></td>
+    </tr>`;
+  }).join('');
+  emptyEl.style.display=list.length?'none':'block';
+}
+
+function summary(){
+  const n=companies.length;
+  const by=v=>companies.filter(c=>c.verdict===v).length;
+  document.getElementById('summary').innerHTML=
+    `<b>${n}</b> ${n===1?'company':'companies'} · <b>${by('Buy')}</b> buy · <b>${by('Watch')}</b> watch · <b>${by('Avoid')}</b> avoid`;
+}
+
+document.getElementById('filter').addEventListener('click',e=>{
+  if(e.target.tagName!=='BUTTON')return;
+  activeFilter=e.target.dataset.v;
+  [...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));
+  render();
+});
+qEl.addEventListener('input',render);
+sortEl.addEventListener('change',render);
+
+summary();render();
+</script>
+</body>
+</html>
