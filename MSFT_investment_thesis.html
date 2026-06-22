@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Thesis — Microsoft Corp (MSFT)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root{
+    --paper:#FBFAF7;--ink:#1C1B17;--soft:#55534B;--faint:#86847B;
+    --line:#E6E2D7;--teal:#0F6E56;--tealsoft:#5DCAA5;--blue:#185FA5;
+    --red:#A32D2D;--amber:#9A6410;--chip:#F1EEE5;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-size:18px;line-height:1.65;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:48px 28px 80px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--faint)}
+  h1{font-family:"Fraunces",serif;font-weight:600;font-size:46px;line-height:1.02;
+    margin:.2em 0 .1em;letter-spacing:-.01em}
+  h2{font-family:"Fraunces",serif;font-weight:600;font-size:24px;margin:0;letter-spacing:-.01em}
+  h3{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:13px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--teal);margin:0 0 6px}
+  p{margin:0 0 16px}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  .lede{font-size:21px;line-height:1.5;color:var(--ink);margin:18px 0 0}
+  .masthead{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:8px}
+  .tickerrow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .verdict-pill{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:500;
+    letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--teal);
+    padding:5px 12px;border-radius:3px;display:inline-block}
+  .heroval{display:flex;gap:0;flex-wrap:wrap;margin:26px 0 6px;border:1px solid var(--line);
+    border-radius:8px;overflow:hidden;background:#fff}
+  .heroval > div{flex:1 1 0;min-width:150px;padding:16px 18px;border-right:1px solid var(--line)}
+  .heroval > div:last-child{border-right:none}
+  .heroval .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  .heroval .v{font-family:"Fraunces",serif;font-size:30px;font-weight:600;line-height:1}
+  .heroval .v.warn{color:var(--red)}
+  .heroval .v.good{color:var(--teal)}
+  .heroval .sub{font-size:13px;color:var(--soft);margin-top:4px;font-family:"IBM Plex Mono",monospace}
+  section{margin-top:46px;padding-top:8px}
+  .secnum{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);letter-spacing:.1em}
+  .sechead{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);
+    padding-bottom:10px;margin-bottom:18px}
+  table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:13.5px;margin:8px 0 18px}
+  th,td{text-align:right;padding:7px 8px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{color:var(--faint);font-weight:500;border-bottom:1.5px solid var(--ink);font-size:12px;letter-spacing:.04em}
+  tbody tr:last-child td{border-bottom:1.5px solid var(--ink)}
+  .chartbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 18px 14px;margin:6px 0 20px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft)}
+  .legend span{display:flex;align-items:center;gap:5px}
+  .sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+  .callout{border-left:3px solid var(--teal);background:#fff;border-radius:0 8px 8px 0;padding:16px 20px;margin:6px 0 18px}
+  .callout.risk{border-left-color:var(--red)}
+  .callout.flag{border-left-color:var(--amber)}
+  .callout h3{color:inherit}
+  .verdict-box{border:2px solid var(--ink);border-radius:10px;padding:24px 26px;margin-top:10px;background:#fff}
+  .verdict-box .vline{font-family:"Fraunces",serif;font-size:22px;font-weight:600;line-height:1.25;margin-bottom:10px}
+  ul{margin:0 0 16px;padding-left:20px}
+  li{margin-bottom:7px}
+  .cal{font-family:"IBM Plex Mono",monospace;font-size:14px}
+  .cal div{display:flex;gap:14px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .cal .when{color:var(--teal);min-width:120px}
+  .foot{margin-top:54px;padding-top:16px;border-top:1px solid var(--line);
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.6}
+  a{color:var(--blue)}
+  @media(max-width:560px){h1{font-size:34px}.wrap{padding:32px 18px 60px}body{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="eyebrow">Investment thesis</div>
+    <h1>Microsoft Corp</h1>
+    <div class="tickerrow">
+      <span class="mono" style="font-size:15px;color:var(--soft)">NASDAQ: MSFT · $379.40 · 18 Jun 2026</span>
+      <span class="verdict-pill">Verdict: Buy</span>
+    </div>
+    <p class="lede">A top-tier compounder the market has de-rated on capex fear. You pay $379 for a business a conservative blend puts nearer $470, about 22 times earnings, the bottom of its own range. The risk and the reward are the same number: $190bn of annual AI spending.</p>
+  </div>
+
+  <div class="heroval">
+    <div><div class="k">Price</div><div class="v">$379</div><div class="sub">22.6× earnings</div></div>
+    <div><div class="k">Intrinsic (DCF)</div><div class="v good">~$470</div><div class="sub">prob-weighted</div></div>
+    <div><div class="k">Avg analyst target</div><div class="v">$561</div><div class="sub">+48% · Strong Buy</div></div>
+    <div><div class="k">Margin of safety</div><div class="v good">~24%</div><div class="sub">price below value</div></div>
+  </div>
+
+  <section>
+    <div class="sechead"><span class="secnum">01</span><h2>The business</h2></div>
+    <p>Microsoft is three businesses wearing one logo. Productivity and Business Processes is the cash machine: Microsoft 365, Office, Teams, Dynamics and LinkedIn, software that enterprises cannot easily leave. Intelligent Cloud is the growth engine: Azure plus the server estate, and the centre of the AI story. More Personal Computing is the tail: Windows, Xbox and gaming, search advertising and Surface. The through-line is an enterprise install base so embedded that Microsoft sets the terms, and increasingly a cloud platform that rents out compute by the hour.</p>
+    <p>The moat is switching costs at industrial scale, identity, productivity, developer tools and now AI all bundled into one vendor relationship that a chief information officer renews almost reflexively. The defining strategic fact of 2026 is that Microsoft is spending unprecedented sums to extend that moat into AI, and the market has decided, for now, to fear the bill rather than admire the ambition.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">02</span><h2>Operating drivers</h2></div>
+    <p>Unlike Apple, Microsoft hands you the operating gauges. The one that moves the stock is Azure, growing around 39 to 40 percent, with an AI run-rate that passed $37bn and is up 123 percent year on year. Microsoft Cloud as a whole runs past $50bn a quarter, up in the mid-20s. Microsoft 365 Copilot, the test of whether AI actually monetises, reached roughly 15 million paid seats, up 160 percent. And the number the bulls lean on hardest: commercial remaining performance obligations, the contracted backlog, sits near $627bn, almost doubled in a year. That backlog is the evidence that the demand behind the spending is signed, not hoped for.</p>
+    <table>
+      <thead><tr><th>FY2025 segment</th><th>Revenue ($bn)</th><th>Share</th><th>Engine</th></tr></thead>
+      <tbody>
+        <tr><td>Productivity & Business Processes</td><td>~120.8</td><td>43%</td><td>M365, Office, LinkedIn, Dynamics</td></tr>
+        <tr><td>Intelligent Cloud</td><td>~106.3</td><td>38%</td><td>Azure + servers (the AI core)</td></tr>
+        <tr><td>More Personal Computing</td><td>~54.7</td><td>19%</td><td>Windows, gaming, search ads</td></tr>
+      </tbody>
+    </table>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="sw" style="background:#185FA5"></span>Productivity & Business Processes</span>
+        <span><span class="sw" style="background:#0F6E56"></span>Intelligent Cloud (AI engine)</span>
+        <span><span class="sw" style="background:#888780"></span>More Personal Computing</span>
+      </div>
+      <div style="position:relative;width:100%;height:200px">
+        <canvas id="seg" role="img" aria-label="Microsoft FY2025 revenue by segment: Productivity and Business Processes 120.8 billion, Intelligent Cloud 106.3 billion, More Personal Computing 54.7 billion dollars.">Segment revenue FY25: P&BP $120.8bn, Intelligent Cloud $106.3bn, More Personal Computing $54.7bn.</canvas>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">03</span><h2>Financial quality</h2></div>
+    <p>The operating business is exceptional and getting better: revenue compounding in the mid-to-high teens, operating margin climbing to 47 percent, net income up to $125bn on a trailing basis. The wrinkle, and it is the whole story, sits two lines below.</p>
+    <table>
+      <thead><tr><th>Fiscal year (Jun)</th><th>FY21</th><th>FY22</th><th>FY23</th><th>FY24</th><th>FY25</th><th>TTM</th></tr></thead>
+      <tbody>
+        <tr><td>Revenue ($bn)</td><td>168.1</td><td>198.3</td><td>211.9</td><td>245.1</td><td>281.7</td><td>318.3</td></tr>
+        <tr><td>Revenue growth</td><td>17.5%</td><td>18.0%</td><td>6.9%</td><td>15.7%</td><td>14.9%</td><td>17.9%</td></tr>
+        <tr><td>Operating margin</td><td>41.6%</td><td>42.1%</td><td>41.8%</td><td>44.6%</td><td>45.6%</td><td>46.8%</td></tr>
+        <tr><td>Net income ($bn)</td><td>61.3</td><td>72.7</td><td>72.4</td><td>88.1</td><td>101.8</td><td>125.2</td></tr>
+        <tr><td>Diluted EPS</td><td>8.05</td><td>9.65</td><td>9.68</td><td>11.80</td><td>13.64</td><td>16.80</td></tr>
+        <tr><td>Capital expenditure ($bn)</td><td>20.6</td><td>23.9</td><td>28.1</td><td>44.5</td><td>64.6</td><td>97.2</td></tr>
+        <tr><td>Free cash flow ($bn)</td><td>56.1</td><td>65.1</td><td>59.5</td><td>74.1</td><td>71.6</td><td>72.9</td></tr>
+        <tr><td>Less: share-based comp</td><td>6.1</td><td>7.5</td><td>9.6</td><td>10.7</td><td>12.0</td><td>12.4</td></tr>
+        <tr><td>Owner earnings ($bn)</td><td>50.0</td><td>57.6</td><td>49.9</td><td>63.4</td><td>59.6</td><td>60.5</td></tr>
+        <tr><td>ROIC</td><td>31.4%</td><td>30.6%</td><td>25.5%</td><td>24.0%</td><td>21.8%</td><td>20.6%</td></tr>
+      </tbody>
+    </table>
+    <p>Read the capex and free cash flow rows together. Capital spending has gone from $21bn to $97bn on a trailing basis, nearly fivefold in five years, and free cash flow has been flat for three years despite revenue and net income soaring. Operating cash flow is booming, up roughly 30 percent to $170bn, but capex is eating almost two-thirds of every dollar of it. Free cash flow margin has fallen from 33 percent to 23 percent, and owner earnings, after the $12.4bn of share comp, sit near $60bn. ROIC has slid from 31 percent to 21 percent, because the capital going in has not yet earned its historic return. The balance sheet absorbs all this comfortably: net cash, minimal debt that is actually shrinking, one of the few AAA credit ratings left. This is a company spending its own money, not borrowed money, on a bet.</p>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="sw" style="background:#0F6E56"></span>Free cash flow ($bn)</span>
+        <span><span class="sw" style="background:#A32D2D"></span>Capital expenditure ($bn)</span>
+      </div>
+      <div style="position:relative;width:100%;height:280px">
+        <canvas id="capex" role="img" aria-label="Microsoft free cash flow versus capital expenditure FY21 to trailing. Free cash flow flat around 56 to 73 billion while capex rises from 21 to 97 billion, overtaking free cash flow.">FCF FY21-TTM: 56.1, 65.1, 59.5, 74.1, 71.6, 72.9. Capex: 20.6, 23.9, 28.1, 44.5, 64.6, 97.2.</canvas>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">04</span><h2>The look ahead</h2></div>
+    <p>Consensus sees the growth holding and earnings outrunning it, with one cloud: the depreciation from all that capex starts landing on the income statement in the coming quarters.</p>
+    <table>
+      <thead><tr><th>Fiscal year (Jun)</th><th>FY25 actual</th><th>FY26e</th><th>FY27e</th></tr></thead>
+      <tbody>
+        <tr><td>Revenue ($bn)</td><td>281.7</td><td>329.5 (+17.0%)</td><td>384.3 (+16.6%)</td></tr>
+        <tr><td>Operating income ($bn)</td><td>128.5</td><td>153.7</td><td>n/a</td></tr>
+        <tr><td>EPS (adj)</td><td>13.64</td><td>16.84 (+23.5%)</td><td>19.35 (+14.9%)</td></tr>
+      </tbody>
+    </table>
+    <p>So the forward picture is high-teens revenue growth and EPS growth of 15 to 23 percent, from a 47 percent operating margin. The risk in the numbers is that depreciation, already up from $12bn to $44bn on a trailing basis, keeps climbing and turns operating leverage negative if AI revenue does not keep pace. That is the bear case in accounting form.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">05</span><h2>Management and capital allocation</h2></div>
+    <p>Management is a source of stability, not risk. Satya Nadella remains chairman and chief executive with Amy Hood as a long-serving and well-regarded chief financial officer, and there is no succession overhang of the kind Apple now carries. The story here is the deliberate pivot in how the cash is spent. A decade of steady buybacks has given way to a capex supercycle: net repurchases have shrunk to a token level, barely offsetting dilution, while the dividend grows around 10 percent a year for a roughly 1 percent yield on a low-20s payout. The $69bn Activision acquisition in FY24 and now $190bn of annual AI infrastructure spending mark a management team choosing to plough cash into the future rather than hand it back. That is the right instinct if the returns are there, and a costly mistake if they are not, which is precisely the judgement an owner has to make.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">06</span><h2>Valuation, in context</h2></div>
+    <p>Against its own history Microsoft is cheap. The trailing P/E of 22.6 is the low of its five-year range, which ran from roughly 26 to 38, after a de-rating that took the stock down about 18 percent this year from an all-time high near $555. EV/EBITDA at 15.6 and price to operating cash flow at 16.6 are likewise near the bottom of their ranges. The one expensive-looking metric is price to free cash flow at 39 times, and that is the whole argument: it is high only because capex has temporarily crushed the denominator.</p>
+    <table>
+      <thead><tr><th>Company</th><th>Trailing P/E</th><th>Recent rev growth</th><th>2026 AI capex</th></tr></thead>
+      <tbody>
+        <tr><td>Microsoft</td><td>~22.6</td><td>+18%</td><td>~$190bn (incl leases)</td></tr>
+        <tr><td>Meta</td><td>~21</td><td>+33%</td><td>$125–145bn</td></tr>
+        <tr><td>Alphabet</td><td>~30</td><td>+22%</td><td>$180–190bn</td></tr>
+        <tr><td>Amazon</td><td>~30</td><td>high single</td><td>very heavy</td></tr>
+        <tr><td>Apple</td><td>~36</td><td>+6–17%</td><td>~$13bn (outsourced)</td></tr>
+      </tbody>
+    </table>
+    <p>Among the mega-caps actually building AI, Microsoft sits at the cheap end alongside Meta, well below Alphabet and Amazon, and far below Apple, which trades at the richest multiple in the group while spending almost nothing on AI. Microsoft also has the best demand visibility of any of them, the $627bn backlog. You are paying the lowest multiple in the room for arguably the highest-quality position in it.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">07</span><h2>Intrinsic value: a discounted cash flow</h2></div>
+    <p>Microsoft is harder to value than Apple precisely because free cash flow is distorted, and the honest way to show that is three lenses that disagree.</p>
+    <table>
+      <thead><tr><th>Lens</th><th>Fair value</th><th>What it assumes</th></tr></thead>
+      <tbody>
+        <tr><td>Suppressed-FCF DCF ($75bn base)</td><td>~$190–260</td><td>Capex stays high, FCF never recovers</td></tr>
+        <tr><td>Normalised-FCF DCF ($110bn base)</td><td>~$310–410</td><td>Capex moderates, investment earns a return</td></tr>
+        <tr><td>Earnings (24–28× FY26–27 EPS)</td><td>~$400–540</td><td>Pay a fair multiple for a ~17% grower</td></tr>
+      </tbody>
+    </table>
+    <p>That spread is the point. On today's depressed free cash flow the stock looks dear; on normalised cash generation it looks roughly fair; on earnings it looks cheap. Where you land depends entirely on whether you believe the capex earns its return. At $379 the market is pricing somewhere between the normalised-FCF and earnings lenses, so it is not pricing the bear case of suppressed cash flow forever.</p>
+    <h3 style="margin-top:24px">Scenario-weighted value</h3>
+    <table>
+      <thead><tr><th>Scenario</th><th>Fair value</th><th>Weight</th><th>What it assumes</th></tr></thead>
+      <tbody>
+        <tr><td>Bear</td><td>$315</td><td>25%</td><td>AI ROI disappoints, FCF stays poor, multiple ~20×</td></tr>
+        <tr><td>Base</td><td>$460</td><td>50%</td><td>Capex moderates, Azure/Copilot compound, multiple ~24–25×</td></tr>
+        <tr><td>Bull</td><td>$650</td><td>25%</td><td>AI monetisation inflects, FCF jumps, multiple ~28–30×</td></tr>
+        <tr><td>Expected value</td><td>~$470</td><td>100%</td><td>≈ 24% above the $379 price</td></tr>
+      </tbody>
+    </table>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="sw" style="background:#888780"></span>Market 52-wk</span>
+        <span><span class="sw" style="background:#0F6E56"></span>DCF scenarios</span>
+        <span><span class="sw" style="background:#378ADD"></span>Analyst targets</span>
+      </div>
+      <div style="position:relative;width:100%;height:250px">
+        <canvas id="ff" role="img" aria-label="Valuation ranges for Microsoft against the current price of 379 dollars. Analyst targets 400 to 870, average 561. DCF scenarios 315 to 650, weighted 470. 52-week range about 355 to 555. The price sits below the DCF weighted value.">Price $379, avg target $561. DCF scenarios $315-$650 (weighted $470). 52-week range ~$355-$555.</canvas>
+      </div>
+    </div>
+    <div class="callout flag"><h3>On trusting this</h3><p style="margin:0">Every lens here turns on the capex question, so the DCF is even more assumption-driven than usual. The reported $97bn cash capex and the ~$190bn "total" figure differ because the larger number includes leased capacity; free cash flow uses the cash figure. Treat the scenario weights as a starting point to argue with, not a precise answer.</p></div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">08</span><h2>The case, both ways</h2></div>
+    <p><strong>Bull, at its strongest.</strong> A 47 percent operating margin, mid-to-high teens growth, Azure compounding near 40 percent, a $627bn contracted backlog that few rivals can match, and an AAA balance sheet funding the whole buildout from internal cash rather than debt. The de-rating to 22 times has handed you a quality compounder at the low end of its own valuation and below most of its peers.</p>
+    <p><strong>Bear, at its strongest.</strong> $190bn of annual capex squeezing free cash flow at the exact moment the market has turned on AI spending. A depreciation wave that will press on EPS regardless. ROIC already sliding from 31 to 21 percent. The OpenAI exclusive agreement, once the centrepiece of the Azure AI thesis, has been terminated and restructured, with reports of OpenAI missing targets; capacity bottlenecks forced Microsoft to seek capacity from Oracle, where talks collapsed, and then Amazon; and Anthropic is reportedly building products Microsoft expected to own. If AI demand disappoints, the spend becomes a value-destroying anchor.</p>
+    <div class="callout"><h3>Variant perception</h3><p style="margin:0">The entire stock is a referendum on one number, $190bn of capex, and the market has de-rated it to 22 times out of fear the money will not earn its keep, the same fear that hit Oracle and the chipmakers. The variant question is whether Microsoft's spend is different from the speculative AI plays. The unusual evidence is concrete: a $627bn contracted backlog, an AI run-rate up 123 percent, funded from $100bn-plus of internal net income and a AAA rating rather than borrowed money. If you judge that backlog to be real, contracted demand rather than circular, vendor-financed revenue, you are being paid to wait at 22 times. If you judge it the same bubble in a better balance sheet, the de-rating has further to run. Decide which before you buy the dip.</p></div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">09</span><h2>Currency, for a sterling holder</h2></div>
+    <p>Microsoft reports and trades in US dollars, so your sterling return is the dollar return adjusted for the GBP/USD move over your holding period, which over one to three years can rival the equity return itself. This is an unhedged dollar exposure to size alongside the rest of the portfolio's currency mix. The live GBP/USD can be added on request.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">10</span><h2>What to watch</h2></div>
+    <div class="cal">
+      <div><span class="when">~late Jul 2026</span><span>Fiscal Q4 / full-year FY2026 earnings. The key reads: Azure growth rate, FY27 capex guidance, free cash flow, Copilot seats.</span></div>
+      <div><span class="when">Each quarter</span><span>Azure growth (watch for a fall below ~30%), the AI run-rate, and backlog conversion. Any sign of capex discipline is read positively.</span></div>
+      <div><span class="when">Ongoing</span><span>The restructured OpenAI relationship, capacity and memory-chip constraints, and competitive encroachment from Anthropic and others.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">11</span><h2>What would change the call</h2></div>
+    <ul>
+      <li><strong>Downgrade towards Watch/Reduce</strong> if Azure growth decelerates below ~30%; if capex keeps rising without revenue or free-cash-flow conversion (negative operating leverage); if the partner relationships deteriorate materially; or if free cash flow fails to begin recovering by FY27–28.</li>
+      <li><strong>Add conviction</strong> if capex intensity peaks and free cash flow inflects upward, while Copilot seats, the AI run-rate and the backlog keep compounding.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">12</span><h2>Verdict</h2></div>
+    <div class="verdict-box">
+      <div class="vline">Quality: top-tier. Price: de-rated to ~22×, the low of its range. Intrinsic value: ~$300–650 depending on the capex payoff, weighted ~$470. Action: Buy, accumulate on weakness, eyes open on the bet.</div>
+      <p style="margin:0">This is the mirror image of Apple. There you overpay for slowing growth and outsourced AI; here you underpay, against the company's own history and a conservative blend, for high-teens growth, a 47 percent margin, a fortress AAA balance sheet and the best demand visibility in the group. The market has handed you 22 times earnings because it is frightened of $190bn of capex, and that fear is the opportunity if the $627bn backlog is real. Be honest that it is a genuine bet, not a free lunch: if AI demand disappoints, the spend becomes an anchor and the depreciation wave hits earnings regardless. So size it as a conviction position rather than a riskless one, and accumulate into the capex-scare weakness rather than chasing strength. A Buy, with the bet named out loud.</p>
+    </div>
+  </section>
+
+  <div class="foot">
+    Not personal financial advice; the verdict illustrates the framework's output, not a recommendation to act.<br>
+    Sources: prices, snapshot, statements, ratios, cash flow and forecast from stockanalysis.com / Fiscal.ai and S&P Global Market Intelligence / TipRanks (to 18 Jun 2026). Segment and KPI data from Microsoft FY2025 Form 10-K, 10-Q and quarterly 8-K press releases. Capex, free cash flow and share-based compensation from Microsoft's cash flow statement. Bear case, peer multiples and analyst targets from current reporting to 22 Jun 2026. 52-week range approximate.
+  </div>
+
+</div>
+
+<script>
+new Chart(document.getElementById('seg'),{type:'bar',
+  data:{labels:['Productivity & Business Processes','Intelligent Cloud','More Personal Computing'],
+    datasets:[{data:[120.8,106.3,54.7],
+      backgroundColor:['#185FA5','#0F6E56','#888780'],borderRadius:3,barThickness:26}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{x:{ticks:{callback:v=>'$'+v+'B',font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}},
+      y:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'},autoSkip:false}}}}});
+
+new Chart(document.getElementById('capex'),{type:'bar',
+  data:{labels:['FY21','FY22','FY23','FY24','FY25','TTM'],
+    datasets:[
+      {label:'Free cash flow',data:[56.1,65.1,59.5,74.1,71.6,72.9],backgroundColor:'#0F6E56'},
+      {label:'Capex',data:[20.6,23.9,28.1,44.5,64.6,97.2],backgroundColor:'#A32D2D'}
+    ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{x:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}},
+      y:{ticks:{callback:v=>'$'+v+'B',font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}}}}});
+
+const priceLines={id:'priceLines',afterDraw(c){
+  const{ctx,chartArea:{top,bottom},scales:{x}}=c;
+  const d=(val,col,dash,lab)=>{const px=x.getPixelForValue(val);ctx.save();
+    ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.setLineDash(dash);
+    ctx.beginPath();ctx.moveTo(px,top);ctx.lineTo(px,bottom);ctx.stroke();
+    ctx.setLineDash([]);ctx.fillStyle=col;ctx.font='11px "IBM Plex Mono"';ctx.textAlign='center';
+    ctx.fillText(lab,px,top-4);ctx.restore();};
+  d(379,'#A32D2D',[],'Price $379');d(561,'#185FA5',[5,4],'Target $561');}};
+new Chart(document.getElementById('ff'),{type:'bar',
+  data:{labels:['Analyst targets','DCF scenarios','Market 52-wk'],
+    datasets:[{data:[[400,870],[315,650],[355,555]],
+      backgroundColor:['#378ADD','#0F6E56','#888780'],borderRadius:3,barThickness:26}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    layout:{padding:{top:18}},plugins:{legend:{display:false}},
+    scales:{x:{min:280,max:900,ticks:{callback:v=>'$'+v,font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}},
+      y:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}}}},
+  plugins:[priceLines]});
+</script>
+</body>
+</html>
