@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Thesis — Procter & Gamble (PG)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root{
+    --paper:#FBFAF7;--ink:#1C1B17;--soft:#55534B;--faint:#86847B;
+    --line:#E6E2D7;--teal:#0F6E56;--tealsoft:#5DCAA5;--blue:#185FA5;
+    --red:#A32D2D;--amber:#9A6410;--chip:#F1EEE5;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:48px 28px 80px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  h1{font-family:"Fraunces",serif;font-weight:600;font-size:46px;line-height:1.02;margin:.2em 0 .1em;letter-spacing:-.01em}
+  h2{font-family:"Fraunces",serif;font-weight:600;font-size:24px;margin:0;letter-spacing:-.01em}
+  h3{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin:0 0 6px}
+  p{margin:0 0 16px}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  .lede{font-size:21px;line-height:1.5;color:var(--ink);margin:18px 0 0}
+  .masthead{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:8px}
+  .tickerrow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .verdict-pill{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--amber);padding:5px 12px;border-radius:3px;display:inline-block}
+  .heroval{display:flex;gap:0;flex-wrap:wrap;margin:26px 0 6px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+  .heroval > div{flex:1 1 0;min-width:150px;padding:16px 18px;border-right:1px solid var(--line)}
+  .heroval > div:last-child{border-right:none}
+  .heroval .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  .heroval .v{font-family:"Fraunces",serif;font-size:30px;font-weight:600;line-height:1}
+  .heroval .v.warn{color:var(--red)}
+  .heroval .v.good{color:var(--teal)}
+  .heroval .v.mid{color:var(--amber)}
+  .heroval .sub{font-size:13px;color:var(--soft);margin-top:4px;font-family:"IBM Plex Mono",monospace}
+  .actionband{display:flex;gap:0;margin:18px 0 6px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;font-family:"IBM Plex Mono",monospace}
+  .actionband > div{flex:1 1 0;min-width:120px;padding:12px 16px;border-right:1px solid var(--line)}
+  .actionband > div:last-child{border-right:none}
+  .actionband .abk{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+  .actionband .abv{font-size:16px;font-weight:500}
+  .ab.buy{border-top:3px solid var(--teal)} .ab.buy .abk{color:var(--teal)}
+  .ab.hold{border-top:3px solid var(--faint)} .ab.hold .abk{color:var(--faint)}
+  .ab.trim{border-top:3px solid var(--red)} .ab.trim .abk{color:var(--red)}
+  .abnote{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);margin:6px 0 0}
+  section{margin-top:46px;padding-top:8px}
+  .secnum{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);letter-spacing:.1em}
+  .sechead{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:18px}
+  table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:13.5px;margin:8px 0 18px}
+  th,td{text-align:right;padding:7px 8px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{color:var(--faint);font-weight:500;border-bottom:1.5px solid var(--ink);font-size:12px;letter-spacing:.04em}
+  tbody tr:last-child td{border-bottom:1.5px solid var(--ink)}
+  .chartbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 18px 14px;margin:6px 0 20px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft)}
+  .legend span{display:flex;align-items:center;gap:5px}
+  .sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+  .callout{border-left:3px solid var(--teal);background:#fff;border-radius:0 8px 8px 0;padding:16px 20px;margin:6px 0 18px}
+  .callout.risk{border-left-color:var(--red)}
+  .callout.flag{border-left-color:var(--amber)}
+  .callout h3{color:inherit}
+  .verdict-box{border:2px solid var(--ink);border-radius:10px;padding:24px 26px;margin-top:10px;background:#fff}
+  .verdict-box .vline{font-family:"Fraunces",serif;font-size:22px;font-weight:600;line-height:1.25;margin-bottom:10px}
+  ul{margin:0 0 16px;padding-left:20px}
+  li{margin-bottom:7px}
+  .cal{font-family:"IBM Plex Mono",monospace;font-size:14px}
+  .cal div{display:flex;gap:14px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .cal .when{color:var(--teal);min-width:120px}
+  .foot{margin-top:54px;padding-top:16px;border-top:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.6}
+  a{color:var(--blue)}
+  @media(max-width:560px){h1{font-size:34px}.wrap{padding:32px 18px 60px}body{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="eyebrow">Investment thesis · conditional module: income / defensive</div>
+    <h1>Procter & Gamble</h1>
+    <div class="tickerrow">
+      <span class="mono" style="font-size:15px;color:var(--soft)">NYSE: PG · ~$150 · 22 Jun 2026</span>
+      <span class="verdict-pill">Verdict: Watch</span>
+    </div>
+    <p class="lede">The portfolio's sandbag. A dividend king with 70 straight years of increases, a fortress of daily-use brands, and ~$15bn a year handed back. For once the price is not the problem: at ~22× near the low end of its range, with a ~2.9% yield above its own average, it looks fair-to-cheap. The problem is growth, which has slowed to a low-single-digit crawl. Excellent ballast, modest engine.</p>
+  </div>
+
+  <div class="heroval">
+    <div><div class="k">Price</div><div class="v">~$150</div><div class="sub">~22× earnings</div></div>
+    <div><div class="k">Intrinsic (blend)</div><div class="v good">~$159</div><div class="sub">~6% below price</div></div>
+    <div><div class="k">Dividend yield</div><div class="v good">~2.9%</div><div class="sub">70-yr rising streak</div></div>
+    <div><div class="k">Organic growth</div><div class="v mid">~2%</div><div class="sub">slow but steady</div></div>
+  </div>
+
+  <div class="actionband">
+    <div class="ab buy"><span class="abk">Buy / add</span><span class="abv">below ~$148</span></div>
+    <div class="ab hold"><span class="abk">Hold ← now here</span><span class="abv">~$148–170</span></div>
+    <div class="ab trim"><span class="abk">Trim</span><span class="abv">above ~$175</span></div>
+  </div>
+  <p class="abnote">Buy/sell guide: accumulate below ~$148 (yield above ~2.9%, near the 52-week low, ~22× or less); trim above ~$175 (~25×+, near the highs, where the defensive premium stretches). At ~$150 it sits at the bottom of the hold zone, a whisker above the add band.</p>
+
+  <section>
+    <div class="sechead"><span class="secnum">01</span><h2>The business</h2></div>
+    <p>P&G sells the things people buy without thinking: Tide and Ariel detergent, Pampers nappies, Gillette razors, Crest and Oral-B, Olay, Pantene, Head & Shoulders, Dawn, Bounty, Charmin, Always. Around 65 leading brands across five segments, Fabric & Home Care, Baby/Feminine/Family Care, Beauty, Health Care and Grooming, almost all of them daily-use staples bought in good times and bad. The strategy is deliberately narrow: a focused portfolio of essential categories where, in P&G's phrase, "performance drives brand choice," backed by enormous scale in advertising, distribution and R&D.</p>
+    <p>That is the moat: shelf dominance, brand habit and a cost base no private-label rival can match at scale. It does not produce fireworks. It produces a river of cash, year after year, recession or not, which P&G converts into one of the most reliable dividend streams in the history of public markets. This is a holding you own for durability, not dazzle.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">02</span><h2>The growth problem, stated plainly</h2></div>
+    <p>The honest weakness is the top line. Organic sales growth has slowed to a low-single-digit crawl and turned choppy: +2 percent, then 0 percent, then +3 percent across the last three quarters, with global market share slipping about 30 basis points as competitors lean on promotion and shoppers trade down. Much of the growth has been price rather than volume, and tariffs and a strong dollar are live headwinds for a group that earns roughly half its sales abroad.</p>
+    <div class="chartbox">
+      <div class="legend"><span><span class="sw" style="background:#0F6E56"></span>Organic sales growth, by quarter</span></div>
+      <div style="position:relative;width:100%;height:200px">
+        <canvas id="org" role="img" aria-label="Procter & Gamble organic sales growth by quarter: FY25 Q3 plus 1 percent, FY25 Q4 plus 2 percent, FY26 Q1 plus 2 percent, FY26 Q2 zero percent, FY26 Q3 plus 3 percent.">Organic sales growth: FY25 Q3 +1%, Q4 +2%, FY26 Q1 +2%, Q2 0%, Q3 +3%.</canvas>
+      </div>
+    </div>
+    <p>None of this threatens the business, P&G has now strung together 40 consecutive quarters of organic growth and is on track for a tenth straight year of core EPS growth, but it does cap the upside. A company growing organic sales ~2 to 3 percent and core earnings ~3 to 4 percent is a compounder of cash, not of the share price, unless the multiple does the work.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">03</span><h2>Financial quality and the cash return</h2></div>
+    <p>This is where P&G earns its reputation. Free cash flow productivity runs near 90 to 100 percent of earnings, the dividend is covered comfortably (~61 percent of earnings), and the capital return is vast and dependable.</p>
+    <table>
+      <thead><tr><th>FY2025 (to Jun 2025)</th><th>Value</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td>Net sales</td><td>$84.3bn</td><td>flat; organic +2%</td></tr>
+        <tr><td>Core EPS</td><td>$6.83</td><td>+4%</td></tr>
+        <tr><td>Operating cash flow</td><td>$17.8bn</td><td>FCF productivity 87%</td></tr>
+        <tr><td>Free cash flow</td><td>~$14.6bn</td><td>strong, stable</td></tr>
+        <tr><td>Capital returned</td><td>~$16bn</td><td>$9.9bn div + $6.5bn buyback</td></tr>
+        <tr><td>Dividend</td><td>~$4.35/yr</td><td>+3%; 70 yrs of increases; ~2.9% yield</td></tr>
+        <tr><td>Payout ratio</td><td>~61%</td><td>well covered</td></tr>
+        <tr><td>Beta</td><td>0.40</td><td>defensive, low volatility</td></tr>
+        <tr><td>FY2026 guide</td><td>organic flat–+4%, core EPS $6.83–7.09</td><td>~$15bn return</td></tr>
+      </tbody>
+    </table>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="sw" style="background:#0F6E56"></span>Dividends</span>
+        <span><span class="sw" style="background:#185FA5"></span>Buybacks</span>
+      </div>
+      <div style="position:relative;width:100%;height:200px">
+        <canvas id="ret" role="img" aria-label="Capital returned to shareholders: FY2025 9.9 billion dividends plus 6.5 billion buybacks, about 16 billion; FY2026 guidance about 10 billion dividends plus 5 billion buybacks, about 15 billion.">Capital returned: FY2025 $9.9bn div + $6.5bn buyback (~$16bn); FY2026e ~$10bn div + ~$5bn buyback (~$15bn).</canvas>
+      </div>
+    </div>
+    <p>136 years of paying a dividend and 70 of raising it is not a marketing line; it is a statement about how predictable this cash flow is. The dividend is as safe as anything in the equity market.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">04</span><h2>Management, restructuring and the handover</h2></div>
+    <p>Two changes are worth weighing. First, leadership: Jon Moeller handed the chief-executive role to Shailesh Jejurikar in January 2026, remaining chairman, a transition arriving at an awkward moment of soft growth and share pressure. Second, the "portfolio and productivity plan" announced in mid-2025: up to 7,000 non-manufacturing roles cut (about 15 percent of that workforce) by the end of fiscal 2027, a $1.5–2bn programme. Management is explicit that the savings are being reinvested into growth, brand superiority, innovation, not dropped to the bottom line. That is the right instinct for a business that needs to defend share, but it means the restructuring is a bet on reaccelerating growth rather than a guaranteed margin uplift, and execution under a new CEO carries real risk.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">05</span><h2>Valuation</h2></div>
+    <p>For once in this library, valuation is the supportive part of the story. At ~$150 P&G trades around 22 times earnings, the lower end of its typical 22–25× band, in the bottom third of its 52-week range of $138–167. The ~2.9 percent yield is above its own multi-year average, a useful signal that the stock is cheap relative to its own history. The Street is constructive, an average target around $160–165 (range $142–186) with no sell ratings, implying high-single-digit upside. This is not a stretched defensive trading at a fear premium; it is a quality staple that has drifted to a reasonable price while growth worries dominate the headlines.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">06</span><h2>Intrinsic value</h2></div>
+    <p>On core EPS near $6.95 and a dividend growing ~4 percent, the value turns on the multiple and on whether growth holds. In dollars:</p>
+    <table>
+      <thead><tr><th>Scenario</th><th>Fair value</th><th>Weight</th><th>What it assumes</th></tr></thead>
+      <tbody>
+        <tr><td>Bear</td><td>$140</td><td>25%</td><td>Growth stalls near 0–1%, share losses persist, multiple to ~20×</td></tr>
+        <tr><td>Base</td><td>$160</td><td>55%</td><td>~3% organic, ~4% EPS growth, multiple holds ~22–23×</td></tr>
+        <tr><td>Bull</td><td>$180</td><td>20%</td><td>Growth reaccelerates toward 4%+, restructuring lifts margin, ~24–25×</td></tr>
+        <tr><td>Expected value</td><td>~$159</td><td>100%</td><td>≈ 6% above the ~$150 price</td></tr>
+      </tbody>
+    </table>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="sw" style="background:#888780"></span>Market 52-wk</span>
+        <span><span class="sw" style="background:#0F6E56"></span>Scenarios</span>
+        <span><span class="sw" style="background:#378ADD"></span>Analyst targets</span>
+      </div>
+      <div style="position:relative;width:100%;height:250px">
+        <canvas id="ff" role="img" aria-label="Valuation ranges for Procter & Gamble against the current price near 150. Analyst targets 142 to 186, average 163. Scenarios 140 to 180, weighted 159. 52-week range 138 to 167.">Price ~$150, avg target ~$163. Scenarios $140-$180 (weighted $159). 52-week range $138-$167.</canvas>
+      </div>
+    </div>
+    <p>The weighted value lands near $159, about 6 percent above the price, with the ~2.9 percent yield on top, so a plausible high-single-digit total return. Decent for a defensive anchor, unspectacular as a primary holding. There is a modest margin of safety here, not a wide one.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">07</span><h2>The case, both ways</h2></div>
+    <p><strong>Bull, at its strongest.</strong> The definition of a sleep-at-night holding: 70 years of rising dividends, ~$15bn a year returned, free cash flow productivity near 100 percent, a 0.40 beta, and genuinely recession-proof categories, all available at ~22× near the low of its range with a yield above its average and a restructuring that could quietly lift margins. In a portfolio of cyclicals and richly-priced tech, this is the ballast.</p>
+    <p><strong>Bear, at its strongest.</strong> You are paying a quality premium for a business growing organic sales ~2 percent, losing a little share, leaning on price over volume, and facing tariffs, a strong dollar and relentless private-label competition, just as a new CEO runs a 7,000-job restructuring. Strip out buybacks and the per-share growth is pedestrian. The dividend is safe, but the total return may struggle to beat a mid-single-digit grind.</p>
+    <div class="callout"><h3>Variant perception</h3><p style="margin:0">The market is fretting about the 0 percent organic quarter and the 30-basis-point share slip, treating P&G as a tiring ex-growth staple. But growth was never the proposition; durability of the cash return is. The variant point is that the soft top line has pushed a fortress compounder to ~22× and a ~2.9 percent yield, both at the cheap end of its own history, handing patient income investors a rare slight discount with the restructuring as a free option on margins. The risk the bears have right, though, is the ceiling, not the floor: the dividend is unmistakably safe, but with structural growth stuck at ~2–3 percent, your return is capped near yield-plus-low-single-digits unless the multiple re-rates. So the honest read is narrow and useful: a superb defensive holding at a fair-to-slightly-cheap price, bought for ballast and reliable rising income, not as a wealth compounder. Right tool, right job, modest expectations.</p></div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">08</span><h2>Currency, for a sterling holder</h2></div>
+    <p>Two layers of dollar exposure here. First, the obvious one: PG is quoted and pays its dividend in US dollars, so your sterling return rides on GBP/USD over your holding period. Second, and less obvious, P&G itself earns roughly half its sales outside the US, so a strong dollar is a genuine headwind to its reported results, the FX drag management keeps citing. For a sterling holder the two can partly offset or compound depending on the move, but the practical point stands: this is an unhedged dollar income stream, to be sized alongside the portfolio's other dollar names. The live GBP/USD can be added on request.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">09</span><h2>What to watch</h2></div>
+    <div class="cal">
+      <div><span class="when">29 Jul 2026</span><span>Q4 and full-year FY2026 results, plus FY2027 guidance. The key reads: organic volume (not just price), market share, margin, and the restructuring's progress.</span></div>
+      <div><span class="when">Each quarter</span><span>Whether the new CEO can lift volume growth and stem share loss against private label and promotion in the US and Europe.</span></div>
+      <div><span class="when">Ongoing</span><span>Tariff and FX impacts, and the annual dividend rise (the streak that defines the stock).</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">10</span><h2>What would change the call</h2></div>
+    <ul>
+      <li><strong>Upgrade to Buy</strong> on a dip below ~$148 (yield pushing toward 3%, a clearer discount to value), or on evidence that volume and share are turning and the restructuring is lifting margin, which would justify paying up for reaccelerating growth.</li>
+      <li><strong>Downgrade towards Avoid</strong> if organic growth stalls near zero and share losses accelerate, tariffs or FX squeeze margins materially, or the multiple re-rates up toward 25×+ without a growth pickup.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">11</span><h2>Verdict</h2></div>
+    <div class="verdict-box">
+      <div class="vline">A fortress income holding at a fair-to-slightly-cheap price, bought for ballast, not for growth. Intrinsic value ~$159 against a ~$150 price. Action: Watch, a constructive defensive hold, accumulate on weakness toward ~$148.</div>
+      <p style="margin:0">P&G is exactly what it claims to be: one of the most dependable cash and dividend machines in the market, 70 years of rising payouts, ~$15bn a year returned, recession-proof categories, a 0.40 beta. And unusually for this library, it is not expensive, ~22× near the bottom of its range, with a ~2.9 percent yield above its own average, leaving a modest ~6 percent margin to a blended value plus a covered, growing income on top. What keeps it a watch rather than a clear buy is the ceiling, not the floor: organic growth is stuck at ~2–3 percent with share slipping, so the realistic total return is high-single-digit ballast, not compounding. Treated as what it is, the portfolio's shock absorber and reliable income, it is a high-quality holding at a sensible entry: a constructive watch, and a confident add on any drift toward ~$148. The dividend will keep rising long after the current growth wobble is forgotten.</p>
+    </div>
+  </section>
+
+  <div class="foot">
+    Not personal financial advice; the verdict illustrates the framework's output, not a recommendation to act.<br>
+    Sources: P&G FY2025 results (29 Jul 2025) and FY2026 Q1–Q3 8-Ks (net sales, organic growth, core EPS, operating cash flow, FCF productivity, capital return, restructuring, guidance); April 2026 dividend release (70th consecutive annual increase, $1.0885/qtr); price, P/E, yield, beta, analyst targets and 52-week range from Investing.com, TradingView, Simply Wall St and Benzinga (to 22 Jun 2026). P&G's fiscal year ends 30 June. Price, FCF and 52-week range approximate; buy/sell bands are analytical levels, not advice.
+  </div>
+
+</div>
+
+<script>
+new Chart(document.getElementById('org'),{type:'bar',
+  data:{labels:['FY25 Q3','FY25 Q4','FY26 Q1','FY26 Q2','FY26 Q3'],
+    datasets:[{data:[1,2,2,0,3],
+      backgroundColor:['#5DCAA5','#5DCAA5','#5DCAA5','#A32D2D','#0F6E56'],borderRadius:3}]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{x:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}},
+      y:{min:0,max:4,ticks:{callback:v=>'+'+v+'%',font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}}}}});
+
+new Chart(document.getElementById('ret'),{type:'bar',
+  data:{labels:['FY2025','FY2026e'],
+    datasets:[
+      {label:'Dividends',data:[9.9,10],backgroundColor:'#0F6E56'},
+      {label:'Buybacks',data:[6.5,5],backgroundColor:'#185FA5'}
+    ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{x:{stacked:true,grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}},
+      y:{stacked:true,ticks:{callback:v=>'$'+v+'B',font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}}}}});
+
+const priceLines={id:'priceLines',afterDraw(c){
+  const{ctx,chartArea:{top,bottom},scales:{x}}=c;
+  const d=(val,col,dash,lab)=>{const px=x.getPixelForValue(val);ctx.save();
+    ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.setLineDash(dash);
+    ctx.beginPath();ctx.moveTo(px,top);ctx.lineTo(px,bottom);ctx.stroke();
+    ctx.setLineDash([]);ctx.fillStyle=col;ctx.font='11px "IBM Plex Mono"';ctx.textAlign='center';
+    ctx.fillText(lab,px,top-4);ctx.restore();};
+  d(150,'#A32D2D',[],'Price $150');d(163,'#185FA5',[5,4],'Target $163');}};
+new Chart(document.getElementById('ff'),{type:'bar',
+  data:{labels:['Analyst targets','Scenarios','Market 52-wk'],
+    datasets:[{data:[[142,186],[140,180],[138,167]],
+      backgroundColor:['#378ADD','#0F6E56','#888780'],borderRadius:3,barThickness:26}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    layout:{padding:{top:18}},plugins:{legend:{display:false}},
+    scales:{x:{min:125,max:200,ticks:{callback:v=>'$'+v,font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}},
+      y:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}}}},
+  plugins:[priceLines]});
+</script>
+</body>
+</html>
