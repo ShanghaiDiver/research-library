@@ -1,289 +1,366 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Research Library</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#FBFAF7;--ink:#1C1B17;--soft:#55534B;--faint:#86847B;
-    --line:#E6E2D7;--teal:#0F6E56;--blue:#185FA5;--red:#A32D2D;--amber:#9A6410;
-    --chip:#F1EEE5;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:"Newsreader",Georgia,serif;font-size:17px;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:980px;margin:0 auto;padding:44px 26px 80px}
-  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;
-    text-transform:uppercase;color:var(--faint)}
-  h1{font-family:"Fraunces",serif;font-weight:600;font-size:40px;margin:.15em 0 .1em;letter-spacing:-.01em}
-  .summary{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--soft);margin-bottom:26px}
-  .summary b{color:var(--ink)}
-  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
-  input[type=search]{font-family:"IBM Plex Mono",monospace;font-size:13px;padding:9px 12px;
-    border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);min-width:220px;flex:1 1 220px}
-  .seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
-  .seg button{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.04em;
-    padding:9px 13px;border:none;background:none;color:var(--soft);cursor:pointer;border-right:1px solid var(--line)}
-  .seg button:last-child{border-right:none}
-  .seg button.on{background:var(--ink);color:#fff}
-  select{font-family:"IBM Plex Mono",monospace;font-size:12px;padding:9px 10px;
-    border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}
-  table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:13px}
-  th,td{text-align:right;padding:12px 10px;border-bottom:1px solid var(--line)}
-  th:first-child,td:first-child{text-align:left}
-  th:nth-child(2),td:nth-child(2){text-align:left}
-  thead th{color:var(--faint);font-weight:500;border-bottom:1.5px solid var(--ink);font-size:11.5px;
-    letter-spacing:.05em;cursor:default;text-transform:uppercase}
-  tbody tr{cursor:pointer}
-  tbody tr:hover{background:#fff}
-  .co{font-family:"Newsreader",serif;font-size:16px}
-  .tk{color:var(--faint);font-size:12px}
-  .pill{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;letter-spacing:.04em;
-    text-transform:uppercase;color:#fff;padding:3px 9px;border-radius:3px;display:inline-block}
-  .pill.buy{background:var(--teal)}.pill.watch{background:var(--amber)}.pill.avoid{background:var(--red)}
-  .gap.neg{color:var(--red)}.gap.pos{color:var(--teal)}
-  .open{color:var(--blue);text-decoration:none}
-  .empty{padding:40px 0;text-align:center;color:var(--faint);font-family:"IBM Plex Mono",monospace;font-size:13px}
-  .foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);
-    font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.7}
-  @media(max-width:620px){
-    h1{font-size:30px}.wrap{padding:30px 16px 60px}
-    th:nth-child(4),td:nth-child(4),th:nth-child(6),td:nth-child(6){display:none}
-  }
-</style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="eyebrow">Investment research</div>
-  <h1>Company library</h1>
-  <div class="summary" id="summary"></div>
-
-  <div class="controls">
-    <input type="search" id="q" placeholder="Search name, ticker or sector…">
-    <div class="seg" id="filter">
-      <button data-v="all" class="on">All</button>
-      <button data-v="Buy">Buy</button>
-      <button data-v="Watch">Watch</button>
-      <button data-v="Avoid">Avoid</button>
-    </div>
-    <select id="sort">
-      <option value="updated">Sort: last updated</option>
-      <option value="name">Sort: name</option>
-      <option value="gap">Sort: value gap</option>
-      <option value="verdict">Sort: verdict</option>
-    </select>
-  </div>
-
-  <table>
-    <thead><tr>
-      <th>Company</th><th>Sector</th><th>Verdict</th><th>Price</th><th>Fair value</th><th>Value gap</th><th>Updated</th><th></th>
-    </tr></thead>
-    <tbody id="rows"></tbody>
-  </table>
-  <div class="empty" id="empty" style="display:none">No companies match.</div>
-
-  <div class="foot">
-    Keep this file in the same folder as the company notes, or the links won't open. Each thesis is its own HTML file; this page is the index over them.<br>
-    To add a company, add one record to the <span style="color:var(--soft)">companies</span> list in this file's script (name, ticker, sector, verdict, price, fair value, conviction, updated date, and the note's filename). Verdict is Buy, Watch or Avoid. Value gap is fair value against price, negative means the market price sits above your estimate of value.
-  </div>
-</div>
-
-<script>
-// ── The library. Add one record per company thesis. ──────────────────────────
-const companies = [
-  {
-    name:"Apple Inc", ticker:"AAPL", exchange:"NASDAQ",
-    sector:"Consumer tech / hardware",
-    verdict:"Watch",
-    currency:"$", price:298, fairValue:210,
-    conviction:"Exceptional business, overpriced",
-    updated:"2026-06-22",
-    file:"AAPL_investment_thesis.html"
-  },
-  {
-    name:"Microsoft Corp", ticker:"MSFT", exchange:"NASDAQ",
-    sector:"Cloud / enterprise software",
-    verdict:"Buy",
-    currency:"$", price:379, fairValue:470,
-    conviction:"De-rated quality, AI capex bet",
-    updated:"2026-06-22",
-    file:"MSFT_investment_thesis.html"
-  },
-  {
-    name:"Amazon.com Inc", ticker:"AMZN", exchange:"NASDAQ",
-    sector:"E-commerce / cloud (AWS)",
-    verdict:"Watch",
-    currency:"$", price:233, fairValue:270,
-    conviction:"Crown-jewel assets, no free cash flow",
-    updated:"2026-06-22",
-    file:"AMZN_investment_thesis.html"
-  },
-  {
-    name:"Glencore plc", ticker:"GLEN", exchange:"LSE",
-    sector:"Diversified mining / commodity trading",
-    verdict:"Watch",
-    currency:"p", price:575, fairValue:570,
-    conviction:"Cyclical near highs; Rio bid wildcard",
-    updated:"2026-06-22",
-    file:"GLEN_investment_thesis.html"
-  },
-  {
-    name:"Berkshire Hathaway", ticker:"BRK.B", exchange:"NYSE",
-    sector:"Conglomerate / insurance & holding",
-    verdict:"Watch",
-    currency:"$", price:490, fairValue:515,
-    conviction:"Wonderful business, fair price; buy on weakness",
-    updated:"2026-06-22",
-    file:"BRK_investment_thesis.html"
-  },
-  {
-    name:"InterContinental Hotels", ticker:"IHG", exchange:"LSE",
-    sector:"Hotels / asset-light franchising",
-    verdict:"Watch",
-    currency:"$", price:168, fairValue:148,
-    conviction:"Quality; price overshot, trim into strength",
-    updated:"2026-06-22",
-    file:"IHG_investment_thesis.html"
-  },
-  {
-    name:"Legal & General Group", ticker:"LGEN", exchange:"LSE",
-    sector:"Life insurance / asset management",
-    verdict:"Watch",
-    currency:"p", price:285, fairValue:285,
-    conviction:"Income hold, fairly valued; add below 260p",
-    updated:"2026-06-22",
-    file:"LGEN_investment_thesis.html"
-  },
-  {
-    name:"Rolls-Royce Holdings", ticker:"RR.", exchange:"LSE",
-    sector:"Aerospace / defence / power",
-    verdict:"Watch",
-    currency:"p", price:1400, fairValue:1310,
-    conviction:"Superb turnaround, priced for it; add on weakness",
-    updated:"2026-06-22",
-    file:"RR_investment_thesis.html"
-  },
-  {
-    name:"Alphabet (Google)", ticker:"GOOGL", exchange:"NASDAQ",
-    sector:"Search / advertising / cloud / AI",
-    verdict:"Watch",
-    currency:"$", price:344, fairValue:348,
-    conviction:"Near-buy; quality re-rated, add below $315",
-    updated:"2026-06-22",
-    file:"GOOGL_investment_thesis.html"
-  },
-  {
-    name:"Procter & Gamble", ticker:"PG", exchange:"NYSE",
-    sector:"Consumer staples",
-    verdict:"Watch",
-    currency:"$", price:150, fairValue:159,
-    conviction:"Defensive dividend king, fair entry, slow growth",
-    updated:"2026-06-22",
-    file:"PG_investment_thesis.html"
-  },
-  {
-    name:"Games Workshop", ticker:"GAW", exchange:"LSE",
-    sector:"Tabletop games / IP",
-    verdict:"Watch",
-    currency:"p", price:20360, fairValue:20400,
-    conviction:"Superb business, full price near highs; add below 17,500p",
-    updated:"2026-06-22",
-    file:"GAW_investment_thesis.html"
-  },
-  {
-    name:"BAE Systems", ticker:"BA.", exchange:"LSE",
-    sector:"Defence / aerospace",
-    verdict:"Watch",
-    currency:"p", price:1930, fairValue:1990,
-    conviction:"Structural winner, pulled back; near-buy, add below 1,900p",
-    updated:"2026-06-22",
-    file:"BA_investment_thesis.html"
-  },
-  {
-    name:"Antofagasta", ticker:"ANTO", exchange:"LSE",
-    sector:"Copper mining",
-    verdict:"Watch",
-    currency:"p", price:3143, fairValue:3500,
-    conviction:"Top-tier copper play; leveraged, volatile; buy on weakness",
-    updated:"2026-06-22",
-    file:"ANTO_investment_thesis.html"
-  },
-  {
-    name:"Compass Group", ticker:"CPG", exchange:"LSE",
-    sector:"Contract catering / services",
-    verdict:"Watch",
-    currency:"p", price:2540, fairValue:2680,
-    conviction:"Quality compounder, fair price; near-buy, add below 2,450p",
-    updated:"2026-06-22",
-    file:"CPG_investment_thesis.html"
-  }
-];
-// ─────────────────────────────────────────────────────────────────────────────
-
-let activeFilter="all";
-const rowsEl=document.getElementById('rows');
-const emptyEl=document.getElementById('empty');
-const qEl=document.getElementById('q');
-const sortEl=document.getElementById('sort');
-
-function gap(c){return Math.round((c.fairValue-c.price)/c.price*100);}
-function fmtDate(s){const d=new Date(s);return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
-
-function render(){
-  const q=qEl.value.trim().toLowerCase();
-  let list=companies.filter(c=>{
-    const matchF=activeFilter==='all'||c.verdict===activeFilter;
-    const matchQ=!q||[c.name,c.ticker,c.sector].join(' ').toLowerCase().includes(q);
-    return matchF&&matchQ;
-  });
-  const s=sortEl.value;
-  const vorder={Buy:0,Watch:1,Avoid:2};
-  list.sort((a,b)=>{
-    if(s==='name')return a.name.localeCompare(b.name);
-    if(s==='gap')return gap(a)-gap(b);
-    if(s==='verdict')return vorder[a.verdict]-vorder[b.verdict];
-    return new Date(b.updated)-new Date(a.updated); // updated, newest first
-  });
-
-  rowsEl.innerHTML=list.map(c=>{
-    const g=gap(c);
-    const gcls=g<0?'neg':'pos';
-    const gtxt=(g>0?'+':'')+g+'%';
-    return `<tr onclick="window.open('${c.file}','_blank')">
-      <td><div class="co">${c.name}</div><div class="tk">${c.ticker} · ${c.exchange}</div></td>
-      <td>${c.sector}</td>
-      <td><span class="pill ${c.verdict.toLowerCase()}">${c.verdict}</span></td>
-      <td>${c.currency}${c.price}</td>
-      <td>${c.currency}${c.fairValue}</td>
-      <td class="gap ${gcls}">${gtxt}</td>
-      <td>${fmtDate(c.updated)}</td>
-      <td><a class="open" href="${c.file}" target="_blank" onclick="event.stopPropagation()">open →</a></td>
-    </tr>`;
-  }).join('');
-  emptyEl.style.display=list.length?'none':'block';
-}
-
-function summary(){
-  const n=companies.length;
-  const by=v=>companies.filter(c=>c.verdict===v).length;
-  document.getElementById('summary').innerHTML=
-    `<b>${n}</b> ${n===1?'company':'companies'} · <b>${by('Buy')}</b> buy · <b>${by('Watch')}</b> watch · <b>${by('Avoid')}</b> avoid`;
-}
-
-document.getElementById('filter').addEventListener('click',e=>{
-  if(e.target.tagName!=='BUTTON')return;
-  activeFilter=e.target.dataset.v;
-  [...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));
-  render();
-});
-qEl.addEventListener('input',render);
-sortEl.addEventListener('change',render);
-
-summary();render();
-</script>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1">&lt;title&gt;Research Library&lt;/title&gt;</p>
+<p class="p1">&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</p>
+<p class="p1">&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</p>
+<p class="p1">&lt;link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>:root{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--paper:#FBFAF7;--ink:#1C1B17;--soft:#55534B;--faint:#86847B;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--line:#E6E2D7;--teal:#0F6E56;--blue:#185FA5;--red:#A32D2D;--amber:#9A6410;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--chip:#F1EEE5;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>*{box-sizing:border-box}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>body{margin:0;background:var(--paper);color:var(--ink);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-family:"Newsreader",Georgia,serif;font-size:17px;-webkit-font-smoothing:antialiased}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.wrap{max-width:1080px;margin:0 auto;padding:44px 26px 80px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-transform:uppercase;color:var(--faint)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>h1{font-family:"Fraunces",serif;font-weight:600;font-size:40px;margin:.15em 0 .1em;letter-spacing:-.01em}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.summary{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--soft);margin-bottom:26px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.summary b{color:var(--ink)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>input[type=search]{font-family:"IBM Plex Mono",monospace;font-size:13px;padding:9px 12px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);min-width:220px;flex:1 1 220px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.seg button{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.04em;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding:9px 13px;border:none;background:none;color:var(--soft);cursor:pointer;border-right:1px solid var(--line)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.seg button:last-child{border-right:none}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.seg button.on{background:var(--ink);color:#fff}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.hint{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);margin-bottom:14px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:13px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>th,td{text-align:right;padding:11px 9px;border-bottom:1px solid var(--line);white-space:nowrap}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>th:first-child,td:first-child{text-align:left}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>th:nth-child(2),td:nth-child(2){text-align:left}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>thead th{color:var(--faint);font-weight:500;border-bottom:1.5px solid var(--ink);font-size:11px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>letter-spacing:.05em;text-transform:uppercase}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>thead th.sortable{cursor:pointer;user-select:none}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>thead th.sortable:hover{color:var(--ink)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>thead th.active{color:var(--ink)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.arr{color:var(--blue)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>tbody tr{cursor:pointer}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>tbody tr:hover{background:#fff}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.co{font-family:"Newsreader",serif;font-size:16px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tk{color:var(--faint);font-size:11.5px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.sec{color:var(--faint);font-size:11px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.pill{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;letter-spacing:.04em;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-transform:uppercase;color:#fff;padding:3px 9px;border-radius:3px;display:inline-block}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.pill.buy{background:var(--teal)}.pill.watch{background:var(--amber)}.pill.avoid{background:var(--red)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.gap.neg{color:var(--red)}.gap.pos{color:var(--teal)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.bbuy{color:var(--teal)}.btrim{color:var(--red)}.bhold{color:var(--soft)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>td.zone-buy{background:rgba(15,110,86,0.09);font-weight:500}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>td.zone-trim{background:rgba(163,45,45,0.08);font-weight:500}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.prov{color:var(--faint)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.open{color:var(--blue);text-decoration:none}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.empty{padding:40px 0;text-align:center;color:var(--faint);font-family:"IBM Plex Mono",monospace;font-size:13px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.7}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>@media(max-width:680px){</p>
+<p class="p1"><span class="Apple-converted-space">    </span>h1{font-size:30px}.wrap{padding:30px 16px 60px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>th:nth-child(4),td:nth-child(4),th:nth-child(7),td:nth-child(7),th:nth-child(9),td:nth-child(9){display:none}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1">&lt;div class="wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="eyebrow"&gt;Investment research&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1&gt;Company library&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="summary" id="summary"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="controls"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="search" id="q" placeholder="Search name, ticker or sector…"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="seg" id="filter"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button data-v="all" class="on"&gt;All&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button data-v="Buy"&gt;Buy&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button data-v="Watch"&gt;Watch&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button data-v="Avoid"&gt;Avoid&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="hint"&gt;Click any underlined column heading to sort; click again to reverse. Buy / Trim cells highlight when today's price sits in that zone.&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;table&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;thead&gt;&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;th class="sortable" data-key="name"&gt;Company&lt;span class="arr"&gt;&lt;/span&gt;&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;th&gt;Sector&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;th class="sortable" data-key="verdict"&gt;Verdict&lt;span class="arr"&gt;&lt;/span&gt;&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;th class="sortable" data-key="price"&gt;Price&lt;span class="arr"&gt;&lt;/span&gt;&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;th class="sortable" data-key="fairValue"&gt;Fair value&lt;span class="arr"&gt;&lt;/span&gt;&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;th class="sortable" data-key="gap"&gt;Value gap&lt;span class="arr"&gt;&lt;/span&gt;&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;th class="sortable" data-key="buyBelow"&gt;Buy &amp;le;&lt;span class="arr"&gt;&lt;/span&gt;&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;th&gt;Hold&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;th class="sortable" data-key="trimAbove"&gt;Trim &amp;ge;&lt;span class="arr"&gt;&lt;/span&gt;&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;th&gt;&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/tr&gt;&lt;/thead&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;tbody id="rows"&gt;&lt;/tbody&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/table&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="empty" id="empty" style="display:none"&gt;No companies match.&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="foot"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>Keep this file in the same folder as the company notes, or the links won't open. Each thesis is its own HTML file; this page is the index over them.&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;span style="color:var(--soft)"&gt;Value gap&lt;/span&gt; is fair value against price; negative means the market sits above your estimate of value. &lt;span style="color:var(--soft)"&gt;Buy / Hold / Trim&lt;/span&gt; are the action-band levels from each note. A buy or trim cell is shaded when the current price is in that zone.&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;span style="color:var(--soft)"&gt;*&lt;/span&gt; Provisional band, derived from price and fair value; the formal band still needs adding to the note (Apple, Microsoft, Amazon, Glencore, Berkshire).&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>To add a company, add one record to the &lt;span style="color:var(--soft)"&gt;companies&lt;/span&gt; list below (name, ticker, sector, verdict, currency, price, fair value, buyBelow, trimAbove, conviction, updated, file).</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">// ── The library. Add one record per company thesis. ──────────────────────────</p>
+<p class="p1">const companies = [</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"Apple Inc", ticker:"AAPL", exchange:"NASDAQ",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"Consumer tech / hardware",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Watch",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"$", price:298, fairValue:210,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:195, trimAbove:285, prov:true,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"Exceptional business, overpriced",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"AAPL_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"Microsoft Corp", ticker:"MSFT", exchange:"NASDAQ",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"Cloud / enterprise software",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Buy",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"$", price:379, fairValue:470,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:430, trimAbove:540, prov:true,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"De-rated quality, AI capex bet",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"MSFT_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"Amazon.com Inc", ticker:"AMZN", exchange:"NASDAQ",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"E-commerce / cloud (AWS)",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Watch",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"$", price:233, fairValue:270,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:240, trimAbove:300, prov:true,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"Crown-jewel assets, no free cash flow",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"AMZN_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"Glencore plc", ticker:"GLEN", exchange:"LSE",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"Diversified mining / trading",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Watch",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"p", price:575, fairValue:570,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:510, trimAbove:660, prov:true,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"Cyclical near highs; Rio bid wildcard",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"GLEN_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"Berkshire Hathaway", ticker:"BRK.B", exchange:"NYSE",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"Conglomerate / insurance",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Watch",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"$", price:490, fairValue:515,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:465, trimAbove:555, prov:true,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"Wonderful business, fair price; buy on weakness",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"BRK_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"InterContinental Hotels", ticker:"IHG", exchange:"LSE",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"Hotels / asset-light franchising",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Watch",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"$", price:168, fairValue:148,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:130, trimAbove:160,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"Quality; price overshot, trim into strength",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"IHG_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"Legal &amp; General Group", ticker:"LGEN", exchange:"LSE",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"Life insurance / asset management",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Watch",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"p", price:285, fairValue:285,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:260, trimAbove:325,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"Income hold, fairly valued; add below 260p",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"LGEN_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"Rolls-Royce Holdings", ticker:"RR.", exchange:"LSE",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"Aerospace / defence / power",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Watch",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"p", price:1400, fairValue:1310,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:1150, trimAbove:1550,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"Superb turnaround, priced for it; add on weakness",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"RR_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"Alphabet (Google)", ticker:"GOOGL", exchange:"NASDAQ",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"Search / advertising / cloud / AI",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Watch",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"$", price:344, fairValue:348,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:315, trimAbove:420,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"Near-buy; quality re-rated, add below $315",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"GOOGL_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"Procter &amp; Gamble", ticker:"PG", exchange:"NYSE",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"Consumer staples",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Watch",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"$", price:150, fairValue:159,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:148, trimAbove:175,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"Defensive dividend king, fair entry, slow growth",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"PG_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"Games Workshop", ticker:"GAW", exchange:"LSE",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"Tabletop games / IP",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Watch",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"p", price:20360, fairValue:20400,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:17500, trimAbove:23000,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"Superb business, full price near highs; add below 17,500p",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"GAW_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"BAE Systems", ticker:"BA.", exchange:"LSE",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"Defence / aerospace",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Watch",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"p", price:1930, fairValue:1990,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:1900, trimAbove:2400,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"Structural winner, pulled back; near-buy, add below 1,900p",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"BA_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"Antofagasta", ticker:"ANTO", exchange:"LSE",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"Copper mining",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Watch",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"p", price:3143, fairValue:3500,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:2900, trimAbove:4200,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"Top-tier copper play; leveraged, volatile; buy on weakness",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"ANTO_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name:"Compass Group", ticker:"CPG", exchange:"LSE",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sector:"Contract catering / services",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>verdict:"Watch",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency:"p", price:2540, fairValue:2680,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buyBelow:2450, trimAbove:3000,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conviction:"Quality compounder, fair price; near-buy, add below 2,450p",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updated:"2026-06-22",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>file:"CPG_investment_thesis.html"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">];</p>
+<p class="p1">// ─────────────────────────────────────────────────────────────────────────────</p>
+<p class="p2"><br></p>
+<p class="p1">let activeFilter="all";</p>
+<p class="p1">let sortKey="gap", sortDir=-1; // default: most undervalued first</p>
+<p class="p1">const rowsEl=document.getElementById('rows');</p>
+<p class="p1">const emptyEl=document.getElementById('empty');</p>
+<p class="p1">const qEl=document.getElementById('q');</p>
+<p class="p2"><br></p>
+<p class="p1">function gap(c){return Math.round((c.fairValue-c.price)/c.price*100);}</p>
+<p class="p1">function money(cur,v){const n=v.toLocaleString('en-GB');return cur==='$'?'$'+n:n+'p';}</p>
+<p class="p1">function range(c){const lo=c.buyBelow.toLocaleString('en-GB'),hi=c.trimAbove.toLocaleString('en-GB');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>return c.currency==='$'?`$${lo}–${hi}`:`${lo}–${hi}p`;}</p>
+<p class="p1">function zone(c){if(c.price&lt;=c.buyBelow)return'buy';if(c.price&gt;=c.trimAbove)return'trim';return'hold';}</p>
+<p class="p2"><br></p>
+<p class="p1">const acc={</p>
+<p class="p1"><span class="Apple-converted-space">  </span>name:c=&gt;c.name,</p>
+<p class="p1"><span class="Apple-converted-space">  </span>verdict:c=&gt;({Buy:0,Watch:1,Avoid:2})[c.verdict],</p>
+<p class="p1"><span class="Apple-converted-space">  </span>price:c=&gt;c.price,</p>
+<p class="p1"><span class="Apple-converted-space">  </span>fairValue:c=&gt;c.fairValue,</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap:c=&gt;gap(c),</p>
+<p class="p1"><span class="Apple-converted-space">  </span>buyBelow:c=&gt;c.buyBelow,</p>
+<p class="p1"><span class="Apple-converted-space">  </span>trimAbove:c=&gt;c.trimAbove</p>
+<p class="p1">};</p>
+<p class="p2"><br></p>
+<p class="p1">function render(){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const q=qEl.value.trim().toLowerCase();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let list=companies.filter(c=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const matchF=activeFilter==='all'||c.verdict===activeFilter;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const matchQ=!q||[c.name,c.ticker,c.sector].join(' ').toLowerCase().includes(q);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return matchF&amp;&amp;matchQ;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const get=acc[sortKey];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>list.sort((a,b)=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const av=get(a),bv=get(b);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(typeof av==='string')return av.localeCompare(bv)*sortDir;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return (av-bv)*sortDir;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>rowsEl.innerHTML=list.map(c=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const g=gap(c);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const gcls=g&lt;0?'neg':'pos';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const gtxt=(g&gt;0?'+':'')+g+'%';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const z=zone(c);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const star=c.prov?'&lt;span class="prov"&gt;*&lt;/span&gt;':'';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return `&lt;tr onclick="window.open('${c.file}','_blank')"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;td&gt;&lt;div class="co"&gt;${c.name}&lt;/div&gt;&lt;div class="tk"&gt;${c.ticker} · ${c.exchange}&lt;/div&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;td&gt;&lt;span class="sec"&gt;${c.sector}&lt;/span&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;td&gt;&lt;span class="pill ${c.verdict.toLowerCase()}"&gt;${c.verdict}&lt;/span&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;td&gt;${money(c.currency,c.price)}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;td&gt;${money(c.currency,c.fairValue)}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;td class="gap ${gcls}"&gt;${gtxt}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;td class="bbuy ${z==='buy'?'zone-buy':''}"&gt;${money(c.currency,c.buyBelow)}${star}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;td class="bhold"&gt;${range(c)}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;td class="btrim ${z==='trim'?'zone-trim':''}"&gt;${money(c.currency,c.trimAbove)}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;td&gt;&lt;a class="open" href="${c.file}" target="_blank" onclick="event.stopPropagation()"&gt;open →&lt;/a&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/tr&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}).join('');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>emptyEl.style.display=list.length?'none':'block';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>arrows();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function arrows(){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.querySelectorAll('th.sortable').forEach(th=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const a=th.querySelector('.arr');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const on=th.dataset.key===sortKey;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>th.classList.toggle('active',on);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>a.textContent=on?(sortDir===1?' ↑':' ↓'):'';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function summary(){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const n=companies.length;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const by=v=&gt;companies.filter(c=&gt;c.verdict===v).length;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const inBuy=companies.filter(c=&gt;zone(c)==='buy').length;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('summary').innerHTML=</p>
+<p class="p1"><span class="Apple-converted-space">    </span>`&lt;b&gt;${n}&lt;/b&gt; companies · &lt;b&gt;${by('Buy')}&lt;/b&gt; buy · &lt;b&gt;${by('Watch')}&lt;/b&gt; watch · &lt;b&gt;${by('Avoid')}&lt;/b&gt; avoid · &lt;b&gt;${inBuy}&lt;/b&gt; in buy zone`;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">document.getElementById('filter').addEventListener('click',e=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(e.target.tagName!=='BUTTON')return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>activeFilter=e.target.dataset.v;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>[...e.currentTarget.children].forEach(b=&gt;b.classList.toggle('on',b===e.target));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>render();</p>
+<p class="p1">});</p>
+<p class="p1">qEl.addEventListener('input',render);</p>
+<p class="p1">document.querySelectorAll('th.sortable').forEach(th=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>th.addEventListener('click',()=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const k=th.dataset.key;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(k===sortKey){sortDir=-sortDir;}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>else{sortKey=k;sortDir=(k==='name')?1:(k==='gap'?-1:1);}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>render();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1">});</p>
+<p class="p2"><br></p>
+<p class="p1">summary();render();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
 </body>
 </html>
