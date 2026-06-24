@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Thesis — Compass Group (CPG)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root{
+    --paper:#FBFAF7;--ink:#1C1B17;--soft:#55534B;--faint:#86847B;
+    --line:#E6E2D7;--teal:#0F6E56;--tealsoft:#5DCAA5;--blue:#185FA5;
+    --red:#A32D2D;--amber:#9A6410;--chip:#F1EEE5;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:48px 28px 80px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  h1{font-family:"Fraunces",serif;font-weight:600;font-size:46px;line-height:1.02;margin:.2em 0 .1em;letter-spacing:-.01em}
+  h2{font-family:"Fraunces",serif;font-weight:600;font-size:24px;margin:0;letter-spacing:-.01em}
+  h3{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin:0 0 6px}
+  p{margin:0 0 16px}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  .lede{font-size:21px;line-height:1.5;color:var(--ink);margin:18px 0 0}
+  .masthead{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:8px}
+  .tickerrow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .verdict-pill{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--amber);padding:5px 12px;border-radius:3px;display:inline-block}
+  .heroval{display:flex;gap:0;flex-wrap:wrap;margin:26px 0 6px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+  .heroval > div{flex:1 1 0;min-width:150px;padding:16px 18px;border-right:1px solid var(--line)}
+  .heroval > div:last-child{border-right:none}
+  .heroval .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  .heroval .v{font-family:"Fraunces",serif;font-size:30px;font-weight:600;line-height:1}
+  .heroval .v.warn{color:var(--red)}
+  .heroval .v.good{color:var(--teal)}
+  .heroval .v.mid{color:var(--amber)}
+  .heroval .sub{font-size:13px;color:var(--soft);margin-top:4px;font-family:"IBM Plex Mono",monospace}
+  .actionband{display:flex;gap:0;margin:18px 0 6px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;font-family:"IBM Plex Mono",monospace}
+  .actionband > div{flex:1 1 0;min-width:120px;padding:12px 16px;border-right:1px solid var(--line)}
+  .actionband > div:last-child{border-right:none}
+  .actionband .abk{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+  .actionband .abv{font-size:16px;font-weight:500}
+  .ab.buy{border-top:3px solid var(--teal)} .ab.buy .abk{color:var(--teal)}
+  .ab.hold{border-top:3px solid var(--faint)} .ab.hold .abk{color:var(--faint)}
+  .ab.trim{border-top:3px solid var(--red)} .ab.trim .abk{color:var(--red)}
+  .abnote{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);margin:6px 0 0}
+  section{margin-top:46px;padding-top:8px}
+  .secnum{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);letter-spacing:.1em}
+  .sechead{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:18px}
+  table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:13.5px;margin:8px 0 18px}
+  th,td{text-align:right;padding:7px 8px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{color:var(--faint);font-weight:500;border-bottom:1.5px solid var(--ink);font-size:12px;letter-spacing:.04em}
+  tbody tr:last-child td{border-bottom:1.5px solid var(--ink)}
+  .chartbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 18px 14px;margin:6px 0 20px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft)}
+  .legend span{display:flex;align-items:center;gap:5px}
+  .sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+  .callout{border-left:3px solid var(--teal);background:#fff;border-radius:0 8px 8px 0;padding:16px 20px;margin:6px 0 18px}
+  .callout.risk{border-left-color:var(--red)}
+  .callout.flag{border-left-color:var(--amber)}
+  .callout h3{color:inherit}
+  .verdict-box{border:2px solid var(--ink);border-radius:10px;padding:24px 26px;margin-top:10px;background:#fff}
+  .verdict-box .vline{font-family:"Fraunces",serif;font-size:22px;font-weight:600;line-height:1.25;margin-bottom:10px}
+  ul{margin:0 0 16px;padding-left:20px}
+  li{margin-bottom:7px}
+  .cal{font-family:"IBM Plex Mono",monospace;font-size:14px}
+  .cal div{display:flex;gap:14px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .cal .when{color:var(--teal);min-width:120px}
+  .foot{margin-top:54px;padding-top:16px;border-top:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.6}
+  a{color:var(--blue)}
+  @media(max-width:560px){h1{font-size:34px}.wrap{padding:32px 18px 60px}body{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="eyebrow">Investment thesis · conditional module: services compounder</div>
+    <h1>Compass Group</h1>
+    <div class="tickerrow">
+      <span class="mono" style="font-size:15px;color:var(--soft)">LSE: CPG · ~2,540p (≈$32, reports in USD) · 22 Jun 2026</span>
+      <span class="verdict-pill">Verdict: Watch</span>
+    </div>
+    <p class="lede">A quietly excellent compounder. The world's largest contract caterer turns a low-margin, capital-light business into reliable double-digit profit growth, year after year, off a long structural runway in outsourcing. The shares have drifted sideways for a year, which keeps the multiple sensible at ~22× for ~10% growth. Not cheap, but a genuinely high-quality, defensive-tilted business at a fair price.</p>
+  </div>
+
+  <div class="heroval">
+    <div><div class="k">Price</div><div class="v">~2,540p</div><div class="sub">~22× fwd earnings</div></div>
+    <div><div class="k">Intrinsic (blend)</div><div class="v good">~2,680p</div><div class="sub">~6% above price</div></div>
+    <div><div class="k">Avg analyst target</div><div class="v good">~3,000p</div><div class="sub">+18% · Buy</div></div>
+    <div><div class="k">Organic growth</div><div class="v good">~8.7%</div><div class="sub">structural, durable</div></div>
+  </div>
+
+  <div class="actionband">
+    <div class="ab buy"><span class="abk">Buy / add</span><span class="abv">below ~2,450p</span></div>
+    <div class="ab hold"><span class="abk">Hold ← now here</span><span class="abv">~2,450–2,850p</span></div>
+    <div class="ab trim"><span class="abk">Trim</span><span class="abv">above ~3,000p</span></div>
+  </div>
+  <p class="abnote">Buy/sell guide: accumulate below ~2,450p, where the multiple eases toward the low-20s and a cushion opens; trim above ~3,000p, near the analyst average and the bull case. At ~2,540p it sits in the lower half of the hold zone, close to the add band. (Pence approximate; Compass reports in US dollars.)</p>
+
+  <section>
+    <div class="sechead"><span class="secnum">01</span><h2>The business</h2></div>
+    <p>Compass runs other people's kitchens. When a company, hospital, school, stadium, defence base or remote mine site decides it would rather not operate its own catering, Compass takes it over, buying the food at vast scale, employing the staff, running the canteen or concession, and keeping a thin slice of the cost as profit. It is the global leader by a distance, $46bn of revenue across business and industry, healthcare and seniors, education, sports and leisure, and defence and remote sites, with North America its largest and most profitable region.</p>
+    <p>It is a deceptively good model. Margins are thin (~7 percent), but the business is capital-light (capex just ~3.3 percent of revenue), so returns on capital are high, and the cash conversion is strong. Contracts are sticky (retention above 96 percent), revenue is largely non-discretionary (people eat at work, in hospital and at school regardless of the cycle), and the growth comes from a structural shift: more and more organisations outsourcing catering they used to run themselves. It is a quiet compounder, not a glamour stock.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">02</span><h2>The growth algorithm</h2></div>
+    <p>What makes Compass more than a defensive staple is the consistency of its growth engine. It adds roughly 4 to 5 percent a year of net new business, clients won minus clients lost, and has hit that corridor for four straight years, with FY2025 new wins securing $3.8bn of annualised revenue. On top sits like-for-like volume and pricing, taking organic growth to 8.7 percent in 2025 (North America +9.1 percent, International +7.7 percent). Crucially, the quality of those wins is improving: just over half of new contracts now come from first-time outsourcers, organisations that have never outsourced before, up from 45 percent a year earlier, with another 35 percent taken from local operators who cannot match Compass on price or expertise. The pipeline is up 14 percent year on year, retention sits at 96 percent, and management sizes the reachable market across its regions at around $360bn today, potentially $600bn by 2035. A large share of catering worldwide is still self-operated, so the runway is long, and it widened structurally after COVID pushed organisations toward cost and complexity reduction.</p>
+    <div class="chartbox">
+      <div class="legend"><span><span class="sw" style="background:#0F6E56"></span>Organic revenue growth</span></div>
+      <div style="position:relative;width:100%;height:200px">
+        <canvas id="org" role="img" aria-label="Organic revenue growth: FY2024 about 10.5 percent, FY2025 8.7 percent, FY2026 estimate around 7 percent as inflation-led pricing moderates.">Organic revenue growth: FY24 ~10.5%, FY25 8.7%, FY26e ~7%.</canvas>
+      </div>
+    </div>
+    <p>The honest caveat is in that chart: growth is moderating, from ~10.5 to 8.7 to a guided ~7 percent, as the inflation-driven pricing component fades. That is normalisation, not weakness, the underlying net-new-business engine is intact, but it does mean the heady post-COVID rates are behind it, and the future is a steady mid-to-high single-digit grind rather than acceleration.</p>
+    <p>Two fears knocked the shares from ~$35 toward ~$28 earlier in 2026, and both look like misreads. The AI panic had it backwards: with ~70 percent of revenue in North America and more than 60 AI-related clients already, Compass is the natural caterer to Silicon Valley, the chipmakers, and the data-centre operators springing up everywhere, so it gains more from the AI build-out than it loses. The weight-loss-drug scare, the notion that GLP-1 users eat less and therefore cater less, is thinner still: everyone still eats, the menus simply shift, and the revenue impact is negligible. Management has also deliberately concentrated the portfolio, exiting China, South America and the UAE to focus on the US, Europe, Japan, Australia and India, and gone upmarket with bolt-ons like CH&amp;co and Vermaat in a still-fragmented industry. The recovery to ~$32 reflects the market quietly conceding both scares were overdone.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">03</span><h2>Margins, cash and capital allocation</h2></div>
+    <p>The other half of the algorithm is margin. Compass is deliberately lifting profitability faster than revenue, helped by scale, technology and "sectorisation," and there is a specific, quantified opportunity: international margins lag North America by about 200 basis points, a gap management intends to close. So even as organic growth normalises, profit should keep growing ahead of revenue.</p>
+    <div class="chartbox">
+      <div class="legend"><span><span class="sw" style="background:#185FA5"></span>Underlying operating profit ($bn)</span></div>
+      <div style="position:relative;width:100%;height:200px">
+        <canvas id="op" role="img" aria-label="Underlying operating profit: FY2024 about 2.99 billion, FY2025 3.34 billion, FY2026 estimate about 3.67 billion dollars.">Underlying operating profit ($bn): FY24 ~2.99, FY25 3.34, FY26e ~3.67.</canvas>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>FY2025 (to Sep 2025)</th><th>Value</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td>Revenue</td><td>$46.1bn</td><td>+8.7% organic</td></tr>
+        <tr><td>Underlying operating profit</td><td>$3.34bn</td><td>+11.7%, margin ~7.2%</td></tr>
+        <tr><td>Underlying EPS</td><td>131.9c</td><td>+11.1%</td></tr>
+        <tr><td>Net new business</td><td>4.5%</td><td>4th yr in target; retention &gt;96%</td></tr>
+        <tr><td>Capex</td><td>$1.5bn</td><td>3.3% of revenue (capital-light)</td></tr>
+        <tr><td>M&amp;A</td><td>$1.3bn</td><td>incl. Vermaat (~€1.5bn), accretive</td></tr>
+        <tr><td>Dividend</td><td>65.9c</td><td>+10.2%, ~2.1% yield, ~59% payout</td></tr>
+        <tr><td>FY2026 guide</td><td>op profit &gt;11% (raised)</td><td>organic ~7%, margin progression</td></tr>
+      </tbody>
+    </table>
+    <p>Capital allocation is sensible: reinvest in contracts, bolt on acquisitions (the ~€1.5bn Vermaat deal adds premium European food services), pay a progressive dividend (+10 percent), and return surplus via buybacks. One flag to track: the acquisition spend and buybacks have pushed net debt toward the upper end of management's comfort range, though the company maintains the debt-to-profit ratio is manageable and it remains comfortably investment grade. H1 2026 confirmed the momentum, profit up 12 percent with international now outgrowing North America, net new business guided to accelerate to the middle of the 4–5 percent target, prompting management to raise full-year operating-profit guidance to above 11 percent.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">04</span><h2>Valuation</h2></div>
+    <p>At ~2,540p (about $32, the company reports in dollars) Compass trades on roughly 22 times forward earnings with a ~2.1 percent yield. That is a premium, as a quality compounder should command, but not an extreme one: it is the kind of multiple a business growing profit ~10 percent with high returns and low cyclicality tends to hold. Helpfully, the shares have gone nowhere for a year, drifting sideways and slightly underperforming the market, so the valuation has not run away. The analyst community is firmly positive, a Buy consensus with no sell ratings and an average target around 3,000p, implying ~18 percent upside, with some houses materially higher.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">05</span><h2>Intrinsic value</h2></div>
+    <p>On ~$1.47 of FY2026 earnings growing ~10 percent, with margin progression extending the runway, the value turns on how durable the algorithm is. In pence (converted from dollar earnings):</p>
+    <table>
+      <thead><tr><th>Scenario</th><th>Fair value</th><th>Weight</th><th>What it assumes</th></tr></thead>
+      <tbody>
+        <tr><td>Bear</td><td>2,200p</td><td>25%</td><td>Growth normalises below 7%, B&amp;I/office softness, multiple to ~18×</td></tr>
+        <tr><td>Base</td><td>2,680p</td><td>50%</td><td>~7% organic + M&amp;A + margin = ~10% profit growth, ~22× holds</td></tr>
+        <tr><td>Bull</td><td>3,150p</td><td>25%</td><td>Outsourcing runway + margin catch-up sustain growth, re-rates ~24×</td></tr>
+        <tr><td>Expected value</td><td>~2,680p</td><td>100%</td><td>≈ 6% above the ~2,540p price</td></tr>
+      </tbody>
+    </table>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="sw" style="background:#888780"></span>Market 52-wk</span>
+        <span><span class="sw" style="background:#0F6E56"></span>Scenarios</span>
+        <span><span class="sw" style="background:#378ADD"></span>Analyst targets</span>
+      </div>
+      <div style="position:relative;width:100%;height:250px">
+        <canvas id="ff" role="img" aria-label="Valuation ranges for Compass in pounds against the current price near 25.40. Analyst targets 23.60 to 38.60, average 30. Scenarios 22 to 31.50, weighted 26.80. 52-week range about 20.50 to 28.50.">Price ~£25.40, avg target ~£30. Scenarios £22-£31.50 (weighted £26.80). 52-week range ~£20.50-£28.50.</canvas>
+      </div>
+    </div>
+    <p>The weighted value sits a little above the price, with the Street meaningfully more bullish. So Compass is fair-to-modestly-cheap, not a deep bargain, but a quality compounder you can buy at a sensible price with a covered, growing dividend on top, a more comfortable proposition than the names trading at their highs.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">06</span><h2>The case, both ways</h2></div>
+    <p><strong>Bull, at its strongest.</strong> A best-in-class, capital-light compounder with high returns, sticky contracts, &gt;96 percent retention, and a long structural runway in first-time outsourcing, throwing off reliable ~10 percent profit growth with margin upside still to come (the 200bp international gap), a progressive dividend and buybacks, all defensively underpinned by non-discretionary demand. Quality this consistent rarely sits at a sensible multiple.</p>
+    <p><strong>Bear, at its strongest.</strong> ~22× for a low-margin (~7 percent), labour-intensive business whose growth is normalising as pricing fades, with genuine cyclical pockets, business-and-industry catering depends on office attendance, sports and leisure on events, exposed to wage inflation and labour availability, and large enough now that growth is incremental. The shares have gone nowhere for a year for a reason.</p>
+    <div class="callout"><h3>Variant perception</h3><p style="margin:0">The market files Compass as a steady, slightly dull large-cap, hence the flat shares and a 22× multiple that prices in good-but-fading growth. The variant point is duration: the outsourcing-penetration runway, especially first-time outsourcing and internationally, is longer than a mature-large-cap framing implies, and the self-help margin lever (closing the 200bp international gap) can extend double-digit profit growth well past the point a normalising top line would suggest, which is exactly the kind of compounding the market tends to under-pay for in unglamorous names. The bear's fair retort is that it is a thin-margin, people-heavy business where a real recession (offices closing, events cancelled) and wage pressure can squeeze both volume and margin at once, and the inflation tailwind that flattered recent years is gone. The honest read: a high-quality, predictable, defensively-tilted compounder with a genuinely long runway, available at a fair, not cheap, price. The kind of low-drama holding that compounds quietly in the background, best bought on the dips that its own dullness periodically provides.</p></div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">07</span><h2>Currency, for a sterling holder</h2></div>
+    <p>Like Antofagasta and IHG, Compass wears a sterling jacket over a dollar business. It is quoted in pence but reports in US dollars, with North America its biggest region and the dividend declared in US cents. So your pence quote already embeds GBP/USD, and your sterling return rides on the dollar as much as on the shares. Count this as meaningful dollar exposure when sizing it against the rest of a portfolio, the pence price is a translation of a largely dollar-earned result.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">08</span><h2>What to watch</h2></div>
+    <div class="cal">
+      <div><span class="when">May 2026 (done)</span><span>H1 2026: profit +12%, international outgrowing NA, guidance raised to &gt;11%. Next: 24 Nov 2026 full-year results.</span></div>
+      <div><span class="when">Each half</span><span>Net new business and retention (the core engine), and margin progression, especially the international margin catch-up.</span></div>
+      <div><span class="when">Ongoing</span><span>The Vermaat integration, the pace of organic normalisation as pricing fades, and any softness in office-linked B&amp;I or events-linked sports & leisure.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">09</span><h2>What would change the call</h2></div>
+    <ul>
+      <li><strong>Upgrade to Buy</strong> on a dip below ~2,450p (a clearer discount to value), or on evidence that margin progression and net new business are sustaining double-digit profit growth beyond the pricing-led years.</li>
+      <li><strong>Downgrade towards Avoid</strong> if net new business or retention slips, a downturn hits office and events volumes, wage inflation compresses the thin margin, or the multiple re-rates toward the high-20s without faster growth.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">10</span><h2>Verdict</h2></div>
+    <div class="verdict-box">
+      <div class="vline">A quietly excellent, defensively-tilted compounder at a fair price. Intrinsic value ~2,680p against a ~2,540p price. Action: Watch, a high-quality hold, accumulate on weakness below ~2,450p.</div>
+      <p style="margin:0">Compass is the kind of business that wins by being relentlessly consistent: a capital-light global leader turning a thin-margin service into reliable ~10 percent profit growth, off a long structural runway, with high retention, a self-help margin lever still to pull, and a progressive dividend. It is genuinely high quality and, unusually, sensibly priced, ~22× for ~10% growth, with the shares having drifted sideways for a year so the valuation never ran away. What keeps it a watch rather than an outright buy is the absence of a real discount, ~6 percent to a blended value, plus a normalising top line as the inflation tailwind fades. But it sits firmly in the "quality at a fair price" bracket alongside the better-value names in the framework, and would be a confident add on any dip toward ~2,450p. As an exploration: a strong candidate for the library if you want a low-drama, defensively-tilted structural compounder with US exposure, the sort of holding that does its work quietly while the cyclicals and the tech names make the noise.</p>
+    </div>
+  </section>
+
+  <div class="foot">
+    Not personal financial advice; the verdict illustrates the framework's output, not a recommendation to act.<br>
+    Sources: Compass Group FY2025 results (25 Nov 2025) and H1 2026 results (May 2026) (revenue, organic growth, operating profit and margin, EPS, net new business, retention, capex, M&A, dividend, FY2026 guidance); price, P/E, yield, market cap, analyst targets and 52-week range from Investing.com, Stockopedia and TradingView (to 22 Jun 2026). Fiscal year ends 30 September; Compass reports in US dollars and is sterling-quoted (pence figures converted at ~$1.27). Price, scenarios and 52-week range approximate; buy/sell bands are analytical levels, not advice.
+  </div>
+
+</div>
+
+<script>
+new Chart(document.getElementById('org'),{type:'bar',
+  data:{labels:['FY2024','FY2025','FY2026e'],
+    datasets:[{data:[10.5,8.7,7.0],
+      backgroundColor:['#0F6E56','#0F6E56','#5DCAA5'],borderRadius:3,barThickness:60}]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{x:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}},
+      y:{min:0,ticks:{callback:v=>v+'%',font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}}}}});
+
+new Chart(document.getElementById('op'),{type:'bar',
+  data:{labels:['FY2024','FY2025','FY2026e'],
+    datasets:[{data:[2.99,3.34,3.67],
+      backgroundColor:['#5DCAA5','#185FA5','#185FA5'],borderRadius:3,barThickness:60}]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{x:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}},
+      y:{min:0,ticks:{callback:v=>'$'+v+'bn',font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}}}}});
+
+const priceLines={id:'priceLines',afterDraw(c){
+  const{ctx,chartArea:{top,bottom},scales:{x}}=c;
+  const d=(val,col,dash,lab)=>{const px=x.getPixelForValue(val);ctx.save();
+    ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.setLineDash(dash);
+    ctx.beginPath();ctx.moveTo(px,top);ctx.lineTo(px,bottom);ctx.stroke();
+    ctx.setLineDash([]);ctx.fillStyle=col;ctx.font='11px "IBM Plex Mono"';ctx.textAlign='center';
+    ctx.fillText(lab,px,top-4);ctx.restore();};
+  d(25.40,'#A32D2D',[],'Price £25.40');d(30.0,'#185FA5',[5,4],'Target £30');}};
+new Chart(document.getElementById('ff'),{type:'bar',
+  data:{labels:['Analyst targets','Scenarios','Market 52-wk'],
+    datasets:[{data:[[23.60,38.60],[22.0,31.50],[20.50,28.50]],
+      backgroundColor:['#378ADD','#0F6E56','#888780'],borderRadius:3,barThickness:26}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    layout:{padding:{top:18}},plugins:{legend:{display:false}},
+    scales:{x:{min:19,max:40,ticks:{callback:v=>'£'+v,font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}},
+      y:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}}}},
+  plugins:[priceLines]});
+</script>
+</body>
+</html>
