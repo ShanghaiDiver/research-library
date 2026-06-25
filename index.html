@@ -55,7 +55,7 @@
   td.zone-trim{background:rgba(163,45,45,0.08);font-weight:500}
   .prov{color:var(--faint)}
   .open{color:var(--blue);text-decoration:none}
-  .empty{padding:40px 0;text-align:center;color:var(--faint);font-family:"IBM Plex Mono",monospace;font-size:13px}
+  .empty{padding:40px 0;text-align:center;color:var(--faint);font-family:"IBM Plex Mono",monospace;font-size:13px;line-height:1.7}
   .foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);
     font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.7}
   @media(max-width:680px){
@@ -66,9 +66,9 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="eyebrow">Investment research</div>
+  <div class="eyebrow">Investment research <span id="asof"></span></div>
   <h1>Company library</h1>
-  <div class="summary" id="summary"></div>
+  <div class="summary" id="summary">Loading…</div>
 
   <div class="controls">
     <input type="search" id="q" placeholder="Search name, ticker or sector…">
@@ -99,159 +99,14 @@
   <div class="empty" id="empty" style="display:none">No companies match.</div>
 
   <div class="foot">
-    Keep this file in the same folder as the company notes, or the links won't open. Each thesis is its own HTML file; this page is the index over them.<br>
-    <span style="color:var(--soft)">Value gap</span> is fair value against price; negative means the market sits above your estimate of value. <span style="color:var(--soft)">Buy / Hold / Trim</span> are the action-band levels from each note. A buy or trim cell is shaded when the current price is in that zone.<br>
-    <span style="color:var(--soft)">*</span> Provisional band, derived from price and fair value; the formal band still needs adding to the note (Apple, Microsoft, Amazon, Glencore, Berkshire).<br>
-    To add a company, add one record to the <span style="color:var(--soft)">companies</span> list below (name, ticker, sector, verdict, currency, price, fair value, buyBelow, trimAbove, conviction, updated, file).
+    This page reads its data live from <span style="color:var(--soft)">companies.json</span> in the same folder. Edit that one file (and re-commit it) to update the library; the page and the Google Sheet both pick up the change. No need to touch this HTML.<br>
+    <span style="color:var(--soft)">Value gap</span> is fair value against price; negative means the market sits above your estimate of value. <span style="color:var(--soft)">Buy / Hold / Trim</span> are the action-band levels from each note; a buy or trim cell is shaded when the current price is in that zone.<br>
+    <span style="color:var(--soft)">*</span> Provisional band, derived from price and fair value; the formal band still needs adding to the note (Apple, Microsoft, Amazon, Glencore, Berkshire).
   </div>
 </div>
 
 <script>
-// ── The library. Add one record per company thesis. ──────────────────────────
-const companies = [
-  {
-    name:"Apple Inc", ticker:"AAPL", exchange:"NASDAQ",
-    sector:"Consumer tech / hardware",
-    verdict:"Watch",
-    currency:"$", price:298, fairValue:210,
-    buyBelow:195, trimAbove:285, prov:true,
-    conviction:"Exceptional business, overpriced",
-    updated:"2026-06-22",
-    file:"AAPL_investment_thesis.html"
-  },
-  {
-    name:"Microsoft Corp", ticker:"MSFT", exchange:"NASDAQ",
-    sector:"Cloud / enterprise software",
-    verdict:"Buy",
-    currency:"$", price:379, fairValue:470,
-    buyBelow:430, trimAbove:540, prov:true,
-    conviction:"De-rated quality, AI capex bet",
-    updated:"2026-06-22",
-    file:"MSFT_investment_thesis.html"
-  },
-  {
-    name:"Amazon.com Inc", ticker:"AMZN", exchange:"NASDAQ",
-    sector:"E-commerce / cloud (AWS)",
-    verdict:"Watch",
-    currency:"$", price:233, fairValue:270,
-    buyBelow:240, trimAbove:300, prov:true,
-    conviction:"Crown-jewel assets, no free cash flow",
-    updated:"2026-06-22",
-    file:"AMZN_investment_thesis.html"
-  },
-  {
-    name:"Glencore plc", ticker:"GLEN", exchange:"LSE",
-    sector:"Diversified mining / trading",
-    verdict:"Watch",
-    currency:"p", price:575, fairValue:570,
-    buyBelow:510, trimAbove:660, prov:true,
-    conviction:"Cyclical near highs; Rio bid wildcard",
-    updated:"2026-06-22",
-    file:"GLEN_investment_thesis.html"
-  },
-  {
-    name:"Berkshire Hathaway", ticker:"BRK.B", exchange:"NYSE",
-    sector:"Conglomerate / insurance",
-    verdict:"Watch",
-    currency:"$", price:490, fairValue:515,
-    buyBelow:465, trimAbove:555, prov:true,
-    conviction:"Wonderful business, fair price; buy on weakness",
-    updated:"2026-06-22",
-    file:"BRK_investment_thesis.html"
-  },
-  {
-    name:"InterContinental Hotels", ticker:"IHG", exchange:"LSE",
-    sector:"Hotels / asset-light franchising",
-    verdict:"Watch",
-    currency:"$", price:168, fairValue:148,
-    buyBelow:130, trimAbove:160,
-    conviction:"Quality; price overshot, trim into strength",
-    updated:"2026-06-22",
-    file:"IHG_investment_thesis.html"
-  },
-  {
-    name:"Legal & General Group", ticker:"LGEN", exchange:"LSE",
-    sector:"Life insurance / asset management",
-    verdict:"Watch",
-    currency:"p", price:285, fairValue:285,
-    buyBelow:260, trimAbove:325,
-    conviction:"Income hold, fairly valued; add below 260p",
-    updated:"2026-06-22",
-    file:"LGEN_investment_thesis.html"
-  },
-  {
-    name:"Rolls-Royce Holdings", ticker:"RR.", exchange:"LSE",
-    sector:"Aerospace / defence / power",
-    verdict:"Watch",
-    currency:"p", price:1400, fairValue:1310,
-    buyBelow:1150, trimAbove:1550,
-    conviction:"Superb turnaround, priced for it; add on weakness",
-    updated:"2026-06-22",
-    file:"RR_investment_thesis.html"
-  },
-  {
-    name:"Alphabet (Google)", ticker:"GOOGL", exchange:"NASDAQ",
-    sector:"Search / advertising / cloud / AI",
-    verdict:"Watch",
-    currency:"$", price:344, fairValue:348,
-    buyBelow:315, trimAbove:420,
-    conviction:"Near-buy; quality re-rated, add below $315",
-    updated:"2026-06-22",
-    file:"GOOGL_investment_thesis.html"
-  },
-  {
-    name:"Procter & Gamble", ticker:"PG", exchange:"NYSE",
-    sector:"Consumer staples",
-    verdict:"Watch",
-    currency:"$", price:150, fairValue:159,
-    buyBelow:148, trimAbove:175,
-    conviction:"Defensive dividend king, fair entry, slow growth",
-    updated:"2026-06-22",
-    file:"PG_investment_thesis.html"
-  },
-  {
-    name:"Games Workshop", ticker:"GAW", exchange:"LSE",
-    sector:"Tabletop games / IP",
-    verdict:"Watch",
-    currency:"p", price:20360, fairValue:20400,
-    buyBelow:17500, trimAbove:23000,
-    conviction:"Superb business, full price near highs; add below 17,500p",
-    updated:"2026-06-22",
-    file:"GAW_investment_thesis.html"
-  },
-  {
-    name:"BAE Systems", ticker:"BA.", exchange:"LSE",
-    sector:"Defence / aerospace",
-    verdict:"Watch",
-    currency:"p", price:1930, fairValue:1990,
-    buyBelow:1900, trimAbove:2400,
-    conviction:"Structural winner, pulled back; near-buy, add below 1,900p",
-    updated:"2026-06-22",
-    file:"BA_investment_thesis.html"
-  },
-  {
-    name:"Antofagasta", ticker:"ANTO", exchange:"LSE",
-    sector:"Copper mining",
-    verdict:"Watch",
-    currency:"p", price:3143, fairValue:3500,
-    buyBelow:2900, trimAbove:4200,
-    conviction:"Top-tier copper play; leveraged, volatile; buy on weakness",
-    updated:"2026-06-22",
-    file:"ANTO_investment_thesis.html"
-  },
-  {
-    name:"Compass Group", ticker:"CPG", exchange:"LSE",
-    sector:"Contract catering / services",
-    verdict:"Watch",
-    currency:"p", price:2540, fairValue:2680,
-    buyBelow:2450, trimAbove:3000,
-    conviction:"Quality compounder, fair price; near-buy, add below 2,450p",
-    updated:"2026-06-22",
-    file:"CPG_investment_thesis.html"
-  }
-];
-// ─────────────────────────────────────────────────────────────────────────────
-
+let companies=[];
 let activeFilter="all";
 let sortKey="gap", sortDir=-1; // default: most undervalued first
 const rowsEl=document.getElementById('rows');
@@ -308,6 +163,7 @@ function render(){
     </tr>`;
   }).join('');
   emptyEl.style.display=list.length?'none':'block';
+  if(!list.length&&companies.length)emptyEl.textContent='No companies match.';
   arrows();
 }
 
@@ -344,7 +200,21 @@ document.querySelectorAll('th.sortable').forEach(th=>{
   });
 });
 
-summary();render();
+function load(){
+  fetch('companies.json',{cache:'no-store'})
+    .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+    .then(data=>{
+      companies=(data.companies||[]).map(c=>({...c,name:c.company}));
+      document.getElementById('asof').textContent=data.updated?('· updated '+data.updated):'';
+      summary();render();
+    })
+    .catch(err=>{
+      document.getElementById('summary').textContent='';
+      emptyEl.style.display='block';
+      emptyEl.innerHTML='Could not load <b>companies.json</b> ('+err.message+').<br>This page must be served over http — it works on GitHub Pages, but not when the file is opened directly from disk. To preview locally, run a small server in the folder (e.g. <b>python3 -m http.server</b>) and open the localhost address.';
+    });
+}
+load();
 </script>
 </body>
 </html>

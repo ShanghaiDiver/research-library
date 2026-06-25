@@ -16,7 +16,8 @@
       "nextResults": "2026-07-30",
       "trigger": "Re-rates below ~$200, or services/AI growth genuinely re-accelerates",
       "gfSymbol": "NASDAQ:AAPL",
-      "file": "AAPL_investment_thesis.html"
+      "file": "AAPL_investment_thesis.html",
+      "prov": true
     },
     {
       "ticker": "MSFT",
@@ -33,7 +34,8 @@
       "nextResults": "2026-07-29",
       "trigger": "Azure decelerates below ~25%, or AI capex keeps rising with no revenue payoff",
       "gfSymbol": "NASDAQ:MSFT",
-      "file": "MSFT_investment_thesis.html"
+      "file": "MSFT_investment_thesis.html",
+      "prov": true
     },
     {
       "ticker": "AMZN",
@@ -50,7 +52,8 @@
       "nextResults": "2026-07-31",
       "trigger": "AWS margin slips, or free cash flow stays negative into 2027",
       "gfSymbol": "NASDAQ:AMZN",
-      "file": "AMZN_investment_thesis.html"
+      "file": "AMZN_investment_thesis.html",
+      "prov": true
     },
     {
       "ticker": "GLEN",
@@ -67,7 +70,8 @@
       "nextResults": "2026-08-05",
       "trigger": "Copper/coal roll over; Rio merger confirmed or abandoned",
       "gfSymbol": "LON:GLEN",
-      "file": "GLEN_investment_thesis.html"
+      "file": "GLEN_investment_thesis.html",
+      "prov": true
     },
     {
       "ticker": "BRK.B",
@@ -84,7 +88,8 @@
       "nextResults": "2026-08-02",
       "trigger": "Falls toward book value; pace of Abel's capital deployment",
       "gfSymbol": "NYSE:BRK.B",
-      "file": "BRK_investment_thesis.html"
+      "file": "BRK_investment_thesis.html",
+      "prov": true
     },
     {
       "ticker": "IHG",
