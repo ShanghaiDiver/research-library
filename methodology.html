@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How We Assess Companies — Methodology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFAF7;--ink:#1C1B17;--soft:#55534B;--faint:#86847B;
+    --line:#E6E2D7;--teal:#0F6E56;--tealsoft:#5DCAA5;--blue:#185FA5;
+    --red:#A32D2D;--amber:#9A6410;--chip:#F1EEE5;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:48px 28px 80px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  h1{font-family:"Fraunces",serif;font-weight:600;font-size:46px;line-height:1.04;margin:.2em 0 .1em;letter-spacing:-.01em}
+  h2{font-family:"Fraunces",serif;font-weight:600;font-size:24px;margin:0;letter-spacing:-.01em}
+  h3{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin:0 0 6px}
+  p{margin:0 0 16px}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  .lede{font-size:21px;line-height:1.5;color:var(--ink);margin:18px 0 0}
+  .masthead{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:8px}
+  .backlink{font-family:"IBM Plex Mono",monospace;font-size:12px;margin-bottom:22px}
+  section{margin-top:44px;padding-top:8px}
+  .secnum{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);letter-spacing:.1em}
+  .sechead{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:18px}
+  .pill{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#fff;padding:3px 9px;border-radius:3px;display:inline-block}
+  .pill.buy{background:var(--teal)} .pill.watch{background:var(--amber)} .pill.avoid{background:var(--red)}
+  .vgrid{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;margin:6px 0 18px}
+  .vgrid > div{padding:14px 18px;border-bottom:1px solid var(--line)}
+  .vgrid > div:last-child{border-bottom:none}
+  .vgrid .vh{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+  .vgrid .vt{font-family:"IBM Plex Mono",monospace;font-size:13px}
+  table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:13.5px;margin:8px 0 18px}
+  th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{color:var(--faint);font-weight:500;border-bottom:1.5px solid var(--ink);font-size:12px;letter-spacing:.04em}
+  tbody tr:last-child td{border-bottom:1.5px solid var(--ink)}
+  .callout{border-left:3px solid var(--teal);background:#fff;border-radius:0 8px 8px 0;padding:16px 20px;margin:6px 0 18px}
+  .callout.risk{border-left-color:var(--red)}
+  .callout.flag{border-left-color:var(--amber)}
+  .callout h3{color:inherit}
+  ul{margin:0 0 16px;padding-left:20px}
+  li{margin-bottom:8px}
+  .foot{margin-top:54px;padding-top:16px;border-top:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.6}
+  a{color:var(--blue)}
+  em{font-style:italic}
+  @media(max-width:560px){h1{font-size:33px}.wrap{padding:32px 18px 60px}body{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="backlink"><a href="./index.html">← Back to the library</a></div>
+
+  <div class="masthead">
+    <div class="eyebrow">House methodology · 6 July 2026</div>
+    <h1>How we assess companies</h1>
+    <p class="lede">This is the process behind every note in the library. It exists so the verdicts can be checked against a stated method rather than whatever felt right on the day, and so we can be held to account when we get things wrong. If a note ever departs from what is written here, the note is what needs explaining.</p>
+  </div>
+
+  <section>
+    <div class="sechead"><span class="secnum">01</span><h2>What we are trying to do</h2></div>
+    <p>We are building a concentrated book of roughly fifteen holdings for a sterling-based investor who wants value and income, bought with a margin of safety. That mandate does the filtering: we want good businesses we can own for years at a fair-or-better price, paying us to wait where possible, not the most exciting story on the screen. We would rather miss a winner that never got cheap than overpay for one, and we would rather hold cash than force a purchase.</p>
+    <p>The register is honest, not promotional. We have no product to sell and no reason to talk our own book, so the job is to write down what is actually true about a company, including the parts that argue against owning it. Flattery, house views and rounding in our own favour are how portfolios quietly rot.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">02</span><h2>The three verdicts</h2></div>
+    <p>Every note ends in one of three calls. They describe what we should <em>do</em>, not merely what we think of the company.</p>
+    <div class="vgrid">
+      <div><div class="vh"><span class="pill buy">Buy</span></div><div class="vt">Trades far enough below our own conservative value to give a real margin of safety. Rare, roughly one in fifteen so far (Microsoft was the only clear one), because we set the bar high.</div></div>
+      <div><div class="vh"><span class="pill watch">Watch</span></div><div class="vt">A business worth owning, but not at a price that yet compensates us. Most names sit here. Several are "near-buys" that tip to Buy on a modest dip into their band.</div></div>
+      <div><div class="vh"><span class="pill avoid">Avoid</span></div><div class="vt">Fails on value, income, quality or fit, or the risk is genuinely binary. Not a prediction it will fall, a statement that it does not belong in this book (Fluence).</div></div>
+    </div>
+    <p>A Watch is not a criticism and an Avoid is not a forecast. They are instructions to ourselves about capital.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">03</span><h2>How we reach a value, and why we sit below the Street</h2></div>
+    <p>We do not pretend to a single precise number. For each company we build three scenarios, bear, base and bull, each with a fair value and a probability weight, and take the weighted average as our intrinsic estimate. Weights are deliberately conservative, typically something like 50% base, 25 to 35% bear, 20 to 25% bull, more weight on the downside the more fragile or unpredictable the business. The base case rarely assumes several good things happen at once, and it rarely bakes in a re-rating.</p>
+    <p>The consequence, which we state openly in the notes, is that our blend usually lands below the analyst consensus. That is not a claim the Street is wrong; it is that brokers tend to underwrite the plan landing, and we tend to price the risk it does not. The gap between our number and theirs is a useful readout of how much optimism is in the price. It is also why Buys are rare: we anchor a Buy to roughly a fifteen to twenty percent-plus discount to <em>our</em> conservative value, not to theirs. When a name clears that, like Microsoft at the time, we say so; when it only clears the Street's more generous bar, it stays a Watch.</p>
+    <p>We separate two very different reasons to buy: a genuine dislocation, where a good business is briefly marked down on a fear that misreads it (Compass at its April low was close), which is rare and worth acting on hard; and simply accumulating quality at fair value as it drifts into its band, which is the ordinary business of a patient book.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">04</span><h2>The action bands</h2></div>
+    <p>Each note carries three levels: buy or add below X, hold across a range, trim above Y. The buy band demands a margin of safety, so it usually sits below both the price and our own blend. The trim band sits up into the analyst range and our bull case, where most of the good news would already be paid for. These are analytical levels to impose discipline, not advice and not price predictions. Their point is to decide in advance, when we are calm, what we will do when the price moves and we are not.</p>
+    <p>Trim means reduce, not exit, and it has two triggers that can disagree: valuation (scale out as a holding runs well past fair value) and position weight (trim anything that grows beyond its share of a fifteen-name book, very roughly a seven to ten percent cap, regardless of valuation). Concentration is a risk in its own right, so weight can force a sale that value alone would not.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">05</span><h2>What we actually look at</h2></div>
+    <p>Behind the value estimate is a quality assessment, because what we will pay depends on what we are buying. In rough order of how much they move our view:</p>
+    <ul>
+      <li><strong>Returns and margins.</strong> Operating margin, return on capital, and the direction of both. Rising margins on real volume are worth far more than a cheap multiple on a shrinking one.</li>
+      <li><strong>Cash and the balance sheet.</strong> Free cash flow conversion, leverage, and whether the dividend is actually covered. A high yield on thin cover is a warning, not an attraction.</li>
+      <li><strong>The moat and its concentration.</strong> What stops a competitor, and how exposed the business is to one customer, one product or one market. Single points of failure (a single big footwear customer, a single volatile country) get flagged hard.</li>
+      <li><strong>Management and capital allocation.</strong> What they have done with cash, not what they say. A record of value-destroying ventures or brands run for short-term volume counts against, even when the current numbers flatter.</li>
+      <li><strong>The real number versus the reported one.</strong> Where currency, one-offs or accounting choices distort the statutory figures, we read the adjusted numbers and interrogate them, rather than taking either at face value.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">06</span><h2>The variant perception test</h2></div>
+    <p>Every note has to state, in its own words, what the market currently believes, what we think it is under-appreciating, and the single strongest argument on the other side. This is not decoration. If we cannot articulate the bear case as well as a bear would, we do not understand the position, and if the "insight" is just the consensus restated, there is no edge and probably no reason to act. The discipline is to steelman both sides and then say which we find more convincing and why.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">07</span><h2>The currency lens</h2></div>
+    <p>Because the investor is sterling-based, every note separates three things that are easy to conflate: the currency a share is <em>quoted</em> in, the currency it <em>reports</em> in, and the currency its economics are actually <em>earned</em> in. These come apart more often than people assume, and the gap is where nasty surprises live.</p>
+    <table>
+      <thead><tr><th>Type</th><th>Example</th><th>What it means for us</th></tr></thead>
+      <tbody>
+        <tr><td>Clean sterling</td><td>Zotefoams, Legal &amp; General</td><td>Quoted and earned in sterling. The simplest holdings.</td></tr>
+        <tr><td>Dollar economics, pence quote</td><td>IHG, Antofagasta, Compass</td><td>A dollar business in a sterling costume; FX moves the accounts.</td></tr>
+        <tr><td>Emerging-market risk, sterling wrapper</td><td>PZ Cussons (naira)</td><td>Worse than it looks: a one-directional currency dominates results.</td></tr>
+        <tr><td>Foreign currency outright</td><td>Adyen (euro), Fluence (dollar)</td><td>Adds genuine translation risk to the book, no sterling cushion.</td></tr>
+      </tbody>
+    </table>
+    <p>None of these is disqualifying, but they change how much of a given currency we want in aggregate, and a "sterling" quote is never taken as proof of a sterling business.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">08</span><h2>Does it fit the mandate</h2></div>
+    <p>A good company can still be the wrong holding. We run three fit tests, and a name can pass the value work and still fail here. Does it pay us to wait (the income test)? Is there earnings or asset backing we can buy cheaply (the value test)? Is the quality high enough to hold for years (the quality test)? A no-dividend compounder like Adyen can be excellent and still be a total-return idea for a separate growth sleeve rather than an income holding. A loss-making, policy-dependent name like Fluence fails all three at once and is, at most, a tiny deliberate punt. We would rather say "good business, wrong book" than stretch the mandate to fit something we like the sound of.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">09</span><h2>Brands and strategy, where it matters</h2></div>
+    <p>For consumer businesses we lean on the Ehrenberg-Bass evidence (Byron Sharp's work) rather than marketing folklore, because it changes how we read a brand's health. Growth comes from penetration, reaching more buyers, held together by distinctiveness and by being easy to buy, not from milking loyalists. Permanent price promotion is the classic self-inflicted wound: it trains even willing full-price buyers to wait for the discount, erodes equity and margin, and buys a volume spike that vanishes when the offer ends. When we see a genuinely good brand run this way (Original Source, discounted into the ground while its owner chases short-term volume), we treat it as a management failure and a source of latent value for a better operator, not as a demand problem with the product.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">10</span><h2>What would change our mind, and how we stay honest</h2></div>
+    <p>Every note names its own falsification triggers: what would upgrade the call, and what would downgrade it. Writing these down before the fact is the guard against quietly moving the goalposts once we own something and want it to work. It also tells us what to watch for at the next results rather than reacting to the share price.</p>
+    <p>To keep ourselves accountable, each note records the price, our intrinsic estimate, the bands and the triggers as at the date written, so a later reader (including us) can see plainly whether the call was any good. We revisit on results, mark our own homework, and own the misses as squarely as the hits. A framework that is never wrong is a framework that is never checked.</p>
+    <div class="callout risk"><h3>What we deliberately avoid</h3><p style="margin:0">Value traps (cheap for a reason, with no catalyst and no real growth), binary bets that hang on policy or a single event, hype dressed as a thesis, and anything outside what we can actually judge. Cheapness alone is not a reason to buy, and a good story is not a reason to overpay.</p></div>
+  </section>
+
+  <div class="foot">
+    House methodology for the research library. Describes process, not advice; nothing here or in the linked notes is a personal recommendation. Intrinsic values are scenario-weighted estimates, deliberately conservative, and will often sit below analyst consensus by design. Bands are analytical levels for our own discipline, not price forecasts. Last updated 6 July 2026.
+  </div>
+
+</div>
+</body>
+</html>
