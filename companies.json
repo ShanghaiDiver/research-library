@@ -18,7 +18,8 @@
       "trigger": "Underlying growth below ~5%, or AI-driven attrition in STM/Legal",
       "gfSymbol": "LON:REL",
       "file": "RELX_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-08-26"
     },
     {
       "ticker": "MSFT",
@@ -37,7 +38,8 @@
       "trigger": "Azure decelerates below ~30%, or capex keeps rising with no revenue payoff",
       "gfSymbol": "NASDAQ:MSFT",
       "file": "MSFT_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-07-30"
     },
     {
       "ticker": "AAPL",
@@ -56,7 +58,8 @@
       "trigger": "De-rates toward ~30x, or growth genuinely re-accelerates from here",
       "gfSymbol": "NASDAQ:AAPL",
       "file": "AAPL_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-07-30"
     },
     {
       "ticker": "AMZN",
@@ -75,7 +78,8 @@
       "trigger": "AWS growth stalls, or the AI capex bill outruns returns",
       "gfSymbol": "NASDAQ:AMZN",
       "file": "AMZN_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-07-30"
     },
     {
       "ticker": "GOOGL",
@@ -94,7 +98,8 @@
       "trigger": "Search share genuinely erodes to AI, or cloud margins stall",
       "gfSymbol": "NASDAQ:GOOGL",
       "file": "GOOGL_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-06-22"
     },
     {
       "ticker": "BRK.B",
@@ -113,7 +118,8 @@
       "trigger": "Large de-rating, or capital allocation falters post-transition",
       "gfSymbol": "NYSE:BRK.B",
       "file": "BRK_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-06-22"
     },
     {
       "ticker": "CPG",
@@ -132,7 +138,8 @@
       "trigger": "Organic growth below ~5%, or margin/leverage deteriorate",
       "gfSymbol": "LON:CPG",
       "file": "CPG_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-06-22"
     },
     {
       "ticker": "GAW",
@@ -151,7 +158,8 @@
       "trigger": "IP/brand momentum stalls, or valuation runs well ahead",
       "gfSymbol": "LON:GAW",
       "file": "GAW_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-06-22"
     },
     {
       "ticker": "SPX",
@@ -170,7 +178,8 @@
       "trigger": "Organic growth re-accelerates above ~6%, or biopharma destock ends",
       "gfSymbol": "LON:SPX",
       "file": "SPX_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-08-26"
     },
     {
       "ticker": "ADYEN",
@@ -189,7 +198,8 @@
       "trigger": "Take-rate compression, or growth slows below ~20%",
       "gfSymbol": "ENXTAM:ADYEN",
       "file": "ADYEN_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-07-03"
     },
     {
       "ticker": "ZTF",
@@ -208,7 +218,8 @@
       "trigger": "2029 doubling plan on track, or Nike concentration bites",
       "gfSymbol": "LON:ZTF",
       "file": "ZTF_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-06-22"
     },
     {
       "ticker": "BA.",
@@ -227,7 +238,8 @@
       "trigger": "Defence-spend cycle turns, or valuation overshoots",
       "gfSymbol": "LON:BA.",
       "file": "BA_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-06-22"
     },
     {
       "ticker": "RR.",
@@ -246,7 +258,8 @@
       "trigger": "Execution slips from guidance, or momentum stalls near highs",
       "gfSymbol": "LON:RR.",
       "file": "RR_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-07-30"
     },
     {
       "ticker": "ANTO",
@@ -265,7 +278,8 @@
       "trigger": "Copper pullback (better entry), or growth projects slip/over-run",
       "gfSymbol": "LON:ANTO",
       "file": "ANTO_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-08-26"
     },
     {
       "ticker": "DGE",
@@ -284,7 +298,8 @@
       "trigger": "Leverage below 3x and growth returns, or a cheaper price",
       "gfSymbol": "LON:DGE",
       "file": "DGE_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-08-26"
     },
     {
       "ticker": "GLEN",
@@ -303,7 +318,8 @@
       "trigger": "Commodity downcycle (cheaper entry), or capital allocation shifts",
       "gfSymbol": "LON:GLEN",
       "file": "GLEN_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-06-22"
     },
     {
       "ticker": "IHG",
@@ -322,7 +338,8 @@
       "trigger": "Cheaper on a travel downturn, or franchise growth accelerates",
       "gfSymbol": "LON:IHG",
       "file": "IHG_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-06-22"
     },
     {
       "ticker": "LGEN",
@@ -341,7 +358,8 @@
       "trigger": "Yield/cover deteriorates, or a cheaper entry appears",
       "gfSymbol": "LON:LGEN",
       "file": "LGEN_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-06-22"
     },
     {
       "ticker": "PG",
@@ -360,7 +378,8 @@
       "trigger": "Meaningful discount to fair value, or organic growth stalls",
       "gfSymbol": "NYSE:PG",
       "file": "PG_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-06-22"
     },
     {
       "ticker": "PZC",
@@ -379,7 +398,8 @@
       "trigger": "St Tropez fix + naira stabilise, or slips into Avoid",
       "gfSymbol": "LON:PZC",
       "file": "PZC_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-07-01"
     },
     {
       "ticker": "FLNC",
@@ -398,7 +418,8 @@
       "trigger": "Sustained profitability + ROIC above cost of capital",
       "gfSymbol": "NASDAQ:FLNC",
       "file": "FLNC_investment_thesis.html",
-      "prov": true
+      "prov": true,
+      "lastUpdated": "2026-07-03"
     }
   ]
 }
