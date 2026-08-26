@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Thesis — Spirax Group (SPX)</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root{--paper:#FBFAF7;--ink:#1C1B17;--soft:#55534B;--faint:#86847B;--line:#E6E2D7;--teal:#0F6E56;--blue:#185FA5;--red:#A32D2D;--amber:#9A6410;--chip:#F1EEE5;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Newsreader",Georgia,serif;font-size:18px;line-height:1.65}
+  .wrap{max-width:820px;margin:0 auto;padding:48px 28px 80px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  h1{font-family:"Fraunces",serif;font-weight:600;font-size:46px;line-height:1.02;margin:.2em 0 .1em;letter-spacing:-.01em}
+  h2{font-family:"Fraunces",serif;font-weight:600;font-size:24px;margin:0;letter-spacing:-.01em}
+  h3{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin:0 0 6px}
+  p{margin:0 0 16px}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  .lede{font-size:21px;line-height:1.5;margin:18px 0 0}
+  .masthead{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:8px}
+  .tickerrow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .verdict-pill{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--amber);padding:5px 12px;border-radius:3px}
+  .heroval{display:flex;gap:0;flex-wrap:wrap;margin:26px 0 6px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+  .heroval > div{flex:1 1 0;min-width:150px;padding:16px 18px;border-right:1px solid var(--line)}
+  .heroval > div:last-child{border-right:none}
+  .heroval .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  .heroval .v{font-family:"Fraunces",serif;font-size:30px;font-weight:600;line-height:1}
+  .heroval .v.good{color:var(--teal)} .heroval .v.mid{color:var(--amber)}
+  .heroval .sub{font-size:13px;color:var(--soft);margin-top:4px;font-family:"IBM Plex Mono",monospace}
+  .actionband{display:flex;gap:0;margin:18px 0 6px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;font-family:"IBM Plex Mono",monospace}
+  .actionband > div{flex:1 1 0;min-width:120px;padding:12px 16px;border-right:1px solid var(--line)}
+  .actionband > div:last-child{border-right:none}
+  .actionband .abk{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+  .actionband .abv{font-size:16px;font-weight:500}
+  .ab.buy{border-top:3px solid var(--teal)} .ab.buy .abk{color:var(--teal)}
+  .ab.hold{border-top:3px solid var(--faint)} .ab.hold .abk{color:var(--faint)}
+  .ab.trim{border-top:3px solid var(--red)} .ab.trim .abk{color:var(--red)}
+  .abnote{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);margin:6px 0 0}
+  section{margin-top:46px}
+  .secnum{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);letter-spacing:.1em}
+  .sechead{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:18px}
+  table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:13.5px;margin:8px 0 18px}
+  th,td{text-align:right;padding:7px 8px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{color:var(--faint);font-weight:500;border-bottom:1.5px solid var(--ink);font-size:12px}
+  tbody tr:last-child td{border-bottom:1.5px solid var(--ink)}
+  .chartbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 18px 14px;margin:6px 0 20px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft)}
+  .legend span{display:flex;align-items:center;gap:5px}
+  .sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+  .callout{border-left:3px solid var(--teal);background:#fff;border-radius:0 8px 8px 0;padding:16px 20px;margin:6px 0 18px}
+  .callout.flag{border-left-color:var(--amber)}
+  .callout h3{color:inherit}
+  .verdict-box{border:2px solid var(--ink);border-radius:10px;padding:24px 26px;margin-top:10px;background:#fff}
+  .verdict-box .vline{font-family:"Fraunces",serif;font-size:22px;font-weight:600;line-height:1.25;margin-bottom:10px}
+  ul{margin:0 0 16px;padding-left:20px} li{margin-bottom:7px}
+  .foot{margin-top:54px;padding-top:16px;border-top:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.6}
+  a{color:var(--blue)}
+  @media(max-width:560px){h1{font-size:34px}.wrap{padding:32px 18px 60px}body{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mono" style="font-size:12px;margin-bottom:20px"><a href="./index.html">← library</a> · <a href="./screening.html">from the FTSE 350 screen</a> · <a href="./methodology.html">v2 method</a></div>
+
+  <div class="masthead">
+    <div class="eyebrow">Investment thesis · Track A compounder · from the screen</div>
+    <h1>Spirax Group</h1>
+    <div class="tickerrow">
+      <span class="mono" style="font-size:15px;color:var(--soft)">LSE: SPX · ~7,300p · 26 Aug 2026</span>
+      <span class="verdict-pill">Verdict: Watch</span>
+    </div>
+    <p class="lede">A genuinely elite compounder, world leader in industrial steam systems and peristaltic pumps, 85% recurring revenue, 35% returns on capital, that has fallen roughly 40% in a year and more than half from its peak. Exactly the crashed-quality name that makes you nervous, and exactly the case the framework exists to adjudicate: is this a RELX, quality marked down on a fear the numbers contradict, or a Diageo, quality with a real problem? The honest answer sits in between. The moat is intact and the price is finally reasonable, but the growth genuinely stalled and the turn is unproven, so it is a Watch that wants a little more evidence before it becomes a Buy.</p>
+  </div>
+
+  <div class="heroval">
+    <div><div class="k">Price</div><div class="v">~7,300p</div><div class="sub">~20× · off ~40% in a year</div></div>
+    <div><div class="k">Fair value</div><div class="v mid">~7,800p</div><div class="sub">+7%; needs the turn</div></div>
+    <div><div class="k">ROCE / ROIC</div><div class="v good">35% / 13%</div><div class="sub">gap = acquisition goodwill</div></div>
+    <div><div class="k">Organic growth</div><div class="v mid">~5%</div><div class="sub">at the gate; recovering</div></div>
+  </div>
+
+  <div class="actionband">
+    <div class="ab buy"><span class="abk">Buy / add</span><span class="abv">below ~6,500p</span></div>
+    <div class="ab hold"><span class="abk">Hold ← now here</span><span class="abv">~6,500–8,500p</span></div>
+    <div class="ab trim"><span class="abk">Trim</span><span class="abv">above ~9,500p</span></div>
+  </div>
+  <p class="abnote">v2 basis: a real compounder at a fair-for-once price, but the growth needs to re-accelerate to clear the return hurdle with confidence. Given a recent record of over-promising, wait for evidence of the turn, or buy on further weakness where the margin of safety compensates.</p>
+
+  <section>
+    <div class="sechead"><span class="secnum">01</span><h2>The business</h2></div>
+    <p>Spirax does dull things that matter enormously. Its Steam Thermal and Electric Thermal businesses keep industrial processes at the right temperature, and Watson-Marlow makes the peristaltic pumps that move fluids through pharmaceutical and biotech manufacturing without contamination. Around 85% of sales come from recurring maintenance and small improvements to equipment already installed in customers' plants, which is why it earns 35% on capital and has raised its dividend for over 55 years. It is genuinely global, EMEA 44%, Americas 38%, Asia-Pacific 18%, and mission-critical: when a customer's plant depends on your kit, they do not switch to save a few pounds. That is a real moat.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">02</span><h2>Why it screens, and why it crashed</h2></div>
+    <p>On the quality floor Spirax is exceptional: return on capital employed of 35%, a fortress-ish balance sheet, high recurring revenue, no dilution, a durable moat. But the shares have collapsed, from a peak near 16,000p to about 7,300p, and roughly 40% in the past year alone, because two of its end-markets went into a synchronised downturn: a brutal destock in biopharma hit Watson-Marlow after the pandemic surge, and general industrial and semiconductor weakness, especially in China, hit the thermal businesses. Organic growth, once high-single to double-digit, slowed to about 5%. The premium multiple the market once paid, 35-40 times, unwound to about 20.</p>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="sw" style="background:#0F6E56"></span>ROCE (operating business)</span>
+        <span><span class="sw" style="background:#9A6410"></span>ROIC (incl. acquisition goodwill)</span>
+      </div>
+      <div style="position:relative;width:100%;height:200px">
+        <canvas id="q" role="img" aria-label="ROCE about 35 percent versus ROIC about 13 percent; the gap is goodwill from acquisitions like Chromalox and Vulcanic.">ROCE ~35% vs ROIC ~13%. The gap is acquisition goodwill.</canvas>
+      </div>
+    </div>
+    <p>One honest flag the screen surfaces: ROCE of 35% describes the core operating business, but return on <em>invested</em> capital, which counts the goodwill paid for acquisitions like Chromalox and Vulcanic, is only ~13%. Still above the cost of capital, but a reminder that Spirax's acquisitions have not earned at the rate its own operations do. The underlying business is elite; the capital allocation has been merely good.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">03</span><h2>RELX or Diageo? The long-term return test</h2></div>
+    <p>The useful way to judge a crashed compounder is to ask which kind it is. RELX fell on a fear its numbers contradicted, so it was a Buy. Diageo fell on troubles its numbers confirmed, with leverage and a dividend cut, so it was a Watch. Spirax sits between them: unlike RELX, its numbers really did soften, growth stalled and earnings were downgraded; but unlike Diageo, there is no balance-sheet distress, no dividend cut, and the cause is a finite cyclical destock rather than an open structural question. On the return test, if organic growth recovers toward 7-8% as the destock ends, the 2.3% yield and a hold of the ~20x multiple deliver ~10% a year, with a re-rating on top; if growth stays stuck at 5%, the return is nearer 7%. In pence:</p>
+    <table>
+      <thead><tr><th>Scenario</th><th>Fair value</th><th>Return/yr</th><th>Weight</th><th>What it assumes</th></tr></thead>
+      <tbody>
+        <tr><td>Bear</td><td>6,000p</td><td>~4%</td><td>25%</td><td>Destock lingers, growth stuck ~4-5%, stays ~18×</td></tr>
+        <tr><td>Base</td><td>8,000p</td><td>~10%</td><td>50%</td><td>Growth recovers to 7-8%, modest re-rate to ~22×</td></tr>
+        <tr><td>Bull</td><td>10,000p</td><td>~15%</td><td>25%</td><td>Full cyclical recovery, biopharma returns, ~27×</td></tr>
+        <tr><td>Weighted</td><td>~7,800p</td><td>~10%</td><td>100%</td><td>≈ 7% above the ~7,300p price</td></tr>
+      </tbody>
+    </table>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="sw" style="background:#888780"></span>Market 52-wk</span>
+        <span><span class="sw" style="background:#0F6E56"></span>Scenarios</span>
+        <span><span class="sw" style="background:#A32D2D"></span>Price</span>
+        <span><span class="sw" style="background:#185FA5"></span>Fair value</span>
+      </div>
+      <div style="position:relative;width:100%;height:210px">
+        <canvas id="ff" role="img" aria-label="In pounds: price 73; fair value 78; scenarios 60 to 100; 52-week range about 68 to 115.">Price £73, fair value £78. Scenarios £60-£100. 52-week range ~£68-£115.</canvas>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">04</span><h2>The case, both ways</h2></div>
+    <p><strong>Bull.</strong> A rare, genuinely elite compounder, 35% returns, 85% recurring revenue, a real moat, 55 years of dividend growth, at 20 times after a brutal but cyclical de-rating. The biopharma destock is finite and the pumps come back; industrial recovers; and you rarely get this quality this cheap. Buy great businesses when their end-markets are in the doldrums.</p>
+    <p><strong>Bear.</strong> The recovery is a forecast, not a fact, and management has been optimistic before, earnings estimates have been cut repeatedly, so the "turn" keeps being pushed out. Twenty times still isn't cheap for a business growing 5%, biopharma may reset lower rather than rebound, and Chinese industrial demand is uncertain. A de-rated compounder can keep de-rating if the growth doesn't come.</p>
+    <div class="callout flag"><h3>Variant perception</h3><p style="margin:0">The market is pricing Spirax as a broken compounder whose growth has permanently downshifted, hence a multiple less than half its old level. The variant view is that the moat, the returns and the recurring revenue are all intact, and only the cycle has turned, so this is a temporary trough in a structurally excellent business, and the de-rating has handed patient buyers a quality name at a fair price for the first time in a decade. The honest tension is that, unlike RELX, the numbers give the bears something real to point at, the growth did stall, the estimates did fall, and the turn is genuinely unproven, not merely feared. So the framework's answer is neither the bull's "obvious buy" nor the bear's "avoid": it is a Watch that is close. The quality clears the floor comfortably and the price is finally reasonable; what is missing is evidence that organic growth is re-accelerating rather than merely being promised. Buy it below ~6,500p, where the margin of safety pays for the uncertainty, or on the first clear sign the destock has ended.</p></div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">05</span><h2>Currency and fit, for a sterling holder</h2></div>
+    <p>A point in its favour for your book. Spirax earns across EMEA (44%), the Americas (38%) and Asia-Pacific (18%), so it is genuinely globally diversified rather than another slug of US exposure, and it brings real European and Asian economic weight, some of the ex-US international you are short of, inside a sterling-listed, easy-to-track wrapper. Unlike RELX, which deepens the US tilt, Spirax helps the geography gap. The dollar and euro translation cuts both ways year to year, but as a diversifier it does a job the trackers do not.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">06</span><h2>What would change the call</h2></div>
+    <ul>
+      <li><strong>Upgrade to Buy</strong> on the first hard evidence the turn is real, Watson-Marlow order intake recovering, organic growth re-accelerating above ~6%, estimates stabilising or rising, or simply on a lower price toward ~6,500p.</li>
+      <li><strong>Downgrade towards Avoid</strong> if organic growth stays stuck below 5% for another year, if biopharma resets structurally lower rather than recovering, or if further acquisitions dilute returns.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">07</span><h2>Verdict</h2></div>
+    <div class="verdict-box">
+      <div class="vline">An elite compounder at a fair price for the first time in years, but the growth stalled and the turn is unproven. Track A. Fair value ~7,800p against ~7,300p, base return ~10%. Action: Watch, close to a Buy, add below ~6,500p or on clear evidence of recovery.</div>
+      <p style="margin:0">Spirax is the case that directly answers the nervousness a name like this provokes. It fell hard, which is precisely why it is worth looking at, but a crash alone tells you nothing, you have to ask why. Here the moat, returns and recurring revenue are all intact, so it is not a Diageo; but the growth genuinely stalled and the recovery is a forecast rather than a fact, so it is not quite a RELX either. That lands it as a Watch on the edge of a Buy: quality clears the floor with room, the price is finally reasonable, and the only missing ingredient is proof that the destock has ended rather than management's word that it will. The disciplined move is not to chase the recovery on hope, nor to avoid a superb business out of memory of the fall, but to buy it a little cheaper or a little more proven. For your portfolio it has the added merit of being genuine ex-US diversification, which is a reason to keep it on a short leash rather than a long one.</p>
+    </div>
+  </section>
+
+  <div class="foot">
+    Not personal financial advice; the verdict reflects the house v2 framework. Sources: Spirax Group FY2024 and FY2025 results and H1 2026: ROCE ~35%, ROIC ~13%, organic sales growth ~5%, adjusted operating margin ~20%, cash conversion ~89%, 55+ years of dividend growth, segment mix (Steam Thermal, Electric Thermal, Watson-Marlow), geographic mix EMEA 44% / Americas 38% / Asia-Pacific 18%. Price, multiple, yield and 52-week range from Hargreaves Lansdown, Simply Wall St, MarketScreener and market data to 26 Aug 2026 (~7,300p, ~£5.4bn market cap, off ~40% over the year). Sterling-quoted, globally diversified earnings. Fair value is a scenario-weighted estimate; bands are analytical levels, not forecasts.
+  </div>
+</div>
+<script>
+new Chart(document.getElementById('q'),{type:'bar',
+ data:{labels:['ROCE (operations)','ROIC (incl. goodwill)'],datasets:[{data:[35,13],backgroundColor:['#0F6E56','#9A6410']}]},
+ options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+  scales:{x:{min:0,max:40,ticks:{callback:v=>v+'%',font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}},y:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}}}});
+const priceLines={id:'priceLines',afterDraw(c){const{ctx,chartArea:{top,bottom},scales:{x}}=c;
+ const d=(val,col,dash,lab)=>{const px=x.getPixelForValue(val);ctx.save();ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.setLineDash(dash);ctx.beginPath();ctx.moveTo(px,top);ctx.lineTo(px,bottom);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=col;ctx.font='11px "IBM Plex Mono"';ctx.textAlign='center';ctx.fillText(lab,px,top-4);ctx.restore();};
+ d(73,'#A32D2D',[],'Price £73');d(78,'#185FA5',[5,4],'Fair £78');}};
+new Chart(document.getElementById('ff'),{type:'bar',
+ data:{labels:['Market 52-wk','Scenarios'],datasets:[{data:[[68,115],[60,100]],backgroundColor:['#888780','#0F6E56'],borderRadius:3,barThickness:26}]},
+ options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{top:18}},plugins:{legend:{display:false}},
+  scales:{x:{min:55,max:120,ticks:{callback:v=>'£'+v,font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}},y:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}}}},plugins:[priceLines]});
+</script>
+</body>
+</html>
