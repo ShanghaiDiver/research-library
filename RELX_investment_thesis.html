@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Thesis — RELX (REL)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root{--paper:#FBFAF7;--ink:#1C1B17;--soft:#55534B;--faint:#86847B;--line:#E6E2D7;--teal:#0F6E56;--blue:#185FA5;--red:#A32D2D;--amber:#9A6410;--chip:#F1EEE5;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Newsreader",Georgia,serif;font-size:18px;line-height:1.65}
+  .wrap{max-width:820px;margin:0 auto;padding:48px 28px 80px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  h1{font-family:"Fraunces",serif;font-weight:600;font-size:46px;line-height:1.02;margin:.2em 0 .1em;letter-spacing:-.01em}
+  h2{font-family:"Fraunces",serif;font-weight:600;font-size:24px;margin:0;letter-spacing:-.01em}
+  h3{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin:0 0 6px}
+  p{margin:0 0 16px}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  .lede{font-size:21px;line-height:1.5;margin:18px 0 0}
+  .masthead{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:8px}
+  .tickerrow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .verdict-pill{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--teal);padding:5px 12px;border-radius:3px}
+  .heroval{display:flex;gap:0;flex-wrap:wrap;margin:26px 0 6px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+  .heroval > div{flex:1 1 0;min-width:150px;padding:16px 18px;border-right:1px solid var(--line)}
+  .heroval > div:last-child{border-right:none}
+  .heroval .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  .heroval .v{font-family:"Fraunces",serif;font-size:30px;font-weight:600;line-height:1}
+  .heroval .v.good{color:var(--teal)} .heroval .v.mid{color:var(--amber)}
+  .heroval .sub{font-size:13px;color:var(--soft);margin-top:4px;font-family:"IBM Plex Mono",monospace}
+  .actionband{display:flex;gap:0;margin:18px 0 6px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;font-family:"IBM Plex Mono",monospace}
+  .actionband > div{flex:1 1 0;min-width:120px;padding:12px 16px;border-right:1px solid var(--line)}
+  .actionband > div:last-child{border-right:none}
+  .actionband .abk{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+  .actionband .abv{font-size:16px;font-weight:500}
+  .ab.buy{border-top:3px solid var(--teal)} .ab.buy .abk{color:var(--teal)}
+  .ab.hold{border-top:3px solid var(--faint)} .ab.hold .abk{color:var(--faint)}
+  .ab.trim{border-top:3px solid var(--red)} .ab.trim .abk{color:var(--red)}
+  .abnote{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);margin:6px 0 0}
+  section{margin-top:46px}
+  .secnum{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);letter-spacing:.1em}
+  .sechead{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:18px}
+  table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:13.5px;margin:8px 0 18px}
+  th,td{text-align:right;padding:7px 8px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{color:var(--faint);font-weight:500;border-bottom:1.5px solid var(--ink);font-size:12px}
+  tbody tr:last-child td{border-bottom:1.5px solid var(--ink)}
+  .chartbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 18px 14px;margin:6px 0 20px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft)}
+  .legend span{display:flex;align-items:center;gap:5px}
+  .sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+  .callout{border-left:3px solid var(--teal);background:#fff;border-radius:0 8px 8px 0;padding:16px 20px;margin:6px 0 18px}
+  .callout.flag{border-left-color:var(--amber)}
+  .callout h3{color:inherit}
+  .verdict-box{border:2px solid var(--ink);border-radius:10px;padding:24px 26px;margin-top:10px;background:#fff}
+  .verdict-box .vline{font-family:"Fraunces",serif;font-size:22px;font-weight:600;line-height:1.25;margin-bottom:10px}
+  ul{margin:0 0 16px;padding-left:20px} li{margin-bottom:7px}
+  .foot{margin-top:54px;padding-top:16px;border-top:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.6}
+  a{color:var(--blue)}
+  @media(max-width:560px){h1{font-size:34px}.wrap{padding:32px 18px 60px}body{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="backlink mono" style="font-size:12px;margin-bottom:20px"><a href="./index.html">← library</a> · <a href="./screening.html">from the FTSE 350 screen</a> · <a href="./methodology.html">v2 method</a></div>
+
+  <div class="masthead">
+    <div class="eyebrow">Investment thesis · Track A compounder · from the screen</div>
+    <h1>RELX</h1>
+    <div class="tickerrow">
+      <span class="mono" style="font-size:15px;color:var(--soft)">LSE: REL · ~2,627p · 25 Aug 2026</span>
+      <span class="verdict-pill">Verdict: Buy</span>
+    </div>
+    <p class="lede">The highest-quality business the FTSE 350 screen threw up, and it is on sale. RELX compounds at 15%-plus returns on capital, grows 7% a year almost regardless of the weather, converts nearly all its profit to cash, and hands ~6% back annually in dividends and buybacks. The market has re-rated it down to about 20 times earnings on the fear that AI will disrupt its data franchises. The v2 return test says that fear is more likely a tailwind, and that at this multiple a long-term owner is paid to hold it.</p>
+  </div>
+
+  <div class="heroval">
+    <div><div class="k">Price</div><div class="v">~2,627p</div><div class="sub">~20× adj / ~23× reported</div></div>
+    <div><div class="k">Fair value</div><div class="v good">~3,075p</div><div class="sub">+17%; scenario-weighted</div></div>
+    <div><div class="k">Long-term return</div><div class="v good">~11%/yr</div><div class="sub">base case, 5–10yr</div></div>
+    <div><div class="k">ROIC</div><div class="v good">15.4%</div><div class="sub">rising 5 yrs; 2.0× levered</div></div>
+  </div>
+
+  <div class="actionband">
+    <div class="ab buy"><span class="abk">Buy / add ← now here</span><span class="abv">below ~2,900p</span></div>
+    <div class="ab hold"><span class="abk">Hold</span><span class="abv">~2,900–3,500p</span></div>
+    <div class="ab trim"><span class="abk">Trim</span><span class="abv">above ~3,600p</span></div>
+  </div>
+  <p class="abnote">v2 basis: this is quality at a fair-to-good price, not a fire-sale, so the case rests on the compounding and a base return above the 10% hurdle, not on a cheap multiple. Add around here; only the AI thesis (below) would change that.</p>
+
+  <section>
+    <div class="sechead"><span class="secnum">01</span><h2>The business</h2></div>
+    <p>RELX sells information-based analytics and decision tools to professionals who cannot do their jobs without them. Four segments: Risk (data and analytics for insurers, banks and government, its highest-margin engine), Scientific, Technical &amp; Medical (research journals and databases, including the ScienceDirect and Scopus franchises), Legal (LexisNexis), and Exhibitions (trade shows). Roughly two-thirds of revenue is recurring subscription, the assets are largely intangible, and capital intensity is low, which is why a business this size earns 15%-plus on capital. It is a London listing but an overwhelmingly overseas earner, more than half in the US, with the rest across Europe and Asia.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">02</span><h2>Why it screens, and why it is cheap</h2></div>
+    <p>RELX clears the quality floor more emphatically than almost anything in the index: return on invested capital of 15.4%, and rising for five straight years; net debt of 2.0 times EBITDA; cash conversion of 99%; a share count falling under a £2.25bn buyback; and underlying revenue growth of a metronomic 7% with adjusted EPS up ~10%. Yet the shares have re-rated down from a historic low-30s multiple to about 20 times, and traded as low as ~2,030p over the past year. The reason is a single fear: that generative AI will disintermediate its data and legal franchises, the way open-access once threatened its journals.</p>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="sw" style="background:#0F6E56"></span>Return on invested capital (%)</span>
+        <span><span class="sw" style="background:#185FA5"></span>Underlying revenue growth (%)</span>
+      </div>
+      <div style="position:relative;width:100%;height:230px">
+        <canvas id="q" role="img" aria-label="ROIC rose 11.9, 12.5, 14.0, 14.8, 15.4 percent across 2021 to 2025; underlying revenue growth held at 7 to 9 percent throughout.">ROIC 2021-25: 11.9, 12.5, 14.0, 14.8, 15.4%. Underlying revenue growth: 7, 9, 8, 7, 7%.</canvas>
+      </div>
+    </div>
+    <p>That is the setup the framework is built to exploit: a genuine compounder marked down on a fear, rather than on any deterioration in the numbers, which have if anything improved.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">03</span><h2>The long-term return test</h2></div>
+    <p>On the v2 method, the question is not whether 20 times is cheap but what a decade-long owner earns from here after a stress. Underlying EPS compounds at roughly 8-9% (7% revenue, a little margin, and the buyback shrinking the count), the dividend yields 2.6%, and total shareholder yield is ~6%. So before any multiple change, the owner earns ~11% a year. Hold the multiple at 20 times and that is the return; a modest re-rating adds to it, a de-rating subtracts. The scenarios, in pence:</p>
+    <table>
+      <thead><tr><th>Scenario</th><th>Fair value</th><th>Return/yr</th><th>Weight</th><th>What it assumes</th></tr></thead>
+      <tbody>
+        <tr><td>Bear</td><td>2,400p</td><td>~3%</td><td>25%</td><td>AI erodes STM/Legal, growth to ~4%, de-rates to ~15×</td></tr>
+        <tr><td>Base</td><td>3,100p</td><td>~11%</td><td>50%</td><td>7-8% growth holds, AI neutral-to-helpful, ~22×</td></tr>
+        <tr><td>Bull</td><td>3,700p</td><td>~15%</td><td>25%</td><td>AI a proven tailwind, growth 9%+, re-rates to ~26×</td></tr>
+        <tr><td>Weighted</td><td>~3,075p</td><td>~10%</td><td>100%</td><td>≈ 17% above the ~2,627p price</td></tr>
+      </tbody>
+    </table>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="sw" style="background:#888780"></span>Market 52-wk</span>
+        <span><span class="sw" style="background:#0F6E56"></span>Scenarios</span>
+        <span><span class="sw" style="background:#A32D2D"></span>Price</span>
+        <span><span class="sw" style="background:#185FA5"></span>Fair value</span>
+      </div>
+      <div style="position:relative;width:100%;height:210px">
+        <canvas id="ff" role="img" aria-label="In pounds: price 26.27; fair value 30.75; scenarios 24 to 37; 52-week range about 20.3 to 35.4.">Price £26.27, fair value £30.75. Scenarios £24-£37. 52-week range ~£20.3-£35.4.</canvas>
+      </div>
+    </div>
+    <p>The base case clears the 10% hurdle; the bear, which needs both a growth halving and a further de-rating, is the honest cost of the AI uncertainty. No analyst target here, by design, the return does the talking.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">04</span><h2>The case, both ways</h2></div>
+    <p><strong>Bull.</strong> A rare compounder, 15%-plus returns, 7% growth, 99% cash conversion, a fortress of proprietary data and workflow lock-in, handing back 6% a year, at 20 times after an unjustified de-rating. AI needs exactly the trusted, licensed, structured data RELX owns, and RELX is already embedding it into higher-value tools.</p>
+    <p><strong>Bear.</strong> Twenty times is not cheap in absolute terms, and if large language models can answer legal and scientific questions directly, the subscription moats that justify the multiple erode. Open access has chipped at STM for years; GenAI could do to Legal what it threatens to do to search.</p>
+    <div class="callout"><h3>Variant perception</h3><p style="margin:0">The market is pricing RELX as an AI victim, a data toll-booth about to be bypassed. The variant view is that it is an AI beneficiary: the value in law and science is not the raw answer but the verified, citable, liability-bearing, permissioned source behind it, and that is precisely what a hallucination-prone model cannot supply and must license. RELX owns the corpora, the customer relationships and the workflow, and is shipping AI features that raise the value of its subscriptions rather than cannibalise them. The bear's fair point is that this is a thesis, not yet a proof, and the multiple, though de-rated, still assumes durability. The honest read: the balance of evidence favours the beneficiary case, the numbers keep improving through the AI scare, and you are being asked to pay a fair-not-cheap price for a genuinely exceptional business. That is a Buy on the compounder track, with the AI question as the one thing to watch like a hawk.</p></div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">05</span><h2>Currency, for a sterling holder</h2></div>
+    <p>Worth stating plainly given your book: RELX is quoted in pence but earns most of its money in dollars, with the rest in euros and other currencies. So although it fills the "quality UK compounder" slot, economically it deepens the US exposure the look-through already put near 70%. It is a better way to own US earnings than another S&amp;P tracker, a specific high-return franchise rather than the index, but it is not diversification away from America. Size it in that knowledge.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">06</span><h2>What would change the call</h2></div>
+    <ul>
+      <li><strong>Downgrade</strong> if underlying growth slips below ~5%, if STM or Legal show real AI-driven attrition (falling renewals, pricing pressure), or if the multiple runs back above ~28× without a growth acceleration to justify it.</li>
+      <li><strong>Conviction rises</strong> if RELX's AI products show up as accelerating organic growth or pricing, which would convert the variant thesis into fact and support a re-rating.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">07</span><h2>Verdict</h2></div>
+    <div class="verdict-box">
+      <div class="vline">A genuinely exceptional compounder, marked down on an AI fear the evidence does not yet support. Track A. Fair value ~3,075p against ~2,627p, base return ~11% a year. Action: Buy, add around here, sized as a core holding.</div>
+      <p style="margin:0">RELX is the clearest vindication of the screen and of v2 together: a business that clears every quality gate with room to spare, throws off cash, and has been handed to patient buyers at a reasonable multiple because the market is worried about a disruption that, on the evidence, is more likely to feed it than starve it. The base-case return comfortably clears the hurdle and the quality is not in doubt; the risk is concentrated in one question, AI, which the note names as the thing to monitor and the trigger to reconsider. It becomes the book's second Buy after Microsoft, and like Microsoft it is a case of buying quality when a fear makes it fair, not when momentum makes it dear. The one caveat that is yours to weigh is currency: this is US earnings in a sterling wrapper, so it adds to a US tilt that is already high.</p>
+    </div>
+  </section>
+
+  <div class="foot">
+    Not personal financial advice; the verdict reflects the house v2 framework, not a recommendation to act. Sources: RELX FY2025 results and five-year summary (12 Feb 2026): revenue £9,590m, adjusted operating profit £3,342m (34.8% margin), adjusted EPS 128.5p, ROIC 15.4% (11.9→15.4% 2021-25), net debt/EBITDA 2.0×, cash conversion 99%, dividend 67.5p, £2,250m 2026 buyback. Price, multiple, yield and 52-week range from Stockopedia, Morningstar, MSN and Simply Wall St (to 25 Aug 2026). Sterling-quoted, majority US earnings. Fair value is a scenario-weighted estimate, deliberately conservative; bands are analytical levels, not forecasts.
+  </div>
+</div>
+<script>
+new Chart(document.getElementById('q'),{type:'bar',
+ data:{labels:['2021','2022','2023','2024','2025'],datasets:[
+  {type:'bar',label:'ROIC',data:[11.9,12.5,14.0,14.8,15.4],backgroundColor:'#0F6E56',yAxisID:'y',order:2},
+  {type:'line',label:'Growth',data:[7,9,8,7,7],borderColor:'#185FA5',backgroundColor:'#185FA5',borderWidth:2,tension:.3,pointRadius:4,yAxisID:'y',order:1}]},
+ options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+  scales:{x:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}},y:{min:0,max:18,ticks:{callback:v=>v+'%',font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}}}}});
+const priceLines={id:'priceLines',afterDraw(c){const{ctx,chartArea:{top,bottom},scales:{x}}=c;
+ const d=(val,col,dash,lab)=>{const px=x.getPixelForValue(val);ctx.save();ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.setLineDash(dash);ctx.beginPath();ctx.moveTo(px,top);ctx.lineTo(px,bottom);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=col;ctx.font='11px "IBM Plex Mono"';ctx.textAlign='center';ctx.fillText(lab,px,top-4);ctx.restore();};
+ d(26.27,'#A32D2D',[],'Price £26.27');d(30.75,'#185FA5',[5,4],'Fair £30.75');}};
+new Chart(document.getElementById('ff'),{type:'bar',
+ data:{labels:['Market 52-wk','Scenarios'],datasets:[{data:[[20.3,35.4],[24.0,37.0]],backgroundColor:['#888780','#0F6E56'],borderRadius:3,barThickness:26}]},
+ options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{top:18}},plugins:{legend:{display:false}},
+  scales:{x:{min:18,max:40,ticks:{callback:v=>'£'+v,font:{family:'IBM Plex Mono'}},grid:{color:'rgba(0,0,0,0.07)'}},y:{grid:{display:false},ticks:{font:{family:'IBM Plex Mono'}}}}},plugins:[priceLines]});
+</script>
+</body>
+</html>

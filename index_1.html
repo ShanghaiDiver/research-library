@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFAF7;--ink:#1C1B17;--soft:#55534B;--faint:#86847B;
+    --line:#E6E2D7;--teal:#0F6E56;--blue:#185FA5;--red:#A32D2D;--amber:#9A6410;
+    --chip:#F1EEE5;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-size:17px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:44px 26px 80px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--faint)}
+  h1{font-family:"Fraunces",serif;font-weight:600;font-size:40px;margin:.15em 0 .1em;letter-spacing:-.01em}
+  .summary{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--soft);margin-bottom:26px}
+  .summary b{color:var(--ink)}
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+  input[type=search]{font-family:"IBM Plex Mono",monospace;font-size:13px;padding:9px 12px;
+    border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);min-width:220px;flex:1 1 220px}
+  .seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
+  .seg button{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.04em;
+    padding:9px 13px;border:none;background:none;color:var(--soft);cursor:pointer;border-right:1px solid var(--line)}
+  .seg button:last-child{border-right:none}
+  .seg button.on{background:var(--ink);color:#fff}
+  .hint{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);margin-bottom:14px}
+  table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:13px}
+  th,td{text-align:right;padding:11px 9px;border-bottom:1px solid var(--line);white-space:nowrap}
+  th:first-child,td:first-child{text-align:left}
+  th:nth-child(2),td:nth-child(2){text-align:left}
+  thead th{color:var(--faint);font-weight:500;border-bottom:1.5px solid var(--ink);font-size:11px;
+    letter-spacing:.05em;text-transform:uppercase}
+  thead th.sortable{cursor:pointer;user-select:none}
+  thead th.sortable:hover{color:var(--ink)}
+  thead th.active{color:var(--ink)}
+  .arr{color:var(--blue)}
+  tbody tr{cursor:pointer}
+  tbody tr:hover{background:#fff}
+  .co{font-family:"Newsreader",serif;font-size:16px}
+  .tk{color:var(--faint);font-size:11.5px}
+  .sec{color:var(--faint);font-size:11px}
+  .pill{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;letter-spacing:.04em;
+    text-transform:uppercase;color:#fff;padding:3px 9px;border-radius:3px;display:inline-block}
+  .pill.buy{background:var(--teal)}.pill.watch{background:var(--amber)}.pill.avoid{background:var(--red)}
+  .gap.neg{color:var(--red)}.gap.pos{color:var(--teal)}
+  .upd{font-family:"IBM Plex Mono",monospace;font-size:11.5px;white-space:nowrap}
+  .upd .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle}
+  .upd.fresh{color:var(--teal)}.upd.fresh .dot{background:var(--teal)}
+  .upd.age{color:var(--amber)}.upd.age .dot{background:var(--amber)}
+  .upd.stale{color:var(--red)}.upd.stale .dot{background:var(--red)}
+  .bbuy{color:var(--teal)}.btrim{color:var(--red)}.bhold{color:var(--soft)}
+  td.zone-buy{background:rgba(15,110,86,0.09);font-weight:500}
+  td.zone-trim{background:rgba(163,45,45,0.08);font-weight:500}
+  .prov{color:var(--faint)}
+  .open{color:var(--blue);text-decoration:none}
+  .empty{padding:40px 0;text-align:center;color:var(--faint);font-family:"IBM Plex Mono",monospace;font-size:13px;line-height:1.7}
+  .foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.7}
+  @media(max-width:680px){
+    h1{font-size:30px}.wrap{padding:30px 16px 60px}
+    th:nth-child(4),td:nth-child(4),th:nth-child(7),td:nth-child(7),th:nth-child(9),td:nth-child(9){display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Investment research <span id="asof"></span></div>
+  <h1>Company library</h1>
+  <div class="summary" id="summary">Loading…</div>
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;margin:-14px 0 24px"><a href="./methodology.html" style="color:#185FA5">How we assess companies — our methodology →</a><br><a href="./review_2026-07.html" style="color:#185FA5">Portfolio review — July 2026 (earnings update) →</a><br><a href="./screening.html" style="color:#185FA5">The screen — finding FTSE 350 candidates without tips →</a></div>
+
+  <div class="controls">
+    <input type="search" id="q" placeholder="Search name, ticker or sector…">
+    <div class="seg" id="filter">
+      <button data-v="all" class="on">All</button>
+      <button data-v="Buy">Buy</button>
+      <button data-v="Watch">Watch</button>
+      <button data-v="Avoid">Avoid</button>
+    </div>
+  </div>
+  <div class="hint">Click any underlined column heading to sort; click again to reverse. Buy / Trim cells highlight when today's price sits in that zone.</div>
+
+  <table>
+    <thead><tr>
+      <th class="sortable" data-key="name">Company<span class="arr"></span></th>
+      <th>Sector</th>
+      <th class="sortable" data-key="verdict">Verdict<span class="arr"></span></th>
+      <th class="sortable" data-key="price">Price<span class="arr"></span></th>
+      <th class="sortable" data-key="fairValue">Fair value<span class="arr"></span></th>
+      <th class="sortable" data-key="gap">Value gap<span class="arr"></span></th>
+      <th class="sortable" data-key="buyBelow">Buy &le;<span class="arr"></span></th>
+      <th>Hold</th>
+      <th class="sortable" data-key="trimAbove">Trim &ge;<span class="arr"></span></th>
+      <th></th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <div class="empty" id="empty" style="display:none">No companies match.</div>
+
+  <div class="foot">
+    This page reads its data live from <span style="color:var(--soft)">companies.json</span> in the same folder. Edit that one file (and re-commit it) to update the library; the page and the Google Sheet both pick up the change. No need to touch this HTML.<br>
+    <span style="color:var(--soft)">Value gap</span> is fair value against price; negative means the market sits above your estimate of value. <span style="color:var(--soft)">Buy / Hold / Trim</span> are the action-band levels from each note; a buy or trim cell is shaded when the current price is in that zone.<br>
+    <span style="color:var(--soft)">*</span> Provisional band, derived from price and fair value; the formal band still needs adding to the note (Apple, Microsoft, Amazon, Glencore, Berkshire).
+  </div>
+</div>
+
+<script>
+let companies=[];
+let activeFilter="all";
+let sortKey="gap", sortDir=-1; // default: most undervalued first
+const rowsEl=document.getElementById('rows');
+const emptyEl=document.getElementById('empty');
+const qEl=document.getElementById('q');
+
+function gap(c){return Math.round((c.fairValue-c.price)/c.price*100);}
+function money(cur,v){const n=v.toLocaleString('en-GB');return cur==='$'?'$'+n:n+'p';}
+function range(c){const lo=c.buyBelow.toLocaleString('en-GB'),hi=c.trimAbove.toLocaleString('en-GB');
+  return c.currency==='$'?`$${lo}–${hi}`:`${lo}–${hi}p`;}
+function zone(c){if(c.price<=c.buyBelow)return'buy';if(c.price>=c.trimAbove)return'trim';return'hold';}
+
+const acc={
+  name:c=>c.name,
+  verdict:c=>({Buy:0,Watch:1,Avoid:2})[c.verdict],
+  price:c=>c.price,
+  fairValue:c=>c.fairValue,
+  gap:c=>gap(c),
+  buyBelow:c=>c.buyBelow,
+  trimAbove:c=>c.trimAbove
+};
+
+function render(){
+  const q=qEl.value.trim().toLowerCase();
+  let list=companies.filter(c=>{
+    const matchF=activeFilter==='all'||c.verdict===activeFilter;
+    const matchQ=!q||[c.name,c.ticker,c.sector].join(' ').toLowerCase().includes(q);
+    return matchF&&matchQ;
+  });
+  const get=acc[sortKey];
+  list.sort((a,b)=>{
+    const av=get(a),bv=get(b);
+    if(typeof av==='string')return av.localeCompare(bv)*sortDir;
+    return (av-bv)*sortDir;
+  });
+
+  rowsEl.innerHTML=list.map(c=>{
+    const g=gap(c);
+    const gcls=g<0?'neg':'pos';
+    const gtxt=(g>0?'+':'')+g+'%';
+    const z=zone(c);
+    const star=c.prov?'<span class="prov">*</span>':'';
+    return `<tr onclick="window.open('${c.file}','_blank')">
+      <td><div class="co">${c.name}</div><div class="tk">${c.ticker} · ${c.exchange}</div></td>
+      <td><span class="sec">${c.sector}</span></td>
+      <td><span class="pill ${c.verdict.toLowerCase()}">${c.verdict}</span></td>
+      <td>${money(c.currency,c.price)}</td>
+      <td>${money(c.currency,c.fairValue)}</td>
+      <td class="gap ${gcls}">${gtxt}</td>
+      <td class="bbuy ${z==='buy'?'zone-buy':''}">${money(c.currency,c.buyBelow)}${star}</td>
+      <td class="bhold">${range(c)}</td>
+      <td class="btrim ${z==='trim'?'zone-trim':''}">${money(c.currency,c.trimAbove)}</td>
+      <td><a class="open" href="${c.file}" target="_blank" onclick="event.stopPropagation()">open →</a></td>
+    </tr>`;
+  }).join('');
+  emptyEl.style.display=list.length?'none':'block';
+  if(!list.length&&companies.length)emptyEl.textContent='No companies match.';
+  arrows();
+}
+
+function arrows(){
+  document.querySelectorAll('th.sortable').forEach(th=>{
+    const a=th.querySelector('.arr');
+    const on=th.dataset.key===sortKey;
+    th.classList.toggle('active',on);
+    a.textContent=on?(sortDir===1?' ↑':' ↓'):'';
+  });
+}
+
+function summary(){
+  const n=companies.length;
+  const by=v=>companies.filter(c=>c.verdict===v).length;
+  const inBuy=companies.filter(c=>zone(c)==='buy').length;
+  document.getElementById('summary').innerHTML=
+    `<b>${n}</b> companies · <b>${by('Buy')}</b> buy · <b>${by('Watch')}</b> watch · <b>${by('Avoid')}</b> avoid · <b>${inBuy}</b> in buy zone`;
+}
+
+document.getElementById('filter').addEventListener('click',e=>{
+  if(e.target.tagName!=='BUTTON')return;
+  activeFilter=e.target.dataset.v;
+  [...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));
+  render();
+});
+qEl.addEventListener('input',render);
+document.querySelectorAll('th.sortable').forEach(th=>{
+  th.addEventListener('click',()=>{
+    const k=th.dataset.key;
+    if(k===sortKey){sortDir=-sortDir;}
+    else{sortKey=k;sortDir=(k==='name')?1:(k==='gap'?-1:1);}
+    render();
+  });
+});
+
+function load(){
+  fetch('companies.json',{cache:'no-store'})
+    .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+    .then(data=>{
+      companies=(data.companies||[]).map(c=>({...c,name:c.company}));
+      document.getElementById('asof').textContent=data.updated?('· updated '+data.updated):'';
+      summary();render();
+    })
+    .catch(err=>{
+      document.getElementById('summary').textContent='';
+      emptyEl.style.display='block';
+      emptyEl.innerHTML='Could not load <b>companies.json</b> ('+err.message+').<br>This page must be served over http — it works on GitHub Pages, but not when the file is opened directly from disk. To preview locally, run a small server in the folder (e.g. <b>python3 -m http.server</b>) and open the localhost address.';
+    });
+}
+load();
+</script>
+</body>
+</html>

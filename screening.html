@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Screen — Finding Candidates Without Tips</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#FBFAF7;--ink:#1C1B17;--soft:#55534B;--faint:#86847B;--line:#E6E2D7;--teal:#0F6E56;--blue:#185FA5;--red:#A32D2D;--amber:#9A6410;--chip:#F1EEE5;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Newsreader",Georgia,serif;font-size:18px;line-height:1.65}
+  .wrap{max-width:820px;margin:0 auto;padding:48px 28px 80px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  h1{font-family:"Fraunces",serif;font-weight:600;font-size:44px;line-height:1.05;margin:.2em 0 .1em;letter-spacing:-.01em}
+  h2{font-family:"Fraunces",serif;font-weight:600;font-size:24px;margin:0;letter-spacing:-.01em}
+  h3{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin:0 0 6px}
+  p{margin:0 0 16px}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  .lede{font-size:21px;line-height:1.5;margin:18px 0 0}
+  .masthead{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:8px}
+  .backlink{font-family:"IBM Plex Mono",monospace;font-size:12px;margin-bottom:22px}
+  section{margin-top:44px}
+  .secnum{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);letter-spacing:.1em}
+  .sechead{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:18px}
+  .stage{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;margin:6px 0 18px}
+  .stage > div{padding:14px 18px;border-bottom:1px solid var(--line)}
+  .stage > div:last-child{border-bottom:none}
+  .stage .sh{font-family:"Fraunces",serif;font-weight:600;font-size:17px;margin-bottom:3px}
+  .stage .st{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--soft)}
+  table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:13px;margin:8px 0 18px}
+  th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th.r,td.r{text-align:right}
+  thead th{color:var(--faint);font-weight:500;border-bottom:1.5px solid var(--ink);font-size:12px}
+  tbody tr:last-child td{border-bottom:1.5px solid var(--ink)}
+  .callout{border-left:3px solid var(--teal);background:#fff;border-radius:0 8px 8px 0;padding:16px 20px;margin:6px 0 18px}
+  .callout.flag{border-left-color:var(--amber)}
+  .callout h3{color:inherit}
+  ul{margin:0 0 16px;padding-left:20px} li{margin-bottom:8px}
+  .dial{background:var(--chip);border-radius:6px;padding:2px 7px;font-family:"IBM Plex Mono",monospace;font-size:12.5px;white-space:nowrap}
+  .foot{margin-top:54px;padding-top:16px;border-top:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.6}
+  a{color:var(--blue)} em{font-style:italic}
+  @media(max-width:560px){h1{font-size:32px}.wrap{padding:32px 18px 60px}body{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="backlink"><a href="./index.html">← Back to the library</a> · <a href="./methodology.html">v2 methodology</a></div>
+
+  <div class="masthead">
+    <div class="eyebrow">The screen · FTSE 350 · v1 · 26 Aug 2026</div>
+    <h1>Finding candidates without tips</h1>
+    <p class="lede">A rule for turning 350 companies into eight worth real work, using nothing but the companies' own numbers. No broker lists, no "top stocks to buy", no sell-side anchoring, consistent with the v2 decision to drop all of that. Every stage is a hard gate you could defend to yourself, so the shortlist falls out of the arithmetic rather than anyone's opinion.</p>
+  </div>
+
+  <section>
+    <div class="sechead"><span class="secnum">00</span><h2>The universe</h2></div>
+    <p>Start with the FTSE 350, the 100 plus the 250, Main Market only, which excludes AIM by construction. Then remove three groups before any quality test, because they don't belong in this particular hunt:</p>
+    <ul>
+      <li><strong>Financials</strong> (banks, insurers, asset managers). Return on capital and net-debt-to-EBITDA don't describe them, so they need a different screen (return on equity, capital strength, price-to-book). Parked for now; Legal &amp; General already covers the insurance sleeve.</li>
+      <li><strong>Investment trusts.</strong> Judged on net asset value and discount, not operating returns. They're the separate international-access conversation, not operating businesses to value this way.</li>
+      <li><strong>Already held.</strong> We're hunting additions, so anything actually in the portfolio comes out. But covered in the library is not the same as held: names researched and <em>not</em> bought (Antofagasta, Compass, the explorations) stay in as live candidates. They're watchlist, not settled.</li>
+    </ul>
+    <p>For the FTSE 100 that reduction leaves roughly 55 operating businesses.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">01</span><h2>Stage one — the quality floor</h2></div>
+    <p>The anti-trap gate from the methodology, applied mechanically. A name passes only if it clears <em>all</em> of these. Everything it removes is removed for a reason we'd stand behind.</p>
+    <table>
+      <thead><tr><th>Gate</th><th>Level</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Return on capital</td><td class="r"><span class="dial">≥12% ROCE</span></td><td>Comfortably above the ~8-9% cost of capital; 5-yr average, not collapsing latest. Below it, growth destroys value (the Fluence trap).</td></tr>
+        <tr><td>Cash generation</td><td class="r"><span class="dial">FCF+ 4 of 5 yrs</span></td><td>A real business generates cash most years; one down year allowed for cyclicals.</td></tr>
+        <tr><td>Leverage</td><td class="r"><span class="dial">≤3× ND/EBITDA</span></td><td>Above it is balance-sheet risk you don't need. Utilities/property judged on interest cover instead.</td></tr>
+        <tr><td>Dilution</td><td class="r"><span class="dial">share count flat/↓</span></td><td>Tolerate ~1%/yr options creep. Serial issuers quietly steal the return.</td></tr>
+      </tbody>
+    </table>
+    <p>No operating-margin gate: thin margins can still mean high returns when capital turns over fast (Compass runs ~7% and is a fine business), and ROCE already does that job. Stage one typically cuts the ~55 to somewhere in the 20s.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">02</span><h2>Stage two — sort onto the two tracks</h2></div>
+    <div class="stage">
+      <div><div class="sh">Track A — Compounders</div><div class="st">≥5% 5-yr revenue growth · positive, consistent EPS growth · ROCE ≥15% and stable or rising (the closest a screen gets to a moat). Run this pass first.</div></div>
+      <div><div class="sh">Track B — Value &amp; income</div><div class="st">~6% FCF yield or ~4% covered dividend yield — but still ROCE >12%. The last clause is the whole point: it separates the genuinely cheap from the cheap-for-a-reason. Cheapness alone never qualifies.</div></div>
+    </div>
+    <p>Given income is now a portfolio-level preference rather than a per-name gate, the screen runs compounder-first and treats the income names as a smaller second pass.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">03</span><h2>Stage three — fit</h2></div>
+    <p>De-duplicate against the portfolio, drop anything genuinely un-understandable, and flag one thing that earns double duty: companies that earn most of their money <strong>overseas</strong>. A globally-earning FTSE name gives international economic exposure inside a sterling-listed, easy-to-track wrapper, which is much of what the look-through said the book is short of, without the friction of stock-picking Tokyo or Seoul. So the screen does two jobs at once: quality, and geography. The nuance to hold: some quality names (RELX, Experian) earn mostly in the US and so <em>deepen</em> an already-high US tilt, whereas others (Diageo, Unilever, Spirax, Halma) bring genuine ex-US exposure.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">04</span><h2>Stage four — deep dive</h2></div>
+    <p>The 15-25 survivors get the full house treatment: variant perception, the long-term return test, currency lens, falsification triggers, verdict. Five to eight become library notes. The screen only shortlists; the deep dive is where the real per-company data is pulled and the Buy / Watch / Avoid is earned.</p>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">05</span><h2>First run — FTSE 100 (Aug 2026)</h2></div>
+    <p>The compounder shortlist that cleared the gate, with where each earns its money. The two in bold have been taken to full notes.</p>
+    <table>
+      <thead><tr><th>Name</th><th>Business</th><th>Earns</th></tr></thead>
+      <tbody>
+        <tr><td><strong>RELX →</strong></td><td>Data/analytics; ROIC 15.4% rising, 2.0×, 7% growth</td><td>US + global</td></tr>
+        <tr><td>Experian</td><td>Credit data; high-teens ROCE, asset-light</td><td>US + LatAm</td></tr>
+        <tr><td>Halma</td><td>Safety tech (acquirer); ROTIC 16.2%, 1.0×</td><td>Global</td></tr>
+        <tr><td>Spirax</td><td>Fluid engineering; ROCE 35%, de-rated</td><td>Global, incl Asia/EM</td></tr>
+        <tr><td>Diploma</td><td>Value-add distribution; high-teens ROCE</td><td>US/Europe</td></tr>
+        <tr><td>Intertek</td><td>Testing &amp; inspection; high ROCE</td><td>Global, incl Asia</td></tr>
+        <tr><td>Sage</td><td>Accounting software (SaaS)</td><td>US/Europe</td></tr>
+        <tr><td>AstraZeneca</td><td>Pharma (oncology-led)</td><td>Global, incl China/EM</td></tr>
+        <tr><td>Auto Trader</td><td>Car marketplace; very high ROCE</td><td>UK only</td></tr>
+        <tr><td>Next</td><td>Retail + capital allocation</td><td>UK mostly</td></tr>
+      </tbody>
+    </table>
+    <p>Value/income second pass, to run next, same discipline: Imperial Brands, <strong>Diageo →</strong>, Unilever, GSK, Haleon. (BAT and National Grid screen out on leverage and, for National Grid, a dilutive rights issue.)</p>
+    <div class="callout flag"><h3>What got excluded, and why</h3><p style="margin:0">Utilities on leverage; Vodafone and BT on low returns, high debt and dilution; Shell and BP as capital-heavy commodity cyclicals; Rio and Anglo as diversified miners the book isn't short of; housebuilders as UK cyclicals. Copper is the deliberate exception: Antofagasta stays in on the value/cyclical track as a structural-demand play worth watching, not excluded as "just another miner". None of this is a view on the companies, only that they pass or fail gates set in advance. That is the point of a screen: the exclusions are as principled as the survivors.</p></div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="secnum">06</span><h2>The two first deep dives</h2></div>
+    <p>The first pair was chosen to test the method in opposite directions, and they make the discipline visible. <a href="./RELX_investment_thesis.html"><strong>RELX</strong></a>, the highest-quality name in the index, de-rated on an AI fear the numbers contradict, came out a <strong>Buy</strong>. <a href="./DGE_investment_thesis.html"><strong>Diageo</strong></a>, an equally beloved franchise but marked down on real trouble, stalled growth, leverage over the line, a cut dividend, came out a <strong>Watch</strong>. Same starting point (quality on sale), opposite verdicts, because one fell on a fear and the other on facts. That contrast is the screen and v2 working exactly as intended.</p>
+    <p>The next two extended the range. <a href="./ANTO_investment_thesis.html"><strong>Antofagasta</strong></a>, a watchlist name and a high-quality copper grower with a real structural tailwind, came out a <strong>Watch</strong>: the business passes easily, but the shares sit near their highs on record copper, and the value track won't buy a cyclical at the top of its cycle. <a href="./SPX_investment_thesis.html"><strong>Spirax</strong></a>, an elite compounder down ~40% in a year, came out a <strong>Watch on the edge of a Buy</strong>: unlike RELX its growth genuinely stalled, unlike Diageo its balance sheet is fine, so it needs evidence of the turn, or a slightly cheaper price, rather than hope. Four deep dives, four different reasons for the verdict, which is the discipline doing its job.</p>
+  </section>
+
+  <div class="foot">
+    The screen, v1, for the research library. Describes a repeatable process, not advice. Thresholds shown as dials are starting points, set and revised deliberately; tighter dials give a shorter list and less work, looser ones the reverse. Financials use a separate screen and are parked for now. Company memberships and figures change; the deep dive verifies each survivor's current data. Last updated 26 Aug 2026.
+  </div>
+</div>
+</body>
+</html>
