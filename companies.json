@@ -133,13 +133,13 @@
       "fairValue": 2680,
       "buyBelow": 2450,
       "trimAbove": 3000,
-      "conviction": "Structural outsourcing compounder; fairly valued",
+      "conviction": "Q3 +7.1% organic, retention 96%; legacy index pence quote/value bands require USD reconciliation (26 Oct $34.19)",
       "nextResults": "2026-11-24",
-      "trigger": "Organic growth below ~5%, or margin/leverage deteriorate",
+      "trigger": "Important: numeric pence index valuation is June historical snapshot, NOT current price; rebuild quote, fair value and bands in USD; track M&A and contract cash returns",
       "gfSymbol": "LON:CPG",
       "file": "CPG_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-06-22"
+      "lastUpdated": "2026-10-27"
     },
     {
       "ticker": "GAW",
@@ -369,17 +369,17 @@
       "currency": "$",
       "track": "B",
       "verdict": "Watch",
-      "price": 145,
+      "price": 159.92,
       "fairValue": 159,
       "buyBelow": 148,
       "trimAbove": 175,
-      "conviction": "Defensive quality staple; near fair value",
-      "nextResults": "2026-10-21",
-      "trigger": "Meaningful discount to fair value, or organic growth stalls",
+      "conviction": "FY27 Q1 organic sales +4%, core EPS +1%, gross margin −160bp; resilient but growth return at ~23× demands scrutiny",
+      "nextResults": "2027-01-20",
+      "trigger": "Volume and market share, commodity pressure, margin restoration, FCF conversion and capital returns",
       "gfSymbol": "NYSE:PG",
       "file": "PG_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-06-22"
+      "lastUpdated": "2026-10-27"
     },
     {
       "ticker": "PZC",
