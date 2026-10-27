@@ -88,7 +88,7 @@
       <button data-v="Avoid">Avoid</button>
     </div>
   </div>
-  <div class="hint">Click any underlined column heading to sort; click again to reverse. Buy / Trim cells highlight when today's price sits in that zone.</div>
+  <div class="hint">Click any underlined column heading to sort; click again to reverse. Entry / valuation-review references are historical research levels, not automatic trading instructions. Shading indicates a price crossing, not a recommendation.</div>
 
   <table>
     <thead><tr>
@@ -98,9 +98,9 @@
       <th class="sortable" data-key="price">Price<span class="arr"></span></th>
       <th class="sortable" data-key="fairValue">Fair value<span class="arr"></span></th>
       <th class="sortable" data-key="gap">Value gap<span class="arr"></span></th>
-      <th class="sortable" data-key="buyBelow">Buy &le;<span class="arr"></span></th>
+      <th class="sortable" data-key="buyBelow">Entry &le;<span class="arr"></span></th>
       <th>Hold</th>
-      <th class="sortable" data-key="trimAbove">Trim &ge;<span class="arr"></span></th>
+      <th class="sortable" data-key="trimAbove">Review &ge;<span class="arr"></span></th>
       <th class="sortable" data-key="updated">Updated<span class="arr"></span></th>
       <th class="sortable" data-key="nextResults">Next results<span class="arr"></span></th>
       <th></th>
@@ -111,8 +111,8 @@
 
   <div class="foot">
     This page reads its data live from <span style="color:var(--soft)">companies.json</span> in the same folder. Edit that one file (and re-commit it) to update the library; the page and the Google Sheet both pick up the change. No need to touch this HTML.<br>
-    <span style="color:var(--soft)">Value gap</span> is fair value against price; negative means the market sits above your estimate of value. <span style="color:var(--soft)">Buy / Hold / Trim</span> are the action-band levels from each note; a buy or trim cell is shaded when the current price is in that zone.<br>
-    <span style="color:var(--soft)">*</span> Provisional band, derived from price and fair value; the formal band still needs adding to the note (Apple, Microsoft, Amazon, Glencore, Berkshire).
+    <span style="color:var(--soft)">Value gap</span> is fair value against price; negative means the market sits above your estimate of value. <span style="color:var(--soft)">Entry / Review</span> are dated valuation checkpoints from the corresponding reports, not automatic orders. A highlighted cell means the last recorded price crossed a stored threshold; review the research date and current case before acting.<br>
+    <span style="color:var(--soft)">*</span> Provisional or legacy band; the individual report controls interpretation. Some estimates have not been freshly modelled. A blank fair value means there is no defensible current numerical estimate.
   </div>
 </div>
 
@@ -203,7 +203,7 @@ function summary(){
   const by=v=>companies.filter(c=>c.verdict===v).length;
   const inBuy=companies.filter(c=>zone(c)==='buy').length;
   document.getElementById('summary').innerHTML=
-    `<b>${n}</b> companies · <b>${by('Buy')}</b> buy · <b>${by('Watch')}</b> watch · <b>${by('Avoid')}</b> avoid · <b>${inBuy}</b> in buy zone`;
+    `<b>${n}</b> companies · <b>${by('Buy')}</b> buy · <b>${by('Watch')}</b> watch · <b>${by('Avoid')}</b> avoid · <b>${inBuy}</b> below stored entry level`;
 }
 
 document.getElementById('filter').addEventListener('click',e=>{
