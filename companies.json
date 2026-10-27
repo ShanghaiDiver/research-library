@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-26",
+  "updated": "2026-10-27",
   "companies": [
     {
       "ticker": "RELX",
@@ -28,18 +28,18 @@
       "sector": "Cloud / enterprise software",
       "currency": "$",
       "track": "A",
-      "verdict": "Buy",
-      "price": 491,
+      "verdict": "Watch",
+      "price": 524.51,
       "fairValue": 540,
       "buyBelow": 510,
       "trimAbove": 650,
-      "conviction": "Thesis played out from the $379 fear-low; elite compounder, hold and add on weakness",
+      "conviction": "Elite compounder; retain existing holding, add below $510; cash conversion and Azure AI returns matter",
       "nextResults": "2026-10-28",
       "trigger": "Azure decelerates below ~30%, or capex keeps rising with no revenue payoff",
       "gfSymbol": "NASDAQ:MSFT",
       "file": "MSFT_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-08-26"
+      "lastUpdated": "2026-10-26"
     },
     {
       "ticker": "AAPL",
@@ -249,17 +249,17 @@
       "currency": "p",
       "track": "B",
       "verdict": "Watch",
-      "price": 1530,
-      "fairValue": 1500,
-      "buyBelow": 1300,
-      "trimAbove": 1600,
-      "conviction": "Turnaround delivered; near trim band, priced for perfection",
+      "price": 1537.8,
+      "fairValue": 1310,
+      "buyBelow": 1150,
+      "trimAbove": 1550,
+      "conviction": "Safran aftermarket read-through under review; 1,310p is June baseline and bands are historical, not fresh instructions",
       "nextResults": "2027-03-01",
-      "trigger": "Execution slips from guidance, or momentum stalls near highs",
+      "trigger": "Monitor widebody flying hours, LTSA cash conversion, supply chain costs and Safran aftermarket read-through",
       "gfSymbol": "LON:RR.",
       "file": "RR_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-07-30"
+      "lastUpdated": "2026-10-27"
     },
     {
       "ticker": "ANTO",
