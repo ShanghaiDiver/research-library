@@ -209,17 +209,17 @@
       "currency": "p",
       "track": "A",
       "verdict": "Watch",
-      "price": 425,
+      "price": 486.5,
       "fairValue": 460,
       "buyBelow": 400,
       "trimAbove": 600,
-      "conviction": "Small-cap compounder; Nike footwear concentration risk",
+      "conviction": "NEW report restores missing file. H1 revenue +23% but organic +4%; OKC £14.8m and Vietnam investments must earn cash ROIC",
       "nextResults": "2027-03-01",
-      "trigger": "2029 doubling plan on track, or Nike concentration bites",
+      "trigger": "Footwear concentration, Vietnam ramp, acquisition cash conversion, capex and net debt; index valuation 460p historically unverified",
       "gfSymbol": "LON:ZTF",
       "file": "ZTF_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-06-22"
+      "lastUpdated": "2026-10-27"
     },
     {
       "ticker": "BA.",
@@ -309,17 +309,17 @@
       "currency": "p",
       "track": "B",
       "verdict": "Watch",
-      "price": 602,
+      "price": 538.1,
       "fairValue": 570,
       "buyBelow": 510,
       "trimAbove": 660,
-      "conviction": "Cyclical resources + trading; held, fairly-to-fully valued",
+      "conviction": "Held: $10.1bn H1 EBITDA reflects strong commodities and exceptional marketing; use normalised $2.8–4.2bn marketing EBIT for valuation",
       "nextResults": "2027-02-18",
-      "trigger": "Commodity downcycle (cheaper entry), or capital allocation shifts",
+      "trigger": "Normalised marketing EBIT, copper growth capex, net debt and inventory funding; historic 570p value not yet rebuilt",
       "gfSymbol": "LON:GLEN",
       "file": "GLEN_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-06-22"
+      "lastUpdated": "2026-10-27"
     },
     {
       "ticker": "IHG",
