@@ -49,17 +49,17 @@
       "currency": "$",
       "track": "A",
       "verdict": "Watch",
-      "price": 333,
+      "price": 343.91,
       "fairValue": 265,
       "buyBelow": 250,
       "trimAbove": 360,
-      "conviction": "Elite, but priced for perfection (~41x); $5tn reached",
+      "conviction": "Q3 +16% but tariff refunds aid margin; at ~40× earnings, retain rather than add",
       "nextResults": "2026-10-30",
-      "trigger": "De-rates toward ~30x, or growth genuinely re-accelerates from here",
+      "trigger": "FY26 results: growth and margin excluding tariff refunds; AI ecosystem economics; China",
       "gfSymbol": "NASDAQ:AAPL",
       "file": "AAPL_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-07-30"
+      "lastUpdated": "2026-10-27"
     },
     {
       "ticker": "AMZN",
@@ -89,17 +89,17 @@
       "currency": "$",
       "track": "A",
       "verdict": "Buy",
-      "price": 345,
+      "price": 316.8,
       "fairValue": 400,
       "buyBelow": 370,
       "trimAbove": 480,
-      "conviction": "Cheapest megacap; cloud +82% inflecting, search +17% resists AI-disruption fear",
+      "conviction": "Search +17%, Cloud +82%; strip $98bn investment gains from earnings; Q3 imminent",
       "nextResults": "2026-10-28",
-      "trigger": "Search share genuinely erodes to AI, or cloud margins stall",
+      "trigger": "28 Oct Q3: Search advertising, Cloud profitability, infrastructure capex/depreciation",
       "gfSymbol": "NASDAQ:GOOGL",
       "file": "GOOGL_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-08-26"
+      "lastUpdated": "2026-10-27"
     },
     {
       "ticker": "BRK.B",
