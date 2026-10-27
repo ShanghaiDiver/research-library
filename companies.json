@@ -229,17 +229,17 @@
       "currency": "p",
       "track": "A",
       "verdict": "Watch",
-      "price": 2098,
+      "price": 2012,
       "fairValue": 1990,
       "buyBelow": 1900,
       "trimAbove": 2400,
-      "conviction": "Quality defence compounder; re-rated on rearmament",
+      "conviction": "H1 sales +9%, EBIT +11%, £84bn backlog; cash improved, but historic fair value needs fresh owner-cash underwriting",
       "nextResults": "2027-02-18",
-      "trigger": "Defence-spend cycle turns, or valuation overshoots",
+      "trigger": "Programme cash flow, margins, order conversion and defence contract capacity; upper price band is valuation review",
       "gfSymbol": "LON:BA.",
       "file": "BA_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-06-22"
+      "lastUpdated": "2026-10-27"
     },
     {
       "ticker": "RR.",
@@ -269,17 +269,17 @@
       "currency": "p",
       "track": "B",
       "verdict": "Watch",
-      "price": 1950,
+      "price": 3174,
       "fairValue": 1965,
       "buyBelow": 1600,
       "trimAbove": 2300,
-      "conviction": "Quality copper grower near cycle highs; structural-demand diversifier",
+      "conviction": "H1 EBITDA +27% on prices, 9M copper tonnes −8.3%; old £19.65 intrinsic is stale vs £31.74 quote; revalue on mid-cycle copper NAV",
       "nextResults": "2027-02-16",
-      "trigger": "Copper pullback (better entry), or growth projects slip/over-run",
+      "trigger": "Centinela/Los Pelambres 2027 commissioning, copper-price NAV, cost guidance and operating interruptions; do not use historic value as live signal",
       "gfSymbol": "LON:ANTO",
       "file": "ANTO_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-08-26"
+      "lastUpdated": "2026-10-27"
     },
     {
       "ticker": "DGE",
