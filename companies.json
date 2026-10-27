@@ -109,17 +109,17 @@
       "currency": "$",
       "track": "A",
       "verdict": "Watch",
-      "price": 504,
+      "price": 542.19,
       "fairValue": 515,
       "buyBelow": 465,
       "trimAbove": 555,
-      "conviction": "Fortress compounder; post-Buffett transition the watch-item",
+      "conviction": "H1 operating earnings improved; Abel buybacks restart, monitor insurance pricing and capital deployment; historic bands",
       "nextResults": "2027-02-25",
-      "trigger": "Large de-rating, or capital allocation falters post-transition",
+      "trigger": "H2 underwriting/float economics and Abel allocation; reassess valuation after Q3",
       "gfSymbol": "NYSE:BRK.B",
       "file": "BRK_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-06-22"
+      "lastUpdated": "2026-10-27"
     },
     {
       "ticker": "CPG",
@@ -349,17 +349,17 @@
       "currency": "p",
       "track": "B",
       "verdict": "Watch",
-      "price": 289,
+      "price": 300.9,
       "fairValue": 285,
       "buyBelow": 260,
       "trimAbove": 325,
-      "conviction": "Income sleeve; high yield, fairly valued",
+      "conviction": "H1 core EPS +11%, solvency 201%; income case rests on repeatable capital generation and cover",
       "nextResults": "2027-03-11",
-      "trigger": "Yield/cover deteriorates, or a cheaper entry appears",
+      "trigger": "Solvency ratio, capital generation, dividend cover and sustainability of optimisation gains",
       "gfSymbol": "LON:LGEN",
       "file": "LGEN_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-06-22"
+      "lastUpdated": "2026-10-27"
     },
     {
       "ticker": "PG",
