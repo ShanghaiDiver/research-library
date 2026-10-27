@@ -124,11 +124,11 @@ const rowsEl=document.getElementById('rows');
 const emptyEl=document.getElementById('empty');
 const qEl=document.getElementById('q');
 
-function gap(c){return Math.round((c.fairValue-c.price)/c.price*100);}
-function money(cur,v){const n=v.toLocaleString('en-GB');return cur==='$'?'$'+n:(cur==='€'||cur==='EUR')?'€'+n:n+'p';}
-function range(c){const lo=c.buyBelow.toLocaleString('en-GB'),hi=c.trimAbove.toLocaleString('en-GB');
+function gap(c){return Number.isFinite(c.fairValue)&&c.price>0?Math.round((c.fairValue-c.price)/c.price*100):null;}
+function money(cur,v){if(!Number.isFinite(v))return '—';const n=v.toLocaleString('en-GB');return cur==='$'?'$'+n:(cur==='€'||cur==='EUR')?'€'+n:n+'p';}
+function range(c){if(!Number.isFinite(c.buyBelow)||!Number.isFinite(c.trimAbove))return 'Not rated';const lo=c.buyBelow.toLocaleString('en-GB'),hi=c.trimAbove.toLocaleString('en-GB');
   return c.currency==='$'?`$${lo}–${hi}`:`${lo}–${hi}p`;}
-function zone(c){if(c.price<=c.buyBelow)return'buy';if(c.price>=c.trimAbove)return'trim';return'hold';}
+function zone(c){if(c.verdict==='Avoid'||!Number.isFinite(c.buyBelow)||!Number.isFinite(c.trimAbove))return 'unrated';if(c.price<=c.buyBelow)return'buy';if(c.price>=c.trimAbove)return'trim';return'hold';}
 let asOf='2026-08-26';
 const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function fmtD(s){if(!s)return'—';const p=s.split('-');let o=(+p[2])+' '+MON[+p[1]-1];if(asOf&&p[0]!==asOf.split('-')[0])o+=" '"+p[0].slice(2);return o;}
@@ -165,8 +165,8 @@ function render(){
 
   rowsEl.innerHTML=list.map(c=>{
     const g=gap(c);
-    const gcls=g<0?'neg':'pos';
-    const gtxt=(g>0?'+':'')+g+'%';
+    const gcls=g===null?'':(g<0?'neg':'pos');
+    const gtxt=g===null?'Not rated':(g>0?'+':'')+g+'%';
     const z=zone(c);
     const star=c.prov?'<span class="prov">*</span>':'';
     return `<tr onclick="window.open('${c.file}','_blank')">
