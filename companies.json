@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27",
+  "updated": "2026-11-09",
   "companies": [
     {
       "ticker": "RELX",
@@ -293,13 +293,13 @@
       "fairValue": 1700,
       "buyBelow": 1450,
       "trimAbove": 2100,
-      "conviction": "FY26 organic sales −2%; stronger FCF offset by FY27 restructuring cash trough and 3.1× leverage",
+      "conviction": "FY27 Q1 organic +1.4% (+0.6% ex-EABL) beat −0.4% consensus; North America −3.6% less weak than expected, China and recovery quality unresolved",
       "nextResults": "2027-02-04",
-      "trigger": "North America/China recovery, positive price/mix, net debt reduction, post-restructuring sustainable FCF",
+      "trigger": "Test North America depletions/share and tequila, Chinese white spirits recovery, ex-EABL volume/price mix, LAC margin, sustainable FCF and debt reduction",
       "gfSymbol": "LON:DGE",
       "file": "DGE_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-10-27"
+      "lastUpdated": "2026-11-09"
     },
     {
       "ticker": "GLEN",
