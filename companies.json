@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-09",
+  "updated": "2026-11-12",
   "companies": [
     {
       "ticker": "RELX",
@@ -249,17 +249,17 @@
       "currency": "p",
       "track": "B",
       "verdict": "Watch",
-      "price": 1537.8,
-      "fairValue": 1310,
-      "buyBelow": 1150,
-      "trimAbove": 1550,
-      "conviction": "Safran aftermarket read-through under review; 1,310p is June baseline and bands are historical, not fresh instructions",
-      "nextResults": "2027-03-01",
-      "trigger": "Monitor widebody flying hours, LTSA cash conversion, supply chain costs and Safran aftermarket read-through",
+      "price": null,
+      "fairValue": null,
+      "buyBelow": null,
+      "trimAbove": null,
+      "conviction": "12 Nov trading update: FY26 EBIT and FCF guidance maintained; Power Systems orders/backlog support a second growth engine. Hold existing exposure; independent valuation and fresh share quote pending. October prices and June value bands archived in report.",
+      "nextResults": "2027-02-25",
+      "trigger": "Civil Aerospace flying-hour and LTSA owner-cash conversion; Power Systems order-to-cash, prime/backup service economics; management versus cycle; rebuild intrinsic value before any further add",
       "gfSymbol": "LON:RR.",
       "file": "RR_investment_thesis.html",
       "prov": true,
-      "lastUpdated": "2026-10-27"
+      "lastUpdated": "2026-11-12"
     },
     {
       "ticker": "ANTO",
